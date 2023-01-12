@@ -10,6 +10,24 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RowingApp2">
         <activity
+            android:name=".AdjustAttendance"
+            android:exported="true" />
+        <activity
+            android:name=".WorkoutEnterScores"
+            android:exported="true" />
+        <activity
+            android:name=".WorkoutDisplay"
+            android:exported="true" />
+        <activity
+            android:name=".CreateNewWorkout"
+            android:exported="true" />
+        <activity
+            android:name=".MemberDisplay"
+            android:exported="true" />
+        <activity
+            android:name=".CreateNewMember"
+            android:exported="true" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

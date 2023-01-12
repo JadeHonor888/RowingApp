@@ -7,6 +7,9 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,8 +27,17 @@ public class MembersPage extends Fragment {
     private String mParam1;
     private String mParam2;
 
+
     public MembersPage() {
         // Required empty public constructor
+        ArrayList<Member> members = new ArrayList<>();
+
+        MemberAdapter memberAdapter = new MemberAdapter(this,R.id.list,members,R.color.white);
+
+        ListView listView = (ListView) findViewById(R.id.list);
+
+        listView.setAdapter(memberAdapter);
+
     }
 
     /**
@@ -61,4 +73,5 @@ public class MembersPage extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_members_page, container, false);
     }
+
 }

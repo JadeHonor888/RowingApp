@@ -3,10 +3,15 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/5109605/AndroidStudioProjects/RowingApp2/app/src/main/res/layout/activity_create_new_member.xml" value="0.5541666666666667" />
         <entry key="..\:/Users/5109605/AndroidStudioProjects/RowingApp2/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/Users/5109605/AndroidStudioProjects/RowingApp2/app/src/main/res/layout/activity_member_display.xml" value="0.5541666666666667" />
         <entry key="..\:/Users/5109605/AndroidStudioProjects/RowingApp2/app/src/main/res/layout/fragment_calendar_page.xml" value="0.40896739130434784" />
         <entry key="..\:/Users/5109605/AndroidStudioProjects/RowingApp2/app/src/main/res/layout/fragment_members_page.xml" value="0.40896739130434784" />
         <entry key="..\:/Users/5109605/AndroidStudioProjects/RowingApp2/app/src/main/res/layout/fragment_workout_page.xml" value="0.40896739130434784" />
+        <entry key="..\:/Users/5109605/AndroidStudioProjects/RowingApp2/app/src/main/res/layout/list_item.xml" value="0.33" />
+        <entry key="..\:/Users/5109605/AndroidStudioProjects/RowingApp2/app/src/main/res/layout/member_item.xml" value="0.33" />
+        <entry key="..\:/Users/5109605/AndroidStudioProjects/RowingApp2/app/src/main/res/layout/workout_item.xml" value="0.33" />
       </map>
     </option>
   </component>
