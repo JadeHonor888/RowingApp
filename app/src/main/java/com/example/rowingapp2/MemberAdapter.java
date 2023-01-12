@@ -62,6 +62,9 @@ public View getView(int position, View convertView, ViewGroup parent)
         TextView age = (TextView) layoutOfView.findViewById(R.id.age);
         age.setText(currentMember.getAge());
 
+        TextView ageGroup = (TextView) layoutOfView.findViewById(R.id.ageGroup);
+        ageGroup.setText(currentMember.getAge());
+
         /***************************************************
          *                STEP 4: RETURN!
          ***************************************************/
