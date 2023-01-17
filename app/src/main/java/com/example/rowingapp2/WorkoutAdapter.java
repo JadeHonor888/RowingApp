@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -14,11 +13,11 @@ import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 
-public class MemberAdapter extends ArrayAdapter<Member>
+public class WorkoutAdapter extends ArrayAdapter<Member>
 {
         int background;
 
-public MemberAdapter(@NonNull Context context, int resource, @NonNull ArrayList objects, int i) {
+public WorkoutAdapter(@NonNull Context context, int resource, @NonNull ArrayList objects, int i) {
         super(context, resource, objects);
         background = i;
         }
