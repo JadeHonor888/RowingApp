@@ -1,5 +1,6 @@
 package com.example.rowingapp2;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -9,53 +10,18 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link  MembersPage#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class MembersPage extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public MembersPage() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment CalendarPage.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static MembersPage newInstance(String param1, String param2) {
-        MembersPage fragment = new MembersPage();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
+    //TEST: Removing the instance stuff
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
+    public void onCreate(Bundle savedInstanceState)
+    { super.onCreate(savedInstanceState); }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -66,6 +32,7 @@ public class MembersPage extends Fragment {
 
     //NOTE: code should be executed in onViewCreated() b/c lifetime of a Fragment differs from an Activity: it's layout is created after onCreate()
 
+    //Declare variables out here so that it doesn't recreate it each time
     ArrayList<Member> members;
     MemberAdapter memberAdapter;
 
@@ -73,18 +40,26 @@ public class MembersPage extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
         members = new ArrayList<>();
 
-        members.add(new Member("ROWER 1", 15));
+        members.add(new Member("ROWER 1", 15));     //tests
         members.add(new Member("ROWER 2", 18));
-
 
         memberAdapter = new MemberAdapter(view.getContext(),R.id.list, members, R.color.white);
 
         ListView listView = (ListView) view.findViewById(R.id.list);
 
         listView.setAdapter(memberAdapter);
+
+        Button addMem = (Button) view.findViewById(R.id.addMember);
+        addMem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent addMemberPage = new Intent(getContext(),CreateNewMember.class);
+
+                startActivity(addMemberPage);
+
+            });
 
     }
 

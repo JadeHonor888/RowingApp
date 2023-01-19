@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 
-public class WorkoutAdapter extends ArrayAdapter<Member>
+public class WorkoutAdapter extends ArrayAdapter<Workout>
 {
         int background;
 
@@ -32,14 +32,14 @@ public View getView(int position, View convertView, ViewGroup parent)
         View layoutOfView = convertView;
         if (layoutOfView == null)
         {
-        layoutOfView = LayoutInflater.from(getContext()).inflate(R.layout.member_item,parent,false);
+        layoutOfView = LayoutInflater.from(getContext()).inflate(R.layout.workout_item,parent,false);
         }
 
         /***************************************************
          *              STEP 2: GET THE DATA
          ***************************************************/
 
-        Member currentMember = getItem(position);
+        Workout currentWorkout = getItem(position);
 
         /***************************************************
          *                STEP 3: MATCH EM
@@ -47,22 +47,11 @@ public View getView(int position, View convertView, ViewGroup parent)
         RelativeLayout layout = (RelativeLayout) layoutOfView.findViewById(R.id.relLayout);
         layout.setBackgroundResource(background);
 
-        // CHECK IF THERE'S AN IMAGE, OTHERWISE SET IT TO NOTHING
-        ImageView imageView = (ImageView) layoutOfView.findViewById(R.id.image);
-        if (currentMember.getImageId()==-1)
-        { imageView.setVisibility(View.GONE); }
-        else
-        { imageView.setImageResource(currentMember.getImageId()); }
-
-
         TextView name = (TextView) layoutOfView.findViewById(R.id.name);
-        name.setText(currentMember.getName());
+        name.setText(currentWorkout.getName());
 
-        TextView age = (TextView) layoutOfView.findViewById(R.id.age);
-        age.setText(Integer.toString(currentMember.getAge()));
-
-        TextView ageGroup = (TextView) layoutOfView.findViewById(R.id.ageGroup);
-        ageGroup.setText(currentMember.getAgeGroup());
+        TextView desc = (TextView) layoutOfView.findViewById(R.id.desc);
+        desc.setText(currentWorkout.getDesc());
 
         /***************************************************
          *                STEP 4: RETURN!

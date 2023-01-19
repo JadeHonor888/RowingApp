@@ -2,11 +2,16 @@ package com.example.rowingapp2;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -60,5 +65,27 @@ public class WorkoutPage extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_workout_page, container, false);
+    }
+
+        //Declare variables out here so that it doesn't recreate it each time
+        ArrayList<Workout> workouts;
+        WorkoutAdapter workoutAdapter;
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+
+        workouts = new ArrayList<>();
+
+        workouts.add(new Workout("2k", "2000m, AFAP"));     //tests
+        workouts.add(new Workout("4 by 4'", "4 min: 20 on 10 off, 6 min rest"));
+
+        workoutAdapter = new WorkoutAdapter(view.getContext(),R.id.list, workouts, R.color.white);
+
+        ListView listView = (ListView) view.findViewById(R.id.list);
+
+        listView.setAdapter(workoutAdapter);
+
     }
 }

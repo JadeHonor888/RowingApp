@@ -4,7 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
@@ -49,6 +52,21 @@ public class MainActivity extends AppCompatActivity {
             }
         }).attach();
 
+        /*
+        Button addMem = (Button) findViewById(R.id.addMember);
+        addMem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent addMemberPage = new Intent(MainActivity.this,CreateNewMember.class);
+                startActivity(addMemberPage);
+
+        });
+
+         */
 
     }
+
+
+
+
 }
