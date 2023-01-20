@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 
@@ -61,6 +62,19 @@ public class MembersPage extends Fragment {
             }
         });
 
-    }
 
+            //this might not be working because it's calling to a view that's in a different xml file?
+        /*
+        RelativeLayout relativeLayout = (RelativeLayout) view.findViewById(R.id.relLayout);
+        relativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent openMemberDisplay = new Intent(getContext(), MemberDisplay.class);
+
+                startActivity(openMemberDisplay);
+            }
+        });
+        */
+
+    }
 }
