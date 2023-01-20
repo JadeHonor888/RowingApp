@@ -11,4 +11,12 @@ public class CreateNewMember extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_new_member);
     }
+
+    //member info to use on creation
+    String name;
+    int age;
+    boolean isFemale;
+    boolean isPort;
+    boolean isStarboard;
+
 }

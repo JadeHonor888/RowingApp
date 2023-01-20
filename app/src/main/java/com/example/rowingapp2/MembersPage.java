@@ -55,11 +55,11 @@ public class MembersPage extends Fragment {
         addMem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent addMemberPage = new Intent(getContext(),CreateNewMember.class);
+                Intent addMemberPage = new Intent(getContext(), CreateNewMember.class);
 
                 startActivity(addMemberPage);
-
-            });
+            }
+        });
 
     }
 
