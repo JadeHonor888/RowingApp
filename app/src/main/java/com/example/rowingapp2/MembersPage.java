@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -41,6 +42,9 @@ public class MembersPage extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        /**********************************************
+         *                  LISTVIEW
+         *********************************************/
         members = new ArrayList<>();
 
         members.add(new Member("ROWER 1", 15));     //tests
@@ -52,6 +56,10 @@ public class MembersPage extends Fragment {
 
         listView.setAdapter(memberAdapter);
 
+
+        /**********************************************
+         *                  BUTTONS
+         *********************************************/
         Button addMem = (Button) view.findViewById(R.id.addMember);
         addMem.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,19 +70,21 @@ public class MembersPage extends Fragment {
             }
         });
 
-
-            //this might not be working because it's calling to a view that's in a different xml file?
-        /*
-        RelativeLayout relativeLayout = (RelativeLayout) view.findViewById(R.id.relLayout);
-        relativeLayout.setOnClickListener(new View.OnClickListener() {
+                //Not working, don't know why ;; (listview doesn't know it's being clicked?)
+        listView.setClickable(true);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent openMemberDisplay = new Intent(getContext(), MemberDisplay.class);
-
                 startActivity(openMemberDisplay);
             }
         });
-        */
+
+
+
+
+
+
 
     }
 }

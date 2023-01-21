@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }).attach();
 
-        //DO NOT PUT BUTTONS IN HERE!
+        //DO NOT PUT BUTTONS IN HERE
 
     }
 

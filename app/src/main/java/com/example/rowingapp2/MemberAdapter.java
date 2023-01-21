@@ -34,6 +34,8 @@ public View getView(int position, View convertView, ViewGroup parent)
         if (layoutOfView == null)
         {
         layoutOfView = LayoutInflater.from(getContext()).inflate(R.layout.member_item,parent,false);
+
+
         }
 
         /***************************************************
@@ -48,12 +50,14 @@ public View getView(int position, View convertView, ViewGroup parent)
         RelativeLayout layout = (RelativeLayout) layoutOfView.findViewById(R.id.relLayout);
         layout.setBackgroundResource(background);
 
+
         // CHECK IF THERE'S AN IMAGE, OTHERWISE SET IT TO NOTHING
         ImageView imageView = (ImageView) layoutOfView.findViewById(R.id.image);
         if (currentMember.getImageId()==-1)
         { imageView.setVisibility(View.GONE); }
         else
         { imageView.setImageResource(currentMember.getImageId()); }
+
 
 
         TextView name = (TextView) layoutOfView.findViewById(R.id.name);
@@ -64,6 +68,7 @@ public View getView(int position, View convertView, ViewGroup parent)
 
         TextView ageGroup = (TextView) layoutOfView.findViewById(R.id.ageGroup);
         ageGroup.setText(currentMember.getAgeGroup());
+
 
         /***************************************************
          *                STEP 4: RETURN!

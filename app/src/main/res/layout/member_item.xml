@@ -40,12 +40,11 @@
                 android:textStyle="bold" />
 
             <ImageButton
-                android:id="@+id/settings"
-                android:layout_width="12dp"
+                android:id="@+id/imageButton"
+                android:layout_width="30dp"
                 android:layout_height="match_parent"
-                android:adjustViewBounds="true"
-                android:scaleType="fitCenter"
-                app:srcCompat="@drawable/menucircles" />
+                android:background="@color/white"
+                app:srcCompat="@android:drawable/ic_menu_edit" />
 
         </LinearLayout>
 
