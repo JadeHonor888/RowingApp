@@ -10,10 +10,12 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -71,14 +73,19 @@ public class MembersPage extends Fragment {
         });
 
                 //Not working, don't know why ;; (listview doesn't know it's being clicked?)
+
         listView.setClickable(true);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                    Toast.makeText(getContext(),"this works", Toast.LENGTH_LONG).show();            //THIS IS TO SHOW IF I GET HERE OR NOT
                 Intent openMemberDisplay = new Intent(getContext(), MemberDisplay.class);
                 startActivity(openMemberDisplay);
             }
         });
+
+
 
 
 

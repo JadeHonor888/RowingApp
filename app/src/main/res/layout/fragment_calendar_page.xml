@@ -5,10 +5,45 @@
     android:layout_height="match_parent"
     tools:context=".CalendarPage">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Calendar Page" />
+        android:orientation="vertical">
+
+        <CalendarView
+            android:id="@+id/calendarView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="vertical">
+
+        <Button
+            android:id="@+id/editAttendance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="EDIT ATTENDANCE" />
+
+        <Button
+            android:id="@+id/editEvents"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="EDIT EVENTS" />
+
+        <Button
+            android:id="@+id/addEvents"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ADD EVENTS" />
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </FrameLayout>

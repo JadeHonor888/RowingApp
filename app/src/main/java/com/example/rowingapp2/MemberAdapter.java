@@ -33,9 +33,8 @@ public View getView(int position, View convertView, ViewGroup parent)
         View layoutOfView = convertView;
         if (layoutOfView == null)
         {
-        layoutOfView = LayoutInflater.from(getContext()).inflate(R.layout.member_item,parent,false);
-
-
+                LayoutInflater layoutInflater = (LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                layoutOfView = layoutInflater.inflate(R.layout.member_item,parent,false);
         }
 
         /***************************************************
