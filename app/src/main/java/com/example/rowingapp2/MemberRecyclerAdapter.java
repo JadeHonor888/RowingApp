@@ -38,6 +38,9 @@ public class MemberRecyclerAdapter extends RecyclerView.Adapter<MemberRecyclerAd
         holder.name.setText(members.get(position).getName());
         holder.ageGroup.setText(members.get(position).getAgeGroup());
         holder.age.setText(String.valueOf(members.get(position).getAge()));
+        holder.gender.setText(members.get(position).getGender());
+        String side = members.get(position).getStarboard() + "  " + members.get(position).getPort();
+        holder.side.setText(side);
             if (members.get(position).getImageId()==-1)
                 { holder.icon.setVisibility(View.GONE); }
             else
@@ -63,6 +66,8 @@ public class MemberRecyclerAdapter extends RecyclerView.Adapter<MemberRecyclerAd
         TextView name;
         TextView age;
         TextView ageGroup;
+        TextView gender;
+        TextView side;
         RelativeLayout relativeLayout;
 
         public MyViewHolder(@NonNull View itemView){
@@ -71,6 +76,8 @@ public class MemberRecyclerAdapter extends RecyclerView.Adapter<MemberRecyclerAd
             name = itemView.findViewById(R.id.name);
             age = itemView.findViewById(R.id.age);
             ageGroup = itemView.findViewById(R.id.ageGroup);
+            gender = itemView.findViewById(R.id.gender);
+            side = itemView.findViewById(R.id.side);
             relativeLayout = itemView.findViewById(R.id.relLayout);
         }
     }

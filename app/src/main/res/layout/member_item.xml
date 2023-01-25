@@ -26,16 +26,15 @@
                 android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingStart="16dp"
                 android:textSize="20dp"
                 android:textStyle="bold"
+                android:paddingStart="10dp"
                 android:layout_weight="1"/>
 
             <TextView
                 android:id="@+id/ageGroup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingStart="16dp"
                 android:textSize="20dp"
                 android:textStyle="bold" />
 
@@ -48,12 +47,33 @@
 
         </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/gender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="10dp"
+            android:textSize="15dp" />
+
         <TextView
             android:id="@+id/age"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="16dp"
+            android:paddingStart="10dp"
             android:textSize="15dp" />
+
+        <TextView
+            android:id="@+id/side"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="10dp"
+            android:textSize="15dp" />
+
+    </LinearLayout>
 
     </LinearLayout>
 </RelativeLayout>

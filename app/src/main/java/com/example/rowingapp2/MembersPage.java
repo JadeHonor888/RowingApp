@@ -20,16 +20,6 @@ import java.util.ArrayList;
 public class MembersPage extends Fragment {
 
     //TEST: Removing the instance stuff
-
-    //Declare variables out here so that it doesn't recreate it each time
-    ArrayList<Member> members;
-
-
-    private RecyclerView recyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager layoutManager;
-
-
     @Override
     public void onCreate(Bundle savedInstanceState)
     { super.onCreate(savedInstanceState); }
@@ -41,34 +31,21 @@ public class MembersPage extends Fragment {
         return inflater.inflate(R.layout.fragment_members_page, container, false);
     }
 
-
-
-
-
     //NOTE: code should be executed in onViewCreated() b/c lifetime of a Fragment differs from an Activity: it's layout is created after onCreate()
-    MemberAdapter memberAdapter;
+    //Declare variables out here so that it doesn't recreate it each time
+    ArrayList<Member> members;
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager layoutManager;
+
+    //member variables for creating new members
+    String name;
+    int age;
+    int imageId;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        /**********************************************
-         *                  LISTVIEW
-         *********************************************/
-        /*
-        members = new ArrayList<>(); //REMINDER: **YOU NEED THIS LINE OR THINGS BREAK!!**
-
-        members.add(new Member("ROWER 1", 15));     //tests
-        members.add(new Member("ROWER 2", 18));
-
-        memberAdapter = new MemberAdapter(view.getContext(),R.id.list, members, R.color.white);
-
-        ListView listView = (ListView) view.findViewById(R.id.list);
-
-        listView.setAdapter(memberAdapter);
-
-         */
-
 
         /**********************************************
          *              RECYCLERVIEW
@@ -76,8 +53,9 @@ public class MembersPage extends Fragment {
 
         members = new ArrayList<>();    //REMINDER: **YOU NEED THIS LINE OR THINGS BREAK!!**
 
-        members.add(new Member("ROWER 1", 15));     //tests
-        members.add(new Member("ROWER 2", 18));
+        members.add(new Member("ROWER 1", 15, true, true, false));     //tests
+        members.add(new Member("ROWER 2", 18,true, true, true));
+        members.add(new Member("ROWER 3", 14,false, false, true));
 
         recyclerView = (RecyclerView) view.findViewById(R.id.rList);
 
@@ -102,22 +80,6 @@ public class MembersPage extends Fragment {
                 startActivity(addMemberPage);
             }
         });
-
-
-
-
-        /*
-        listView.setClickable(true);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    Toast.makeText(getContext(),"this works", Toast.LENGTH_LONG).show();            //THIS ISN'T SHOWING SO IT MUST NOT GET TO THIS STAGE
-                Intent openMemberDisplay = new Intent(getContext(), MemberDisplay.class);
-                startActivity(openMemberDisplay);
-            }
-        });
-
-         */
 
     }
 }

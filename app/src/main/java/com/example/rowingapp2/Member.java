@@ -6,8 +6,11 @@ public class Member {
     private int age;
     private int imageId;
     private String ageGroup;
+    private boolean isFemale;
+    private boolean isStarboard;
+    private boolean isPort;
 
-    public Member(String n, int a)
+    public Member(String n, int a, boolean f, boolean s, boolean p)
     {
         name = n;
         age = a;
@@ -20,9 +23,12 @@ public class Member {
             { ageGroup = "U17"; }
             else
             { ageGroup = "U19"; }
+        isFemale = f;
+        isPort = p;
+        isStarboard = s;
     }
 
-    public Member(String n, int a, int i)
+    public Member(String n, int a, boolean f, boolean s, boolean p, int i)
     {
         name = n;
         age = a;
@@ -35,6 +41,9 @@ public class Member {
             { ageGroup = "U17"; }
             else
             { ageGroup = "U19"; }
+        isFemale = f;
+        isPort = p;
+        isStarboard = s;
     }
 
     // GETTERS
@@ -42,6 +51,21 @@ public class Member {
     public int getAge() {return age;}
     public int getImageId() {return imageId;}
     public String getAgeGroup() {return ageGroup;}
+    public String getGender()
+    {
+        if(isFemale) {return "Female";}
+        else {return "Male";}
+    }
+    public String getPort()
+    {
+        if(isPort) {return "Port";}
+        else {return "";}
+    }
+    public String getStarboard()
+    {
+        if(isStarboard) {return "Starboard";}
+        else {return "";}
+    }
 
     //SETTERS
     public void setName(String n) {name = n;}
@@ -58,5 +82,8 @@ public class Member {
         { ageGroup = "U19"; }
     }
     public void setImageId(int i) {imageId = i;}
+    public void setFemale(boolean f) {isFemale = f;}
+    public void setPort(boolean p) {isPort = p;}
+    public void setStarboard(boolean s) {isStarboard = s;}
 
 }

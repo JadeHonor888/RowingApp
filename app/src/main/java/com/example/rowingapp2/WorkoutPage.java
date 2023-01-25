@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -72,7 +73,6 @@ public class WorkoutPage extends Fragment {
 
         //Declare variables out here so that it doesn't recreate it each time
         ArrayList<Workout> workouts;
-        WorkoutAdapter workoutAdapter;
 
         private RecyclerView recyclerView;
         private RecyclerView.Adapter mAdapter;
@@ -83,19 +83,23 @@ public class WorkoutPage extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         /**********************************************
-         *                  LISTVIEW
+         *              RECYCLERVIEW
          *********************************************/
-        workouts = new ArrayList<>();
+
+        workouts = new ArrayList<>();    //REMINDER: **YOU NEED THIS LINE OR THINGS BREAK!!**
 
         workouts.add(new Workout("2k", "2000m, AFAP"));     //tests
         workouts.add(new Workout("4 by 4'", "4 min: 20 on 10 off, 6 min rest"));
 
-        workoutAdapter = new WorkoutAdapter(view.getContext(),R.id.list, workouts, R.color.white);
+        recyclerView = (RecyclerView) view.findViewById(R.id.rList);
 
-        ListView listView = (ListView) view.findViewById(R.id.list);
+        recyclerView.setHasFixedSize(true);
 
-        listView.setAdapter(workoutAdapter);
+        layoutManager = new LinearLayoutManager(view.getContext());
+        recyclerView.setLayoutManager(layoutManager);
 
+        mAdapter = new WorkoutRecyclerAdapter(workouts, view.getContext());
+        recyclerView.setAdapter(mAdapter);
 
         /**********************************************
          *                  BUTTONS

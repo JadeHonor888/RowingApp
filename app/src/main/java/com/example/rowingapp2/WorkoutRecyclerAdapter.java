@@ -33,9 +33,9 @@ public class WorkoutRecyclerAdapter extends RecyclerView.Adapter<WorkoutRecycler
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MemberRecyclerAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull WorkoutRecyclerAdapter.MyViewHolder holder, int position) {
         holder.name.setText(workouts.get(position).getName());
-        holder.ageGroup.setText(workouts.get(position).getDesc());
+        holder.desc.setText(workouts.get(position).getDesc());
 
         //BUTTON
         holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
@@ -55,11 +55,13 @@ public class WorkoutRecyclerAdapter extends RecyclerView.Adapter<WorkoutRecycler
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView name;
         TextView desc;
+        RelativeLayout relativeLayout;
 
         public MyViewHolder(@NonNull View itemView){
             super(itemView);
             name = itemView.findViewById(R.id.name);
             desc = itemView.findViewById(R.id.desc);
+            relativeLayout = itemView.findViewById(R.id.relLayout);
         }
     }
 }
