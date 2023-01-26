@@ -2,7 +2,8 @@ package com.example.rowingapp2;
 
 public class Member {
 
-    private String name;
+    private String fName;
+    private String lName;
     private int age;
     private int imageId;
     private String ageGroup;
@@ -10,9 +11,10 @@ public class Member {
     private boolean isStarboard;
     private boolean isPort;
 
-    public Member(String n, int a, boolean f, boolean s, boolean p)
+    public Member(String fn,String ln, int a, boolean f, boolean s, boolean p)
     {
-        name = n;
+        fName = fn;
+        lName = ln;
         age = a;
         imageId = -1;
             if (age < 15)
@@ -28,9 +30,10 @@ public class Member {
         isStarboard = s;
     }
 
-    public Member(String n, int a, boolean f, boolean s, boolean p, int i)
+    public Member(String fn, String ln, int a, boolean f, boolean s, boolean p, int i)
     {
-        name = n;
+        fName = fn;
+        lName = ln;
         age = a;
         imageId = i;
             if (age < 15)
@@ -47,7 +50,8 @@ public class Member {
     }
 
     // GETTERS
-    public String getName() {return name;}
+    public String getFName() {return fName;}
+    public String getLName() {return lName;}
     public int getAge() {return age;}
     public int getImageId() {return imageId;}
     public String getAgeGroup() {return ageGroup;}
@@ -68,7 +72,8 @@ public class Member {
     }
 
     //SETTERS
-    public void setName(String n) {name = n;}
+    public void setfName(String fn) {fName = fn;}
+    public void setlName(String ln) {lName = ln;}
     public void setAge(int a)
     {
         age = a;

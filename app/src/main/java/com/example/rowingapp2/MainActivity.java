@@ -2,6 +2,8 @@ package com.example.rowingapp2;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
@@ -54,9 +56,28 @@ public class MainActivity extends AppCompatActivity {
 
         //DO NOT PUT BUTTONS IN HERE
 
+        //IDEA: get the info here and sent it to memberspage
+        // question: how do I send it to memberspage?
+
+        //NOT WORKING
+        /*
+        Intent i = this.getIntent();
+        if (i != null)
+        {
+            Bundle memberInfo = new Bundle();
+            memberInfo.putString("fName",i.getStringExtra("fName"));
+            memberInfo.putString("lName",i.getStringExtra("lName"));
+            memberInfo.putInt("age",i.getIntExtra("age", -1));
+            memberInfo.putBoolean("isFemale", i.getBooleanExtra("isFemale", true));
+            memberInfo.putBoolean("isPort", i.getBooleanExtra("isPort", false));
+            memberInfo.putBoolean("isStarboard", i.getBooleanExtra("isStarboard", false));
+
+            MembersPage mem = new MembersPage();
+            mem.setArguments(memberInfo);
+        }
+
+         */
+
+
     }
-
-
-
-
 }

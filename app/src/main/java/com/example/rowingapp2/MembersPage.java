@@ -19,7 +19,37 @@ import java.util.ArrayList;
 
 public class MembersPage extends Fragment {
 
-    //TEST: Removing the instance stuff
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
+
+    // TODO: Rename and change types of parameters
+    private String mParam1;
+    private String mParam2;
+
+    public MembersPage() {
+        // Required empty public constructor
+    }
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+     * @param param1 Parameter 1.
+     * @param param2 Parameter 2.
+     * @return A new instance of fragment MembersPage.
+     */
+    // TODO: Rename and change types and number of parameters
+    public static MembersPage newInstance(String param1, String param2) {
+        MembersPage fragment = new MembersPage();
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+
     @Override
     public void onCreate(Bundle savedInstanceState)
     { super.onCreate(savedInstanceState); }
@@ -33,7 +63,7 @@ public class MembersPage extends Fragment {
 
     //NOTE: code should be executed in onViewCreated() b/c lifetime of a Fragment differs from an Activity: it's layout is created after onCreate()
     //Declare variables out here so that it doesn't recreate it each time
-    ArrayList<Member> members;
+    ArrayList<Member> members = new ArrayList<>();    //REMINDER: **YOU NEED THIS LINE OR THINGS BREAK!!**
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
@@ -47,16 +77,26 @@ public class MembersPage extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        members.add(new Member("ROWER", "1", 15, true, true, false));     //tests
+
+
+
+        Intent i = this.getActivity().getIntent();      //getActivity might not be a good solution here
+        if (i != null)
+        {
+            createNewMember(i.getStringExtra("fName"),i.getStringExtra("lName"),i.getIntExtra("age", -1),
+                    i.getBooleanExtra("isFemale", true),i.getBooleanExtra("isPort", false), i.getBooleanExtra("isStarboard", false));
+        }
+
+        /*
+        Bundle memberInfo = getArguments();
+        createNewMember(memberInfo.getString("fName"),memberInfo.getString("lName"),memberInfo.getInt("age", -1),
+                memberInfo.getBoolean("isFemale", true),memberInfo.getBoolean("isPort", false), memberInfo.getBoolean("isStarboard", false));
+
+         */
         /**********************************************
          *              RECYCLERVIEW
          *********************************************/
-
-        members = new ArrayList<>();    //REMINDER: **YOU NEED THIS LINE OR THINGS BREAK!!**
-
-        members.add(new Member("ROWER 1", 15, true, true, false));     //tests
-        members.add(new Member("ROWER 2", 18,true, true, true));
-        members.add(new Member("ROWER 3", 14,false, false, true));
-
         recyclerView = (RecyclerView) view.findViewById(R.id.rList);
 
         recyclerView.setHasFixedSize(true);
@@ -82,4 +122,11 @@ public class MembersPage extends Fragment {
         });
 
     }
+
+
+    public void createNewMember(String fn, String ln, int a, boolean f, boolean s, boolean p)
+    {
+        members.add(new Member(fn, ln, a, f, s, p));
+    }
+
 }

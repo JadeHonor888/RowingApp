@@ -35,7 +35,8 @@ public class MemberRecyclerAdapter extends RecyclerView.Adapter<MemberRecyclerAd
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.name.setText(members.get(position).getName());
+        String fullName = members.get(position).getFName() + " " + members.get(position).getLName();
+        holder.name.setText(fullName);
         holder.ageGroup.setText(members.get(position).getAgeGroup());
         holder.age.setText(String.valueOf(members.get(position).getAge()));
         holder.gender.setText(members.get(position).getGender());
