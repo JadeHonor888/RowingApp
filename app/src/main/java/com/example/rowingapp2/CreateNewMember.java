@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 public class CreateNewMember extends AppCompatActivity {
 
@@ -50,6 +51,7 @@ public class CreateNewMember extends AppCompatActivity {
         editFName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(CreateNewMember.this,"editfName is picking this up", Toast.LENGTH_LONG).show();
                 fName = editFName.getText().toString();
             }
         });
