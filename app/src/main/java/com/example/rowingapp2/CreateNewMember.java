@@ -21,9 +21,11 @@ public class CreateNewMember extends AppCompatActivity {
         Button save = (Button) findViewById(R.id.save);
         Button cancel = (Button) findViewById(R.id.cancel);
         RadioGroup gender = (RadioGroup) findViewById(R.id.gender);
-        if (gender.getCheckedRadioButtonId() == R.id.male) { isFemale = false; }
+        if (gender.getCheckedRadioButtonId() == R.id.male) { isFemale = false; }        //Gender is NOT WORKING (but this is for later)
 
         EditText editFName = (EditText) findViewById(R.id.editfName);
+        EditText editLName = (EditText) findViewById(R.id.editlName);
+        EditText editAge = (EditText) findViewById(R.id.editAge);
 
         cancel.setOnClickListener(new View.OnClickListener() {      //go back to main activity
             @Override
@@ -36,6 +38,11 @@ public class CreateNewMember extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                    //pick up on the edit text stuff
+                fName = editFName.getText().toString();
+                lName = editLName.getText().toString();
+                age = Integer.parseInt(editAge.getText().toString());
+
                 Intent i = new Intent(CreateNewMember.this, MainActivity.class);
                     //Pass along the information:
                 i.putExtra("fName", fName);
@@ -45,14 +52,6 @@ public class CreateNewMember extends AppCompatActivity {
                 i.putExtra("isPort", isPort);
                 i.putExtra("isStarboard", isStarboard);
                 startActivity(i);
-            }
-        });
-
-        editFName.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(CreateNewMember.this,"editfName is picking this up", Toast.LENGTH_LONG).show();
-                fName = editFName.getText().toString();
             }
         });
     }
@@ -65,24 +64,6 @@ public class CreateNewMember extends AppCompatActivity {
     boolean isPort;
     boolean isStarboard;
 
-    /*
-    public void getFName(View view)
-    {
-        EditText editFName = (EditText) findViewById(R.id.editfName);
-        fName = editFName.getText().toString();
-    }
-
-     */
-    public void getLName(View view)
-    {
-        EditText editLName = (EditText) findViewById(R.id.editlName);
-        lName = editLName.getText().toString();
-    }
-    public void getAge(View view)
-    {
-        EditText editAge = (EditText) findViewById(R.id.editAge);
-        age = Integer.parseInt(editAge.getText().toString());
-    }
     public void isPort(View view) {isPort = !isPort;}
     public void isStarboard(View view) {isStarboard = !isStarboard;}
 

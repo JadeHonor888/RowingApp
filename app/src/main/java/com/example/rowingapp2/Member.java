@@ -1,5 +1,7 @@
 package com.example.rowingapp2;
 
+import java.io.Serializable;
+
 public class Member {
 
     private String fName;
@@ -30,12 +32,12 @@ public class Member {
         isStarboard = s;
     }
 
-    public Member(String fn, String ln, int a, boolean f, boolean s, boolean p, int i)
+    public Member(String fn, String ln, int a, boolean f, boolean s, boolean p, int im)
     {
         fName = fn;
         lName = ln;
         age = a;
-        imageId = i;
+        imageId = im;
             if (age < 15)
             { ageGroup = "U15"; }
             else if (age < 16)

@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -63,7 +64,7 @@ public class MembersPage extends Fragment {
 
     //NOTE: code should be executed in onViewCreated() b/c lifetime of a Fragment differs from an Activity: it's layout is created after onCreate()
     //Declare variables out here so that it doesn't recreate it each time
-    ArrayList<Member> members = new ArrayList<>();    //REMINDER: **YOU NEED THIS LINE OR THINGS BREAK!!**
+
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
@@ -77,23 +78,11 @@ public class MembersPage extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        members.add(new Member("ROWER", "1", 15, true, true, false));     //tests
+        //CALL THIS TO GET MEMBERS LIST
+        MembersListGlobalVariable membersListGlobalVariable = (MembersListGlobalVariable) getActivity().getApplication();
+        ArrayList<Member> members = membersListGlobalVariable.getMembers();
 
 
-
-        Intent i = this.getActivity().getIntent();      //getActivity might not be a good solution here
-        if (i != null)
-        {
-            createNewMember(i.getStringExtra("fName"),i.getStringExtra("lName"),i.getIntExtra("age", -1),
-                    i.getBooleanExtra("isFemale", true),i.getBooleanExtra("isPort", false), i.getBooleanExtra("isStarboard", false));
-        }
-
-        /*
-        Bundle memberInfo = getArguments();
-        createNewMember(memberInfo.getString("fName"),memberInfo.getString("lName"),memberInfo.getInt("age", -1),
-                memberInfo.getBoolean("isFemale", true),memberInfo.getBoolean("isPort", false), memberInfo.getBoolean("isStarboard", false));
-
-         */
         /**********************************************
          *              RECYCLERVIEW
          *********************************************/
@@ -121,12 +110,6 @@ public class MembersPage extends Fragment {
             }
         });
 
-    }
-
-
-    public void createNewMember(String fn, String ln, int a, boolean f, boolean s, boolean p)
-    {
-        members.add(new Member(fn, ln, a, f, s, p));
     }
 
 }

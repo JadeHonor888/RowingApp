@@ -8,12 +8,14 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
 import android.widget.Button;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -22,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Bundle bundle = new Bundle();       //IDK IF IT'S USEFUL BUT NOW WE CAN SEND BUNDLES TO MEMBERS PAGE (AND THE OTHERS IF WE WANT)
 
         // TAB NAMES
         ArrayList<String> tabNames = new ArrayList<>();
@@ -40,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         /**
          *      CREATE ADAPTER
          */
-        ViewPagerAdapter adapter = new ViewPagerAdapter(this);
+        ViewPagerAdapter adapter = new ViewPagerAdapter(this, bundle);
         viewPager2.setAdapter(adapter);
 
 
@@ -60,23 +64,19 @@ public class MainActivity extends AppCompatActivity {
         // question: how do I send it to memberspage?
 
         //NOT WORKING
-        /*
+        MembersListGlobalVariable membersListGlobalVariable = (MembersListGlobalVariable) getApplication();
+
         Intent i = this.getIntent();
         if (i != null)
         {
-            Bundle memberInfo = new Bundle();
-            memberInfo.putString("fName",i.getStringExtra("fName"));
-            memberInfo.putString("lName",i.getStringExtra("lName"));
-            memberInfo.putInt("age",i.getIntExtra("age", -1));
-            memberInfo.putBoolean("isFemale", i.getBooleanExtra("isFemale", true));
-            memberInfo.putBoolean("isPort", i.getBooleanExtra("isPort", false));
-            memberInfo.putBoolean("isStarboard", i.getBooleanExtra("isStarboard", false));
-
-            MembersPage mem = new MembersPage();
-            mem.setArguments(memberInfo);
+            membersListGlobalVariable.createNewMember(
+                    i.getStringExtra("fName"),
+                    i.getStringExtra("lName"),
+                    i.getIntExtra("age", -1),
+                    i.getBooleanExtra("isFemale", true),
+                    i.getBooleanExtra("isPort", false),
+                    i.getBooleanExtra("isStarboard", false));
         }
-
-         */
 
 
     }
