@@ -2,6 +2,7 @@ package com.example.rowingapp2;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,9 +53,22 @@ public class MemberRecyclerAdapter extends RecyclerView.Adapter<MemberRecyclerAd
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(context, MemberDisplay.class);
+                i.putExtra("name", fullName);
+                i.putExtra("age", String.valueOf(members.get(position).getAge()));
+                i.putExtra("gender", members.get(position).getGender());
+                i.putExtra("side", side);
                 context.startActivity(i);
             }
         });
+
+       holder.edit.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               Intent i = new Intent(context, CreateNewMember.class);
+               i.putExtra("id", members.get(position).getId());
+               context.startActivity(i);
+           }
+       });
     }
 
     @Override
@@ -70,6 +84,7 @@ public class MemberRecyclerAdapter extends RecyclerView.Adapter<MemberRecyclerAd
         TextView gender;
         TextView side;
         RelativeLayout relativeLayout;
+        ImageView edit;
 
         public MyViewHolder(@NonNull View itemView){
             super(itemView);
@@ -80,6 +95,7 @@ public class MemberRecyclerAdapter extends RecyclerView.Adapter<MemberRecyclerAd
             gender = itemView.findViewById(R.id.gender);
             side = itemView.findViewById(R.id.side);
             relativeLayout = itemView.findViewById(R.id.relLayout);
+            edit = itemView.findViewById(R.id.imageButton);
         }
     }
 }

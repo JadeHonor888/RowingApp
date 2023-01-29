@@ -21,11 +21,15 @@ public class CreateNewMember extends AppCompatActivity {
         Button save = (Button) findViewById(R.id.save);
         Button cancel = (Button) findViewById(R.id.cancel);
         RadioGroup gender = (RadioGroup) findViewById(R.id.gender);
-        if (gender.getCheckedRadioButtonId() == R.id.male) { isFemale = false; }        //Gender is NOT WORKING (but this is for later)
-
         EditText editFName = (EditText) findViewById(R.id.editfName);
         EditText editLName = (EditText) findViewById(R.id.editlName);
         EditText editAge = (EditText) findViewById(R.id.editAge);
+
+        Intent i = this.getIntent();
+        if (i != null)
+        {
+
+        }
 
         cancel.setOnClickListener(new View.OnClickListener() {      //go back to main activity
             @Override
@@ -42,6 +46,7 @@ public class CreateNewMember extends AppCompatActivity {
                 fName = editFName.getText().toString();
                 lName = editLName.getText().toString();
                 age = Integer.parseInt(editAge.getText().toString());
+                if (gender.getCheckedRadioButtonId() == R.id.female) { isFemale = true; }
 
                 Intent i = new Intent(CreateNewMember.this, MainActivity.class);
                     //Pass along the information:
@@ -57,10 +62,11 @@ public class CreateNewMember extends AppCompatActivity {
     }
 
     //member info to use on creation
+    int memberId;
     String fName;
     String lName;
     int age;
-    boolean isFemale = true;
+    boolean isFemale;
     boolean isPort;
     boolean isStarboard;
 

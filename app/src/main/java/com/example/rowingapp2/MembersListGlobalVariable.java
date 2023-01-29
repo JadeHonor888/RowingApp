@@ -14,10 +14,16 @@ public class MembersListGlobalVariable extends Application {
 
     public void createNewMember(String fn, String ln, int a, boolean f, boolean s, boolean p)
     {
-        members.add(new Member(fn, ln, a, f, s, p));
+        Member newMember = new Member(fn, ln, a, f, s, p, nextId);
+        members.add(newMember);
+        nextId++;
     }
 
     //GETTERS
     public ArrayList<Member> getMembers() {return members;}
     public int getNextId() {return nextId;}
+
+    //SETTERS
+    public void setMembers(ArrayList<Member> m) {members = m;}
+    public void setNextId(int i) {nextId = i;}
 }

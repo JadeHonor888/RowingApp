@@ -82,7 +82,6 @@ public class MembersPage extends Fragment {
         MembersListGlobalVariable membersListGlobalVariable = (MembersListGlobalVariable) getActivity().getApplication();
         ArrayList<Member> members = membersListGlobalVariable.getMembers();
 
-
         /**********************************************
          *              RECYCLERVIEW
          *********************************************/
@@ -105,7 +104,6 @@ public class MembersPage extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent addMemberPage = new Intent(getContext(), CreateNewMember.class);
-
                 startActivity(addMemberPage);
             }
         });

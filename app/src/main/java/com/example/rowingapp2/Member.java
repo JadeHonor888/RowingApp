@@ -1,9 +1,11 @@
 package com.example.rowingapp2;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Member {
 
+    private int id;
     private String fName;
     private String lName;
     private int age;
@@ -13,8 +15,13 @@ public class Member {
     private boolean isStarboard;
     private boolean isPort;
 
-    public Member(String fn,String ln, int a, boolean f, boolean s, boolean p)
+    // FOR WORKOUT SECTION
+    private double split;
+    private ArrayList<Score> scores;
+
+    public Member(String fn,String ln, int a, boolean f, boolean s, boolean p, int i)
     {
+        id = i;
         fName = fn;
         lName = ln;
         age = a;
@@ -32,8 +39,9 @@ public class Member {
         isStarboard = s;
     }
 
-    public Member(String fn, String ln, int a, boolean f, boolean s, boolean p, int im)
+    public Member(String fn, String ln, int a, boolean f, boolean s, boolean p, int im, int i)
     {
+        id = i;
         fName = fn;
         lName = ln;
         age = a;
@@ -52,6 +60,7 @@ public class Member {
     }
 
     // GETTERS
+    public int getId() {return id;}
     public String getFName() {return fName;}
     public String getLName() {return lName;}
     public int getAge() {return age;}
