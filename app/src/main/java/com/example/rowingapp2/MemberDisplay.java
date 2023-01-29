@@ -4,6 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class MemberDisplay extends AppCompatActivity {
@@ -13,6 +17,7 @@ public class MemberDisplay extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_member_display);
 
+        ImageView back = (ImageView) findViewById(R.id.back);
         TextView name = (TextView) findViewById(R.id.displayName);
         TextView age = (TextView) findViewById(R.id.displayAge);
         TextView gender = (TextView) findViewById(R.id.displayGender);
@@ -28,5 +33,12 @@ public class MemberDisplay extends AppCompatActivity {
             side.setText(i.getStringExtra("side"));
         }
 
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(MemberDisplay.this, MainActivity.class);
+                startActivity(i);
+            }
+        });
     }
 }

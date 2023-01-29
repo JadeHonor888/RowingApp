@@ -53,7 +53,6 @@ public class CreateNewMember extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(CreateNewMember.this, MainActivity.class);
-                i.putExtra("check", false);
                 startActivity(i);
             }
         });
