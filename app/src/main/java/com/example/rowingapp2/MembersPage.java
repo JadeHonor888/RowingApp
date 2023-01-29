@@ -50,7 +50,6 @@ public class MembersPage extends Fragment {
         return fragment;
     }
 
-
     @Override
     public void onCreate(Bundle savedInstanceState)
     { super.onCreate(savedInstanceState); }
@@ -68,11 +67,6 @@ public class MembersPage extends Fragment {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
-
-    //member variables for creating new members
-    String name;
-    int age;
-    int imageId;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -103,8 +97,9 @@ public class MembersPage extends Fragment {
         addMem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent addMemberPage = new Intent(getContext(), CreateNewMember.class);
-                startActivity(addMemberPage);
+                Intent i = new Intent(getContext(), CreateNewMember.class);
+                i.putExtra("check", true);
+                startActivity(i);
             }
         });
 

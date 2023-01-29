@@ -40,8 +40,8 @@ public class MemberRecyclerAdapter extends RecyclerView.Adapter<MemberRecyclerAd
         holder.name.setText(fullName);
         holder.ageGroup.setText(members.get(position).getAgeGroup());
         holder.age.setText(String.valueOf(members.get(position).getAge()));
-        holder.gender.setText(members.get(position).getGender());
-        String side = members.get(position).getStarboard() + "  " + members.get(position).getPort();
+        holder.gender.setText(members.get(position).getGenderString());
+        String side = members.get(position).getStarboardString() + "  " + members.get(position).getPortString();
         holder.side.setText(side);
             if (members.get(position).getImageId()==-1)
                 { holder.icon.setVisibility(View.GONE); }
@@ -55,7 +55,7 @@ public class MemberRecyclerAdapter extends RecyclerView.Adapter<MemberRecyclerAd
                 Intent i = new Intent(context, MemberDisplay.class);
                 i.putExtra("name", fullName);
                 i.putExtra("age", String.valueOf(members.get(position).getAge()));
-                i.putExtra("gender", members.get(position).getGender());
+                i.putExtra("gender", members.get(position).getGenderString());
                 i.putExtra("side", side);
                 context.startActivity(i);
             }
@@ -66,6 +66,12 @@ public class MemberRecyclerAdapter extends RecyclerView.Adapter<MemberRecyclerAd
            public void onClick(View view) {
                Intent i = new Intent(context, CreateNewMember.class);
                i.putExtra("id", members.get(position).getId());
+               i.putExtra("fName", members.get(position).getFName());
+               i.putExtra("lName", members.get(position).getLName());
+               i.putExtra("age", String.valueOf(members.get(position).getAge()));
+               i.putExtra("gender", members.get(position).getGender());
+               i.putExtra("port", members.get(position).getPort());
+               i.putExtra("starboard", members.get(position).getStarboard());
                context.startActivity(i);
            }
        });

@@ -60,24 +60,36 @@ public class MainActivity extends AppCompatActivity {
 
         //DO NOT PUT BUTTONS IN HERE
 
-        //IDEA: get the info here and sent it to memberspage
-        // question: how do I send it to memberspage?
-
         //NOT WORKING
         MembersListGlobalVariable membersListGlobalVariable = (MembersListGlobalVariable) getApplication();
 
         Intent i = this.getIntent();
-        if (i != null)
+        if (i != null && i.getBooleanExtra("check", false))
         {
-            membersListGlobalVariable.createNewMember(
-                    i.getStringExtra("fName"),
-                    i.getStringExtra("lName"),
-                    i.getIntExtra("age", -1),
-                    i.getBooleanExtra("isFemale", true),
-                    i.getBooleanExtra("isPort", false),
-                    i.getBooleanExtra("isStarboard", false));
-        }
+            if (i.getIntExtra("id", -1) == -1)
+            {   //CREATE MEMBER
+                membersListGlobalVariable.createNewMember(
+                        i.getStringExtra("fName"),
+                        i.getStringExtra("lName"),
+                        i.getIntExtra("age", -1),
+                        i.getBooleanExtra("isFemale", true),
+                        i.getBooleanExtra("isPort", false),
+                        i.getBooleanExtra("isStarboard", false));
+            }
+            else
+            {   //EDIT MEMBER
+                Member editMember = new Member(
+                        i.getStringExtra("fName"),
+                        i.getStringExtra("lName"),
+                        i.getIntExtra("age", -1),
+                        i.getBooleanExtra("isFemale", true),
+                        i.getBooleanExtra("isPort", false),
+                        i.getBooleanExtra("isStarboard", false),
+                        i.getIntExtra("id", -1));
+                membersListGlobalVariable.editMember(editMember, i.getIntExtra("id", -1));
+            }
 
+        }
 
     }
 }

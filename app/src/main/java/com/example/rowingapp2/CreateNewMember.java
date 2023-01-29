@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -24,17 +25,35 @@ public class CreateNewMember extends AppCompatActivity {
         EditText editFName = (EditText) findViewById(R.id.editfName);
         EditText editLName = (EditText) findViewById(R.id.editlName);
         EditText editAge = (EditText) findViewById(R.id.editAge);
+        CheckBox port = (CheckBox) findViewById(R.id.port);
+        CheckBox starboard = (CheckBox) findViewById(R.id.starboard);
 
         Intent i = this.getIntent();
         if (i != null)
         {
+            memberId = i.getIntExtra("id", -1);
+        }
+        else
+        {
+            memberId = -1;
+        }
 
+        if(memberId != -1)  //IF THERE'S A MEMBER FILL IN ALL AREAS
+        {
+            editFName.setText(i.getStringExtra("fName"));
+            editLName.setText(i.getStringExtra("lName"));
+            editAge.setText(i.getStringExtra("age"));
+            if (i.getBooleanExtra("gender", false)) {gender.check(R.id.female);}
+            else {gender.check(R.id.male);}
+            if (i.getBooleanExtra("port", false)) {port.setChecked(true);}
+            if (i.getBooleanExtra("starboard", false)) {starboard.setChecked(true);}
         }
 
         cancel.setOnClickListener(new View.OnClickListener() {      //go back to main activity
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(CreateNewMember.this, MainActivity.class);
+                i.putExtra("check", false);
                 startActivity(i);
             }
         });
@@ -47,7 +66,9 @@ public class CreateNewMember extends AppCompatActivity {
                 lName = editLName.getText().toString();
                 age = Integer.parseInt(editAge.getText().toString());
                 if (gender.getCheckedRadioButtonId() == R.id.female) { isFemale = true; }
-
+                if(port.isChecked()) {isPort = true;}
+                if(starboard.isChecked()) {isStarboard = true;}
+                    //create intent
                 Intent i = new Intent(CreateNewMember.this, MainActivity.class);
                     //Pass along the information:
                 i.putExtra("fName", fName);
@@ -56,7 +77,10 @@ public class CreateNewMember extends AppCompatActivity {
                 i.putExtra("isFemale", isFemale);
                 i.putExtra("isPort", isPort);
                 i.putExtra("isStarboard", isStarboard);
+                i.putExtra("id", memberId);
+                i.putExtra("check", true);
                 startActivity(i);
+
             }
         });
     }
@@ -69,12 +93,5 @@ public class CreateNewMember extends AppCompatActivity {
     boolean isFemale;
     boolean isPort;
     boolean isStarboard;
-
-    public void isPort(View view) {isPort = !isPort;}
-    public void isStarboard(View view) {isStarboard = !isStarboard;}
-
-
-
-
 
 }

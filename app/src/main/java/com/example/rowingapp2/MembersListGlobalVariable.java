@@ -25,5 +25,9 @@ public class MembersListGlobalVariable extends Application {
 
     //SETTERS
     public void setMembers(ArrayList<Member> m) {members = m;}
+    public void editMember(Member member, int id)
+    {
+        members.set(id, member);
+    }
     public void setNextId(int i) {nextId = i;}
 }

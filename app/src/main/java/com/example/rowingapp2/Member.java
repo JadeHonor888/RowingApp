@@ -66,21 +66,24 @@ public class Member {
     public int getAge() {return age;}
     public int getImageId() {return imageId;}
     public String getAgeGroup() {return ageGroup;}
-    public String getGender()
+    public String getGenderString()
     {
         if(isFemale) {return "Female";}
         else {return "Male";}
     }
-    public String getPort()
+    public boolean getGender() {return isFemale;}
+    public String getPortString()
     {
         if(isPort) {return "Port";}
         else {return "";}
     }
-    public String getStarboard()
+    public boolean getPort() {return isPort;}
+    public String getStarboardString()
     {
         if(isStarboard) {return "Starboard";}
         else {return "";}
     }
+    public boolean getStarboard() {return isStarboard;}
 
     //SETTERS
     public void setfName(String fn) {fName = fn;}

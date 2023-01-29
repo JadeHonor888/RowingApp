@@ -132,15 +132,13 @@
             android:id="@+id/port"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="PORT"
-            android:onClick="isPort"/>
+            android:text="PORT"/>
 
         <CheckBox
             android:id="@+id/starboard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="STARBOARD"
-            android:onClick="isStarboard"/>
+            android:text="STARBOARD"/>
 
     </LinearLayout>
 
