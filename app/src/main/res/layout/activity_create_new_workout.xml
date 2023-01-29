@@ -13,7 +13,9 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,12 +26,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20sp"
-            android:text="NAME:" />
+            android:textStyle="bold"
+            android:text="Name:" />
 
         <EditText
+            android:id="@+id/editName"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName" />
+            android:layout_height="wrap_content"/>
 
     </LinearLayout>
 
@@ -37,33 +40,34 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20sp"
-            android:text="TYPE:" />
+            android:textStyle="bold"
+            android:text="Type:" />
 
 
     <RadioGroup
+        android:id="@+id/type"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp">
+        android:gravity="center">
 
         <RadioButton
-            android:layout_width="0dp"
-            android:layout_weight="1"
+            android:id="@+id/singleDistance"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Recovery" />
+            android:text="Single Distance" />
 
         <RadioButton
-            android:layout_width="0dp"
-            android:layout_weight="1"
+            android:id="@+id/singleTime"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Low Rate" />
+            android:text="Single Time" />
 
         <RadioButton
-            android:layout_width="0dp"
-            android:layout_weight="1"
+            android:id="@+id/interval"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="AFAP" />
+            android:text="Interval" />
 
     </RadioGroup>
 
@@ -71,13 +75,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
-                android:text="DESCRIPTION:" />
+                android:textStyle="bold"
+                android:text="Description:" />
 
             <EditText
+                android:id="@+id/editDesc"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPersonName" />
-
+                android:layout_height="wrap_content" />
 
     </LinearLayout>
 

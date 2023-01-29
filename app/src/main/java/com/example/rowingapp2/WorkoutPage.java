@@ -72,8 +72,6 @@ public class WorkoutPage extends Fragment {
     }
 
         //Declare variables out here so that it doesn't recreate it each time
-        ArrayList<Workout> workouts;
-
         private RecyclerView recyclerView;
         private RecyclerView.Adapter mAdapter;
         private RecyclerView.LayoutManager layoutManager;
@@ -82,15 +80,13 @@ public class WorkoutPage extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        //CALL THIS TO GET WORKOUTS LIST
+        GlobalVariable globalVariable = (GlobalVariable) getActivity().getApplication();
+        ArrayList<Workout> workouts = globalVariable.getWorkouts();
+
         /**********************************************
          *              RECYCLERVIEW
          *********************************************/
-
-        workouts = new ArrayList<>();    //REMINDER: **YOU NEED THIS LINE OR THINGS BREAK!!**
-
-        workouts.add(new Workout("2k", "2000m, AFAP"));     //tests
-        workouts.add(new Workout("4 by 4'", "4 min: 20 on 10 off, 6 min rest"));
-
         recyclerView = (RecyclerView) view.findViewById(R.id.rList);
 
         recyclerView.setHasFixedSize(true);
@@ -109,7 +105,6 @@ public class WorkoutPage extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent addWorkoutPage = new Intent(getContext(), CreateNewWorkout.class);
-
                 startActivity(addWorkoutPage);
             }
         });

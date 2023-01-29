@@ -49,7 +49,7 @@ public class MemberRecyclerAdapter extends RecyclerView.Adapter<MemberRecyclerAd
                 { holder.icon.setImageResource(members.get(position).getImageId()); }
 
             //BUTTON
-        holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
+        holder.relativeLayout.setOnClickListener(new View.OnClickListener() {       //WANT TO LOOK
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(context, MemberDisplay.class);
@@ -61,7 +61,7 @@ public class MemberRecyclerAdapter extends RecyclerView.Adapter<MemberRecyclerAd
             }
         });
 
-       holder.edit.setOnClickListener(new View.OnClickListener() {
+       holder.edit.setOnClickListener(new View.OnClickListener() {              //WANT TO EDIT
            @Override
            public void onClick(View view) {
                Intent i = new Intent(context, CreateNewMember.class);
@@ -78,9 +78,7 @@ public class MemberRecyclerAdapter extends RecyclerView.Adapter<MemberRecyclerAd
     }
 
     @Override
-    public int getItemCount() {
-        return members.size();
-    }
+    public int getItemCount() {return members.size();}
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         ImageView icon;

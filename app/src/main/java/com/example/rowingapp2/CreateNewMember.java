@@ -77,7 +77,7 @@ public class CreateNewMember extends AppCompatActivity {
                 i.putExtra("isPort", isPort);
                 i.putExtra("isStarboard", isStarboard);
                 i.putExtra("id", memberId);
-                i.putExtra("check", true);
+                i.putExtra("checkMember", true);
                 startActivity(i);
 
             }

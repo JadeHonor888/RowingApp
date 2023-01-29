@@ -2,20 +2,14 @@ package com.example.rowingapp2;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.view.View;
-import android.widget.Button;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -60,36 +54,59 @@ public class MainActivity extends AppCompatActivity {
 
         //DO NOT PUT BUTTONS IN HERE
 
-        //NOT WORKING
-        MembersListGlobalVariable membersListGlobalVariable = (MembersListGlobalVariable) getApplication();
+        GlobalVariable globalVariable = (GlobalVariable) getApplication();
+        globalVariable.loadMemberData();
+        globalVariable.loadWorkoutData();
 
         Intent i = this.getIntent();
-        if (i != null && i.getBooleanExtra("check", false))
+        if (i != null)
         {
-            if (i.getIntExtra("id", -1) == -1)
-            {   //CREATE MEMBER
-                membersListGlobalVariable.createNewMember(
-                        i.getStringExtra("fName"),
-                        i.getStringExtra("lName"),
-                        i.getIntExtra("age", -1),
-                        i.getBooleanExtra("isFemale", true),
-                        i.getBooleanExtra("isPort", false),
-                        i.getBooleanExtra("isStarboard", false));
+            if(i.getBooleanExtra("checkMember", false))     //IS IT A MEMBER?
+            {
+                if (i.getIntExtra("id", -1) == -1)
+                {   //CREATE MEMBER
+                    globalVariable.createNewMember(
+                            i.getStringExtra("fName"),
+                            i.getStringExtra("lName"),
+                            i.getIntExtra("age", -1),
+                            i.getBooleanExtra("isFemale", true),
+                            i.getBooleanExtra("isPort", false),
+                            i.getBooleanExtra("isStarboard", false));
+                }
+                else
+                {   //EDIT MEMBER
+                    Member editMember = new Member(
+                            i.getStringExtra("fName"),
+                            i.getStringExtra("lName"),
+                            i.getIntExtra("age", -1),
+                            i.getBooleanExtra("isFemale", true),
+                            i.getBooleanExtra("isPort", false),
+                            i.getBooleanExtra("isStarboard", false),
+                            i.getIntExtra("id", -1));
+                    globalVariable.editMember(editMember, i.getIntExtra("id", -1));
+                }
             }
-            else
-            {   //EDIT MEMBER
-                Member editMember = new Member(
-                        i.getStringExtra("fName"),
-                        i.getStringExtra("lName"),
-                        i.getIntExtra("age", -1),
-                        i.getBooleanExtra("isFemale", true),
-                        i.getBooleanExtra("isPort", false),
-                        i.getBooleanExtra("isStarboard", false),
-                        i.getIntExtra("id", -1));
-                membersListGlobalVariable.editMember(editMember, i.getIntExtra("id", -1));
+            else if (i.getBooleanExtra("checkWorkout", false))      //IS IT A WORKOUT?
+            {
+                if (i.getIntExtra("id", -1) == -1)
+                {   //CREATE WORKOUT
+                    globalVariable.createNewWorkout(
+                            i.getStringExtra("name"),
+                            i.getStringExtra("desc"),
+                            i.getStringExtra("type"));
+                }
+                else
+                {   //EDIT WORKOUT
+                    Workout editWorkout = new Workout(
+                            i.getStringExtra("name"),
+                            i.getStringExtra("desc"),
+                            i.getStringExtra("type"),
+                            i.getIntExtra("id", -1));
+                    globalVariable.editWorkout(editWorkout, i.getIntExtra("id", -1));
+                }
             }
-
         }
+
 
     }
 }

@@ -2,7 +2,12 @@ package com.example.rowingapp2;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RadioGroup;
 
 public class CreateNewWorkout extends AppCompatActivity {
 
@@ -10,5 +15,84 @@ public class CreateNewWorkout extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_new_workout);
+
+        Button save = (Button) findViewById(R.id.save);
+        Button cancel = (Button) findViewById(R.id.cancel);
+        EditText editName = (EditText) findViewById(R.id.editName);
+        EditText editDesc = (EditText) findViewById(R.id.editDesc);
+        RadioGroup radioType = (RadioGroup) findViewById(R.id.type);
+
+        Intent i = this.getIntent();
+        if (i != null)
+        {
+            workoutId = i.getIntExtra("id", -1);
+        }
+        else
+        {
+            workoutId = -1;
+        }
+
+        if(workoutId != -1)
+        {
+            editName.setText(i.getStringExtra("name"));
+            editDesc.setText(i.getStringExtra("desc"));
+            if (i.getStringExtra("type").equals("Single Distance"))
+            {
+                radioType.check(R.id.singleDistance);
+            }
+            else if (i.getStringExtra("type").equals("Single Time"))
+            {
+                radioType.check(R.id.singleTime);
+            }
+            else if (i.getStringExtra("type").equals("Interval"))
+            {
+                radioType.check(R.id.interval);
+            }
+        }
+
+        cancel.setOnClickListener(new View.OnClickListener() {      //go back to main activity
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(CreateNewWorkout.this, MainActivity.class);
+                startActivity(i);
+            }
+        });
+
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //pick up on the edit text stuff
+                name = editName.getText().toString();
+                desc = editDesc.getText().toString();
+                if (radioType.getCheckedRadioButtonId() == R.id.singleDistance)
+                {
+                    type = "Single Distance";
+                }
+                else if (radioType.getCheckedRadioButtonId() == R.id.singleTime)
+                {
+                    type = "Single Time";
+                }
+                else if (radioType.getCheckedRadioButtonId() == R.id.interval)
+                {
+                    type = "Interval";
+                }
+                //create intent
+                Intent i = new Intent(CreateNewWorkout.this, MainActivity.class);
+                //Pass along the information:
+                i.putExtra("name", name);
+                i.putExtra("desc", desc);
+                i.putExtra("type", type);
+                i.putExtra("id", workoutId);
+                i.putExtra("checkWorkout", true);
+                startActivity(i);
+
+
+            }
+        });
     }
+    int workoutId;
+    String name;
+    String desc;
+    String type;
 }

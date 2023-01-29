@@ -38,10 +38,25 @@ public class WorkoutRecyclerAdapter extends RecyclerView.Adapter<WorkoutRecycler
         holder.desc.setText(workouts.get(position).getDesc());
 
         //BUTTON
-        holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
+        holder.relativeLayout.setOnClickListener(new View.OnClickListener() {           //WANT TO LOOK
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(context, WorkoutDisplay.class);
+                i.putExtra("name", workouts.get(position).getName());
+                i.putExtra("desc", workouts.get(position).getDesc());
+                i.putExtra("type", workouts.get(position).getType());
+                context.startActivity(i);
+            }
+        });
+
+        holder.edit.setOnClickListener(new View.OnClickListener() {             //WANT TO EDIT
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(context, CreateNewWorkout.class);
+                i.putExtra("name", workouts.get(position).getName());
+                i.putExtra("desc", workouts.get(position).getDesc());
+                i.putExtra("type", workouts.get(position).getType());
+                i.putExtra("id", workouts.get(position).getId());
                 context.startActivity(i);
             }
         });
@@ -56,12 +71,14 @@ public class WorkoutRecyclerAdapter extends RecyclerView.Adapter<WorkoutRecycler
         TextView name;
         TextView desc;
         RelativeLayout relativeLayout;
+        ImageView edit;
 
         public MyViewHolder(@NonNull View itemView){
             super(itemView);
             name = itemView.findViewById(R.id.name);
             desc = itemView.findViewById(R.id.desc);
             relativeLayout = itemView.findViewById(R.id.relLayout);
+            edit = itemView.findViewById(R.id.imageButton);
         }
     }
 }

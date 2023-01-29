@@ -13,8 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -73,8 +71,8 @@ public class MembersPage extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         //CALL THIS TO GET MEMBERS LIST
-        MembersListGlobalVariable membersListGlobalVariable = (MembersListGlobalVariable) getActivity().getApplication();
-        ArrayList<Member> members = membersListGlobalVariable.getMembers();
+        GlobalVariable globalVariable = (GlobalVariable) getActivity().getApplication();
+        ArrayList<Member> members = globalVariable.getMembers();
 
         /**********************************************
          *              RECYCLERVIEW
@@ -98,7 +96,7 @@ public class MembersPage extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getContext(), CreateNewMember.class);
-                i.putExtra("check", true);
+                //i.putExtra("check", true);
                 startActivity(i);
             }
         });
