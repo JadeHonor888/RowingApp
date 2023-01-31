@@ -105,6 +105,11 @@ public class MainActivity extends AppCompatActivity {
                     globalVariable.editWorkout(editWorkout, i.getIntExtra("id", -1));
                 }
             }
+            else if(i.getBooleanExtra("delMember", false))      //DELETE MEMBER
+            {
+                globalVariable.removeMember(i.getIntExtra("id", -1));
+            }
+
         }
 
 

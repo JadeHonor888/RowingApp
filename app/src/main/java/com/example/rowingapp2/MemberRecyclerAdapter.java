@@ -4,9 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.Image;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -49,7 +52,7 @@ public class MemberRecyclerAdapter extends RecyclerView.Adapter<MemberRecyclerAd
                 { holder.icon.setImageResource(members.get(position).getImageId()); }
 
             //BUTTON
-        holder.relativeLayout.setOnClickListener(new View.OnClickListener() {       //WANT TO LOOK
+        holder.linearLayout.setOnClickListener(new View.OnClickListener() {       //WANT TO LOOK
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(context, MemberDisplay.class);
@@ -61,20 +64,44 @@ public class MemberRecyclerAdapter extends RecyclerView.Adapter<MemberRecyclerAd
             }
         });
 
-       holder.edit.setOnClickListener(new View.OnClickListener() {              //WANT TO EDIT
-           @Override
-           public void onClick(View view) {
-               Intent i = new Intent(context, CreateNewMember.class);
-               i.putExtra("id", members.get(position).getId());
-               i.putExtra("fName", members.get(position).getFName());
-               i.putExtra("lName", members.get(position).getLName());
-               i.putExtra("age", String.valueOf(members.get(position).getAge()));
-               i.putExtra("gender", members.get(position).getGender());
-               i.putExtra("port", members.get(position).getPort());
-               i.putExtra("starboard", members.get(position).getStarboard());
-               context.startActivity(i);
-           }
-       });
+        holder.edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PopupMenu popupMenu = new PopupMenu(context,view);
+                popupMenu.inflate(R.menu.edit_delete_menu);
+                popupMenu.show();
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem menuItem) {
+                        if (menuItem.getItemId() == R.id.editItem)          //IF THEY CLICK EDIT
+                        {
+                                Intent i = new Intent(context, CreateNewMember.class);
+                                i.putExtra("id", members.get(position).getId());
+                                i.putExtra("fName", members.get(position).getFName());
+                                i.putExtra("lName", members.get(position).getLName());
+                                i.putExtra("age", String.valueOf(members.get(position).getAge()));
+                                i.putExtra("gender", members.get(position).getGender());
+                                i.putExtra("port", members.get(position).getPort());
+                                i.putExtra("starboard", members.get(position).getStarboard());
+                                context.startActivity(i);
+                                return true;
+                        }
+                        if (menuItem.getItemId() == R.id.deleteItem)        //IF THEY CLICK DELETE
+                        {
+                            Intent i = new Intent(context, MainActivity.class);
+                            i.putExtra("id", members.get(position).getId());
+                            i.putExtra("delMember", true);
+                            context.startActivity(i);
+                        }
+                        return false;
+                    }
+                });
+            }
+        });
+
+
+
+
     }
 
     @Override
@@ -87,7 +114,7 @@ public class MemberRecyclerAdapter extends RecyclerView.Adapter<MemberRecyclerAd
         TextView ageGroup;
         TextView gender;
         TextView side;
-        RelativeLayout relativeLayout;
+        LinearLayout linearLayout;
         ImageView edit;
 
         public MyViewHolder(@NonNull View itemView){
@@ -98,8 +125,9 @@ public class MemberRecyclerAdapter extends RecyclerView.Adapter<MemberRecyclerAd
             ageGroup = itemView.findViewById(R.id.ageGroup);
             gender = itemView.findViewById(R.id.gender);
             side = itemView.findViewById(R.id.side);
-            relativeLayout = itemView.findViewById(R.id.relLayout);
+            linearLayout = itemView.findViewById(R.id.linearLayout);
             edit = itemView.findViewById(R.id.imageButton);
+
         }
     }
 }

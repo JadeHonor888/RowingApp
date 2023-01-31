@@ -27,6 +27,21 @@ public class GlobalVariable extends Application {
         memberNextId++;
         saveMemberData();       //Shared Pref
     }
+    public void removeMember(int id)
+    {
+
+        for (int i = 0; i <= memberNextId; i++)
+        {
+            if (members.get(i).getId() == id)
+            {
+                members.remove(members.get(i));     //don't use remove(i) it doens't work (idk why)
+                saveMemberData();
+                break;
+            }
+        }
+
+
+    }
 
     public void createNewWorkout(String n, String d, String t) {
         Workout workout = new Workout(n, d, t, workoutNextId);
