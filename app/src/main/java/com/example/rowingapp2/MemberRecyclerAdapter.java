@@ -92,6 +92,7 @@ public class MemberRecyclerAdapter extends RecyclerView.Adapter<MemberRecyclerAd
                             i.putExtra("id", members.get(position).getId());
                             i.putExtra("delMember", true);
                             context.startActivity(i);
+                            return true;
                         }
                         return false;
                     }

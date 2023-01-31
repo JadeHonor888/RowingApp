@@ -39,8 +39,6 @@ public class GlobalVariable extends Application {
                 break;
             }
         }
-
-
     }
 
     public void createNewWorkout(String n, String d, String t) {
@@ -48,6 +46,19 @@ public class GlobalVariable extends Application {
         workouts.add(workout);
         workoutNextId++;
         saveWorkoutData();      //Shared pref
+    }
+    public void removeWorkout(int id)
+    {
+
+        for (int i = 0; i <= workoutNextId; i++)
+        {
+            if (workouts.get(i).getId() == id)
+            {
+                workouts.remove(workouts.get(i));
+                saveWorkoutData();
+                break;
+            }
+        }
     }
 
     /**
@@ -115,7 +126,11 @@ public class GlobalVariable extends Application {
         Type type = new TypeToken<ArrayList<Member>>(){
         }.getType();
         members = gson.fromJson(json, type);
-        if(members == null) {members = new ArrayList<Member>();}        //CREATE NEW IF FIRST
+        if(members == null)                     //CREATE NEW IF FIRST
+        {
+            members = new ArrayList<Member>();
+            memberNextId = 0;
+        }
     }
 
     public void saveWorkoutData()
@@ -139,6 +154,10 @@ public class GlobalVariable extends Application {
         Type type = new TypeToken<ArrayList<Workout>>(){
         }.getType();
         workouts = gson.fromJson(json, type);
-        if(workouts == null) {workouts = new ArrayList<Workout>();}        //CREATE NEW IF FIRST
+        if(workouts == null)                        //CREATE NEW IF FIRST
+        {
+            workouts = new ArrayList<Workout>();
+            workoutNextId = 0;
+        }
     }
 }
