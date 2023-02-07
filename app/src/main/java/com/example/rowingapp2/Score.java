@@ -8,12 +8,12 @@ public class Score
     private int stroke;
 
     //CONSTRUCTORS
-    public Score(double s, int d, double t, int stroke)
+    public Score(double s, int d, double t, int st)
     {
         split = s;
         distance = d;
         duration = t;
-        this.stroke = stroke;
+        stroke = st;
     }
 
     //GETTERS

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+    <CheckBox
+        android:id="@+id/check"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent" />
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="44dp"
+        android:layout_height="44dp" />
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:layout_weight="1"
+        android:paddingStart="10dp" />
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="22dp"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        app:srcCompat="@drawable/threedotssmall"
+        android:scaleType="fitStart"
+        android:padding="8dp"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/enterScores"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:text="Enter Scores" />
+
+</LinearLayout>

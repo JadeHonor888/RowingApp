@@ -52,20 +52,6 @@ public class WorkoutRecyclerAdapter extends RecyclerView.Adapter<WorkoutRecycler
             }
         });
 
-        /*
-        holder.edit.setOnClickListener(new View.OnClickListener() {             //WANT TO EDIT
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(context, CreateNewWorkout.class);
-                i.putExtra("name", workouts.get(position).getName());
-                i.putExtra("desc", workouts.get(position).getDesc());
-                i.putExtra("type", workouts.get(position).getType());
-                i.putExtra("id", workouts.get(position).getId());
-                context.startActivity(i);
-            }
-        });
-
-         */
         holder.edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

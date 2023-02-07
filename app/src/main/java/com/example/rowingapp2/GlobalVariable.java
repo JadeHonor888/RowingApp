@@ -17,6 +17,7 @@ public class GlobalVariable extends Application {
     private static int memberNextId;
     private static ArrayList<Workout> workouts;
     private static int workoutNextId;
+    private static ArrayList<Score> scores;
 
     public GlobalVariable() {            //CONSTRUCTOR
     }
@@ -80,6 +81,8 @@ public class GlobalVariable extends Application {
         return workoutNextId;
     }
 
+    public ArrayList<Score> getScores() {return scores;}
+
     /**
      *      SETTERS
      */
@@ -102,6 +105,10 @@ public class GlobalVariable extends Application {
         saveWorkoutData();          //Shared pref
     }
 
+    public void editScore(Score score, int id) {
+        scores.set(id, score);
+    }
+
     /**
      *      SHARED PREFERENCES
      */
@@ -114,7 +121,7 @@ public class GlobalVariable extends Application {
         //Translate arrayList into string
         Gson gson = new Gson();
         String json = gson.toJson(members);
-        myEdit.putString("memberData",json);
+        myEdit.putString("memberData",json);                //TODO: Look into whether we need to save memberNextId or not, it might set it to zero each time
         myEdit.apply();
     }
 

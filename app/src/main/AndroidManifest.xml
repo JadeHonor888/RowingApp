@@ -11,6 +11,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RowingApp2">
         <activity
+            android:name=".EnterEditScores"
+            android:exported="true" />
+        <activity
             android:name=".AdjustAttendance"
             android:exported="true" />
         <activity
