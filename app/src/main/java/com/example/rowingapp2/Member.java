@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 public class Member {
 
+    //MEMBER ATTRIBUTES
     private int id;
     private String fName;
     private String lName;
@@ -15,9 +16,10 @@ public class Member {
     private boolean isStarboard;
     private boolean isPort;
 
-    // FOR WORKOUT SECTION
+    //SCORE ATTRIBUTES
+    private ArrayList<Score> memberScores;
+    private static int nextId;
     private double split;
-    private ArrayList<Score> scores;
 
     public Member(String fn,String ln, int a, boolean f, boolean s, boolean p, int i)
     {
@@ -37,6 +39,8 @@ public class Member {
         isFemale = f;
         isPort = p;
         isStarboard = s;
+        memberScores = new ArrayList<Score>();
+        nextId = 0;
     }
 
     public Member(String fn, String ln, int a, boolean f, boolean s, boolean p, int im, int i)
@@ -57,9 +61,13 @@ public class Member {
         isFemale = f;
         isPort = p;
         isStarboard = s;
+        memberScores = new ArrayList<Score>();
+        nextId = 0;
     }
 
-    // GETTERS
+    /***********************
+     *      GETTERS
+     **********************/
     public int getId() {return id;}
     public String getFName() {return fName;}
     public String getLName() {return lName;}
@@ -85,7 +93,9 @@ public class Member {
     }
     public boolean getStarboard() {return isStarboard;}
 
-    //SETTERS
+    /***********************
+     *      SETTERS
+     **********************/
     public void setfName(String fn) {fName = fn;}
     public void setlName(String ln) {lName = ln;}
     public void setAge(int a)
@@ -104,5 +114,18 @@ public class Member {
     public void setFemale(boolean f) {isFemale = f;}
     public void setPort(boolean p) {isPort = p;}
     public void setStarboard(boolean s) {isStarboard = s;}
+
+
+    /***********************
+     *    SCORE METHODS
+     **********************/
+    public void addScore()
+    {
+        memberScores.add(new Score(nextId));
+        nextId++;
+    }
+    public void removeScore(Score score) { memberScores.remove(score); }
+    public void editScore(Score score, int i) { memberScores.set(i, score); }
+    public ArrayList<Score> getMemberScores() { return memberScores; }
 
 }

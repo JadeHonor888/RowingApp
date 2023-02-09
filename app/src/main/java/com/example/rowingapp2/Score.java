@@ -6,14 +6,17 @@ public class Score
     private int distance;
     private double duration;
     private int stroke;
+    private int id;
+
 
     //CONSTRUCTORS
-    public Score(double s, int d, double t, int st)
+    public Score (int i)
     {
-        split = s;
-        distance = d;
-        duration = t;
-        stroke = st;
+        split = 0;
+        distance = 0;
+        duration = 0;
+        stroke = 0;
+        id = i;
     }
 
     //GETTERS
@@ -21,11 +24,13 @@ public class Score
     public int getDistance() {return distance;}
     public double getDuration() {return duration;}
     public int getStroke() {return stroke;}
+    public int getId() {return id;}
 
     //SETTERS
     public void setSplit(double s) {split = s;}
     public void setDistance(int d) {distance = d;}
     public void setDuration(double d) {duration = d;}
     public void setStroke(int s) {stroke = s;}
+    public void setId(int i) {id = i;}
 
 }

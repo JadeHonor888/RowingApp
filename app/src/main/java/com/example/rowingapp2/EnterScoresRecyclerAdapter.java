@@ -10,6 +10,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,12 +20,10 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 
 public class EnterScoresRecyclerAdapter extends RecyclerView.Adapter<EnterScoresRecyclerAdapter.MyViewHolder>{
-    ArrayList<Score> scores;
     ArrayList<Member> members;
     Context context;
 
-    public EnterScoresRecyclerAdapter(ArrayList<Score> scores,ArrayList<Member> members, Context context) {
-        this.scores = scores;
+    public EnterScoresRecyclerAdapter(ArrayList<Member> members, Context context) {
         this.members = members;
         this.context = context;
     }
@@ -54,6 +53,7 @@ public class EnterScoresRecyclerAdapter extends RecyclerView.Adapter<EnterScores
         holder.check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
                 if (isChecked)
                 {
                     holder.enterScores.setVisibility(View.VISIBLE);
@@ -61,6 +61,7 @@ public class EnterScoresRecyclerAdapter extends RecyclerView.Adapter<EnterScores
                 else
                 {
                     holder.enterScores.setVisibility(View.GONE);
+
                 }
             }
         });

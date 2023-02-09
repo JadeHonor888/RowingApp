@@ -17,7 +17,6 @@ public class GlobalVariable extends Application {
     private static int memberNextId;
     private static ArrayList<Workout> workouts;
     private static int workoutNextId;
-    private static ArrayList<Score> scores;
 
     public GlobalVariable() {            //CONSTRUCTOR
     }
@@ -81,8 +80,6 @@ public class GlobalVariable extends Application {
         return workoutNextId;
     }
 
-    public ArrayList<Score> getScores() {return scores;}
-
     /**
      *      SETTERS
      */
@@ -97,7 +94,6 @@ public class GlobalVariable extends Application {
 
     public void setWorkouts(ArrayList<Workout> workout) {
         workouts = workout;
-
     }
 
     public void editWorkout(Workout workout, int id) {
@@ -105,9 +101,6 @@ public class GlobalVariable extends Application {
         saveWorkoutData();          //Shared pref
     }
 
-    public void editScore(Score score, int id) {
-        scores.set(id, score);
-    }
 
     /**
      *      SHARED PREFERENCES

@@ -25,7 +25,6 @@ public class WorkoutEnterScores extends AppCompatActivity {
 
         GlobalVariable globalVariable = (GlobalVariable) getApplication();
         ArrayList<Member> members = globalVariable.getMembers();
-        ArrayList<Score> scores = globalVariable.getScores();
 
         Button save = (Button) findViewById(R.id.save);
         Button cancel = (Button) findViewById(R.id.cancel);
@@ -40,7 +39,7 @@ public class WorkoutEnterScores extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        mAdapter = new EnterScoresRecyclerAdapter(scores,members,this);
+        mAdapter = new EnterScoresRecyclerAdapter(members,this);
         recyclerView.setAdapter(mAdapter);
 
         /**********************************************

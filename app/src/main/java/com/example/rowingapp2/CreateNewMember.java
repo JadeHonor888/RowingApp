@@ -63,7 +63,15 @@ public class CreateNewMember extends AppCompatActivity {
                     //pick up on the edit text stuff
                 fName = editFName.getText().toString();
                 lName = editLName.getText().toString();
-                age = Integer.parseInt(editAge.getText().toString());
+                if (editAge.getText().toString().isEmpty())
+                {
+                    age = 0;
+                }
+                else
+                {
+                    age = Integer.parseInt(editAge.getText().toString());
+                }
+
                 if (gender.getCheckedRadioButtonId() == R.id.female) { isFemale = true; }
                 if(port.isChecked()) {isPort = true;}
                 if(starboard.isChecked()) {isStarboard = true;}
