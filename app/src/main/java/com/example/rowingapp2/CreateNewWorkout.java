@@ -22,32 +22,34 @@ public class CreateNewWorkout extends AppCompatActivity {
         EditText editDesc = (EditText) findViewById(R.id.editDesc);
         RadioGroup radioType = (RadioGroup) findViewById(R.id.type);
 
+        GlobalVariable globalVariable = (GlobalVariable) getApplication();
+        Workout currWorkout;
+
         Intent i = this.getIntent();
         if (i != null)
         {
-            workoutId = i.getIntExtra("id", -1);
+            workoutId = i.getIntExtra("workoutId", -1);
+            currWorkout = globalVariable.getWorkoutFromId(workoutId);       //get currWorkout from id
+
+
+            editName.setText(currWorkout.getName());
+            editDesc.setText(currWorkout.getDesc());
+            if (currWorkout.getType().equals("Single Distance"))
+            {
+                radioType.check(R.id.singleDistance);
+            }
+            else if (currWorkout.getType().equals("Single Time"))
+            {
+                radioType.check(R.id.singleTime);
+            }
+            else if (currWorkout.getType().equals("Interval"))
+            {
+                radioType.check(R.id.interval);
+            }
         }
         else
         {
             workoutId = -1;
-        }
-
-        if(workoutId != -1)
-        {
-            editName.setText(i.getStringExtra("name"));
-            editDesc.setText(i.getStringExtra("desc"));
-            if (i.getStringExtra("type").equals("Single Distance"))
-            {
-                radioType.check(R.id.singleDistance);
-            }
-            else if (i.getStringExtra("type").equals("Single Time"))
-            {
-                radioType.check(R.id.singleTime);
-            }
-            else if (i.getStringExtra("type").equals("Interval"))
-            {
-                radioType.check(R.id.interval);
-            }
         }
 
         cancel.setOnClickListener(new View.OnClickListener() {      //go back to main activity
@@ -83,7 +85,7 @@ public class CreateNewWorkout extends AppCompatActivity {
                 i.putExtra("name", name);
                 i.putExtra("desc", desc);
                 i.putExtra("type", type);
-                i.putExtra("id", workoutId);
+                i.putExtra("workoutId", workoutId);
                 i.putExtra("checkWorkout", true);
                 startActivity(i);
 

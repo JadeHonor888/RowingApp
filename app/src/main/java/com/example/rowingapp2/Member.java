@@ -68,7 +68,7 @@ public class Member {
     /***********************
      *      GETTERS
      **********************/
-    public int getId() {return id;}
+    public int getMemberId() {return id;}
     public String getFName() {return fName;}
     public String getLName() {return lName;}
     public int getAge() {return age;}

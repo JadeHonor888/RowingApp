@@ -11,7 +11,7 @@ public class Workout {
     private String type;
 
     //SCORE/ENTRY ATTRIBUTES
-    private ArrayList<ArrayList<Score>> entries;
+    private ArrayList<Entry> entries;
 
     public Workout(String n, String d, String t, int i)
     {
@@ -19,8 +19,9 @@ public class Workout {
         desc = d;
         type = t;
         id = i;
-        entries = new ArrayList<ArrayList<Score>>();            //list of list of scores
+        entries = new ArrayList<Entry>();
     }
+    public Workout () {}
 
     /***********************
      *      GETTERS
@@ -29,6 +30,7 @@ public class Workout {
     public String getName() {return name;}
     public String getDesc() {return desc;}
     public String getType() {return type;}
+    public ArrayList<Entry> getEntries() {return entries;}
 
 
     /***********************
@@ -40,12 +42,11 @@ public class Workout {
 
 
     /***********************
-     *    SCORE METHODS
+     *    ENTRY METHODS
      **********************/
-    public void newEntry()
+    public void newEntry(int numOfMembers)
     {
-        ArrayList<Score> newEntry = new ArrayList<Score>();
-        entries.add(newEntry);
+        entries.add(new Entry(numOfMembers));
     }
 
 }

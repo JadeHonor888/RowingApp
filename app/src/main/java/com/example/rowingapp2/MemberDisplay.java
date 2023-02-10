@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MemberDisplay extends AppCompatActivity {
 
@@ -24,13 +25,22 @@ public class MemberDisplay extends AppCompatActivity {
         TextView side = (TextView) findViewById(R.id.displaySide);
         TextView split = (TextView) findViewById(R.id.displaySplit);
 
+        GlobalVariable globalVariable = (GlobalVariable) getApplication();
+        Member currMember;
+
         Intent i = this.getIntent();
         if (i != null)
         {
-            name.setText(i.getStringExtra("name"));
-            age.setText(i.getStringExtra("age"));
-            gender.setText(i.getStringExtra("gender"));
-            side.setText(i.getStringExtra("side"));
+            //get member
+            currMember = globalVariable.getMemberFromId(i.getIntExtra("memberId", -1));
+
+            //set views to match attributes
+            String fullName = currMember.getFName() + " " + currMember.getLName();
+            name.setText(fullName);
+            age.setText(String.valueOf(currMember.getAge()));
+            gender.setText(currMember.getGenderString());
+            String fullSide = currMember.getStarboardString() + "  " + currMember.getPortString();
+            side.setText(fullSide);
         }
 
         back.setOnClickListener(new View.OnClickListener() {

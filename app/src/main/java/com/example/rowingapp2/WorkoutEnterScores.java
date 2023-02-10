@@ -25,9 +25,19 @@ public class WorkoutEnterScores extends AppCompatActivity {
 
         GlobalVariable globalVariable = (GlobalVariable) getApplication();
         ArrayList<Member> members = globalVariable.getMembers();
+        Workout currWorkout = new Workout();
+        Entry newEntry;
 
         Button save = (Button) findViewById(R.id.save);
         Button cancel = (Button) findViewById(R.id.cancel);
+
+        Intent i = getIntent();
+        if (i != null && i.getBooleanExtra("enterScores", false))           //if we came from the workout page
+        {
+            currWorkout = globalVariable.getWorkoutFromId(i.getIntExtra("workoutId", -1));      //get the workout
+            currWorkout.newEntry(members.size());      //make a new entry
+        }
+        newEntry = currWorkout.getEntries().get(currWorkout.getEntries().size() - 1); //get most recent entry
 
         /**********************************************
          *              RECYCLERVIEW
@@ -39,7 +49,7 @@ public class WorkoutEnterScores extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        mAdapter = new EnterScoresRecyclerAdapter(members,this);
+        mAdapter = new EnterScoresRecyclerAdapter(members, newEntry,this);
         recyclerView.setAdapter(mAdapter);
 
         /**********************************************

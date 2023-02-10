@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
             }
             else if (i.getBooleanExtra("checkWorkout", false))      //IS IT A WORKOUT?
             {
-                if (i.getIntExtra("id", -1) == -1)
+                if (i.getIntExtra("workoutId", -1) == -1)
                 {   //CREATE WORKOUT
                     globalVariable.createNewWorkout(
                             i.getStringExtra("name"),
@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
                             i.getStringExtra("name"),
                             i.getStringExtra("desc"),
                             i.getStringExtra("type"),
-                            i.getIntExtra("id", -1));
+                            i.getIntExtra("workoutId", -1));
                     globalVariable.editWorkout(editWorkout, i.getIntExtra("id", -1));
                 }
             }

@@ -32,7 +32,7 @@ public class GlobalVariable extends Application {
 
         for (int i = 0; i <= memberNextId; i++)
         {
-            if (members.get(i).getId() == id)
+            if (members.get(i).getMemberId() == id)
             {
                 members.remove(members.get(i));     //don't use remove(i) it doens't work (idk why)
                 saveMemberData();
@@ -78,6 +78,30 @@ public class GlobalVariable extends Application {
 
     public int getNextId() {
         return workoutNextId;
+    }
+
+    public Workout getWorkoutFromId(int id)             //find the workout with this id
+    {
+        for (int i = 0; i < workouts.size(); i++)
+        {
+            if (workouts.get(i).getId() == id)
+            {
+                return workouts.get(i);
+            }
+        }
+        return null;    //this shouldn't happen
+    }
+
+    public Member getMemberFromId(int id)
+    {
+        for (int i = 0; i < members.size(); i++)
+        {
+            if (members.get(i).getMemberId() == id)         //if the member has the right id
+            {
+                return members.get(i);
+            }
+        }
+        return null;
     }
 
     /**

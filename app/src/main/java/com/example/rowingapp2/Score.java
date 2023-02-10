@@ -24,13 +24,13 @@ public class Score
     public int getDistance() {return distance;}
     public double getDuration() {return duration;}
     public int getStroke() {return stroke;}
-    public int getId() {return id;}
+    public int getScoreId() {return id;}
 
     //SETTERS
     public void setSplit(double s) {split = s;}
     public void setDistance(int d) {distance = d;}
     public void setDuration(double d) {duration = d;}
     public void setStroke(int s) {stroke = s;}
-    public void setId(int i) {id = i;}
+    public void setScoreId(int i) {id = i;}
 
 }

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -24,12 +25,18 @@ public class WorkoutDisplay extends AppCompatActivity {
         Button enterScores = (Button) findViewById(R.id.enterScores);
         Button pastEntries = (Button) findViewById(R.id.pastEntries);
 
+        GlobalVariable globalVariable = (GlobalVariable) getApplication();
+        Workout currWorkout;
+
         Intent i = this.getIntent();
         if (i != null)
         {
-            name.setText(i.getStringExtra("name"));
-            desc.setText(i.getStringExtra("desc"));
-            type.setText(i.getStringExtra("type"));
+            currWorkout = globalVariable.getWorkoutFromId(i.getIntExtra("workoutId", -1));
+            id = currWorkout.getId();
+
+            name.setText(currWorkout.getName());
+            desc.setText(currWorkout.getDesc());
+            type.setText(currWorkout.getType());
         }
 
         back.setOnClickListener(new View.OnClickListener() {
@@ -44,9 +51,12 @@ public class WorkoutDisplay extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(WorkoutDisplay.this, WorkoutEnterScores.class);
+                i.putExtra("enterScores", true);
+                i.putExtra("workoutId", id);
                 startActivity(i);
             }
         });
 
     }
+    int id;
 }

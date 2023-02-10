@@ -21,10 +21,12 @@ import java.util.ArrayList;
 
 public class EnterScoresRecyclerAdapter extends RecyclerView.Adapter<EnterScoresRecyclerAdapter.MyViewHolder>{
     ArrayList<Member> members;
+    Entry entry;
     Context context;
 
-    public EnterScoresRecyclerAdapter(ArrayList<Member> members, Context context) {
+    public EnterScoresRecyclerAdapter(ArrayList<Member> members, Entry entry, Context context) {
         this.members = members;
+        this.entry = entry;
         this.context = context;
     }
 
@@ -57,6 +59,7 @@ public class EnterScoresRecyclerAdapter extends RecyclerView.Adapter<EnterScores
                 if (isChecked)
                 {
                     holder.enterScores.setVisibility(View.VISIBLE);
+                    entry.getScores().get(holder.getAdapterPosition()).setScoreId(members.get(holder.getAdapterPosition()).getMemberId());        //set the score id to match the member id
                 }
                 else
                 {

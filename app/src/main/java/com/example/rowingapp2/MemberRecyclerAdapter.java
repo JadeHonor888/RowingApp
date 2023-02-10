@@ -56,10 +56,7 @@ public class MemberRecyclerAdapter extends RecyclerView.Adapter<MemberRecyclerAd
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(context, MemberDisplay.class);
-                i.putExtra("name", fullName);
-                i.putExtra("age", String.valueOf(members.get(position).getAge()));
-                i.putExtra("gender", members.get(position).getGenderString());
-                i.putExtra("side", side);
+                i.putExtra("memberId", members.get(position).getMemberId());
                 context.startActivity(i);
             }
         });
@@ -76,7 +73,7 @@ public class MemberRecyclerAdapter extends RecyclerView.Adapter<MemberRecyclerAd
                         if (menuItem.getItemId() == R.id.editItem)          //IF THEY CLICK EDIT
                         {
                                 Intent i = new Intent(context, CreateNewMember.class);
-                                i.putExtra("id", members.get(position).getId());
+                                i.putExtra("id", members.get(position).getMemberId());
                                 i.putExtra("fName", members.get(position).getFName());
                                 i.putExtra("lName", members.get(position).getLName());
                                 i.putExtra("age", String.valueOf(members.get(position).getAge()));
@@ -89,7 +86,7 @@ public class MemberRecyclerAdapter extends RecyclerView.Adapter<MemberRecyclerAd
                         if (menuItem.getItemId() == R.id.deleteItem)        //IF THEY CLICK DELETE
                         {
                             Intent i = new Intent(context, MainActivity.class);
-                            i.putExtra("id", members.get(position).getId());
+                            i.putExtra("id", members.get(position).getMemberId());
                             i.putExtra("delMember", true);
                             context.startActivity(i);
                             return true;
