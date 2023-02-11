@@ -35,17 +35,6 @@ public class EnterEditScores extends AppCompatActivity {
                 split = Double.parseDouble(editSplit.getText().toString());
                 stroke = Integer.parseInt(editStroke.getText().toString());
 
-                //We assume here that there is already a score if they clicked on the checkbox
-                /*
-                Score currMemberScore = currentMember.getMostRecentScore();
-                currMemberScore.setDuration(duration);
-                currMemberScore.setDistance(distance);
-                currMemberScore.setSplit(split);
-                currMemberScore.setStroke(stroke);
-
-                currentMember.editScore(currMemberScore, currentMember.getMostRecentScore().getId());    //edit the most recent score
-                 */
-
                 startActivity(i);
             }
         });

@@ -7,7 +7,9 @@ public class Score
     private double duration;
     private int stroke;
     private int id;
-
+    private String memberName;
+    private int memberImageId;
+    private boolean isChecked;
 
     //CONSTRUCTORS
     public Score (int i)
@@ -25,6 +27,9 @@ public class Score
     public double getDuration() {return duration;}
     public int getStroke() {return stroke;}
     public int getScoreId() {return id;}
+    public String getMemberName() {return memberName;}
+    public int getMemberImageId() {return memberImageId;}
+    public boolean getIsChecked() {return isChecked;}
 
     //SETTERS
     public void setSplit(double s) {split = s;}
@@ -32,5 +37,8 @@ public class Score
     public void setDuration(double d) {duration = d;}
     public void setStroke(int s) {stroke = s;}
     public void setScoreId(int i) {id = i;}
+    public void setMemberName(String n) {memberName = n;}
+    public void setMemberImageId(int i) {memberImageId = i;}
+    public void setIsChecked(boolean c) {isChecked = c;}
 
 }

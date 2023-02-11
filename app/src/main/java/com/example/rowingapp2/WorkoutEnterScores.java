@@ -25,19 +25,30 @@ public class WorkoutEnterScores extends AppCompatActivity {
 
         GlobalVariable globalVariable = (GlobalVariable) getApplication();
         ArrayList<Member> members = globalVariable.getMembers();
-        Workout currWorkout = new Workout();
-        Entry newEntry;
+        Entry entry1 = new Entry();
+
+        Intent i = getIntent();
+        if (i != null)           //if we came from the workout page
+        {
+            if (i.getBooleanExtra("enterScores", false))
+            {
+                entry1 = new Entry(members.size());                       //make a new entry
+                for (int x = 0; x < members.size(); x++)
+                {
+                    String fullName = members.get(x).getFName() + " " + members.get(x).getLName();          //match member names
+                    entry1.getScores().get(x).setMemberName(fullName);
+                }
+            }
+            else if(i.getBooleanExtra("scoresEntered", false))
+            {
+                //here we update the scores
+            }
+
+        }
 
         Button save = (Button) findViewById(R.id.save);
         Button cancel = (Button) findViewById(R.id.cancel);
 
-        Intent i = getIntent();
-        if (i != null && i.getBooleanExtra("enterScores", false))           //if we came from the workout page
-        {
-            currWorkout = globalVariable.getWorkoutFromId(i.getIntExtra("workoutId", -1));      //get the workout
-            currWorkout.newEntry(members.size());      //make a new entry
-        }
-        newEntry = currWorkout.getEntries().get(currWorkout.getEntries().size() - 1); //get most recent entry
 
         /**********************************************
          *              RECYCLERVIEW
@@ -49,7 +60,7 @@ public class WorkoutEnterScores extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        mAdapter = new EnterScoresRecyclerAdapter(members, newEntry,this);
+        mAdapter = new EnterScoresRecyclerAdapter(entry1,this);
         recyclerView.setAdapter(mAdapter);
 
         /**********************************************
@@ -63,6 +74,12 @@ public class WorkoutEnterScores extends AppCompatActivity {
             }
         });
 
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //HERE GOES THE CODE TO UPDATE WORKOUTS & MEMBER SCORES
+            }
+        });
 
     }
 }
