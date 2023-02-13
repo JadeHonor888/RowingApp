@@ -65,6 +65,7 @@ public class EnterScoresRecyclerAdapter extends RecyclerView.Adapter<EnterScores
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(context, EnterEditScores.class);
+                i.putExtra("scoreId", entry.getScores().get(position).getScoreId());
                 context.startActivity(i);
             }
         });

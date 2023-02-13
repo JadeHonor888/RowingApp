@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
             {
                 if (i.getIntExtra("id", -1) == -1)
                 {   //CREATE MEMBER
-                    globalVariable.createNewMember(                     //TODO: JUST PASS THE ID BETWEEN THE CLASSES INSTEAD OF ALL THE INFORMATION
+                    globalVariable.createNewMember(
                             i.getStringExtra("fName"),
                             i.getStringExtra("lName"),
                             i.getIntExtra("age", -1),

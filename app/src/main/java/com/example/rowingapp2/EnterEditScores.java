@@ -25,6 +25,10 @@ public class EnterEditScores extends AppCompatActivity {
         EditText editStroke = (EditText) findViewById(R.id.editStroke);
 
         Intent i = getIntent();
+        if (i != null)
+        {
+            scoreId = i.getIntExtra("scoreId", -1);
+        }
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -34,7 +38,12 @@ public class EnterEditScores extends AppCompatActivity {
                 distance = Integer.parseInt(editDistance.getText().toString());
                 split = Double.parseDouble(editSplit.getText().toString());
                 stroke = Integer.parseInt(editStroke.getText().toString());
-
+                i.putExtra("scoresEntered", true);
+                i.putExtra("scoreId", scoreId);
+                i.putExtra("duration", duration);
+                i.putExtra("distance", distance);
+                i.putExtra("split", split);
+                i.putExtra("stroke", stroke);
                 startActivity(i);
             }
         });
@@ -48,7 +57,7 @@ public class EnterEditScores extends AppCompatActivity {
         });
     }
 
-    Score currScore;
+    int scoreId;
     double duration;
     int distance;
     double split;

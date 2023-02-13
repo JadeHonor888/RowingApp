@@ -56,7 +56,6 @@ public class WorkoutDisplay extends AppCompatActivity {
                 startActivity(i);
             }
         });
-
     }
     int id;
 }
