@@ -26,7 +26,7 @@ public class CreateNewWorkout extends AppCompatActivity {
         Workout currWorkout;
 
         Intent i = this.getIntent();
-        if (i != null)
+        if (i != null && !i.getBooleanExtra("newWorkout", false))
         {
             workoutId = i.getIntExtra("workoutId", -1);
             currWorkout = globalVariable.getWorkoutFromId(workoutId);       //get currWorkout from id

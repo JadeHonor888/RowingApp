@@ -30,7 +30,7 @@ public class GlobalVariable extends Application {
     public void removeMember(int id)
     {
 
-        for (int i = 0; i <= memberNextId; i++)
+        for (int i = 0; i <= members.size(); i++)
         {
             if (members.get(i).getMemberId() == id)
             {
@@ -50,7 +50,7 @@ public class GlobalVariable extends Application {
     public void removeWorkout(int id)
     {
 
-        for (int i = 0; i <= workoutNextId; i++)
+        for (int i = 0; i <= workouts.size(); i++)
         {
             if (workouts.get(i).getId() == id)
             {

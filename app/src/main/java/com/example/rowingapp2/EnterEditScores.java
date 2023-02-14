@@ -2,6 +2,7 @@ package com.example.rowingapp2;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -38,21 +39,23 @@ public class EnterEditScores extends AppCompatActivity {
                 distance = Integer.parseInt(editDistance.getText().toString());
                 split = Double.parseDouble(editSplit.getText().toString());
                 stroke = Integer.parseInt(editStroke.getText().toString());
-                i.putExtra("scoresEntered", true);
+                //i.putExtra("scoresEntered", true);
                 i.putExtra("scoreId", scoreId);
                 i.putExtra("duration", duration);
                 i.putExtra("distance", distance);
                 i.putExtra("split", split);
                 i.putExtra("stroke", stroke);
-                startActivity(i);
+                setResult(Activity.RESULT_OK, i);
+                finish();
             }
         });
 
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(EnterEditScores.this, WorkoutEnterScores.class);
-                startActivity(i);
+//                Intent i = new Intent(EnterEditScores.this, WorkoutEnterScores.class);
+//                startActivity(i);
+                finish();
             }
         });
     }

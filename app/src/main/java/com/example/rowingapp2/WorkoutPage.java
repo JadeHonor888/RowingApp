@@ -105,6 +105,7 @@ public class WorkoutPage extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent addWorkoutPage = new Intent(getContext(), CreateNewWorkout.class);
+                addWorkoutPage.putExtra("newWorkout", true);
                 startActivity(addWorkoutPage);
             }
         });
