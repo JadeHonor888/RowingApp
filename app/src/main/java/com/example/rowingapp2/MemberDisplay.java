@@ -1,6 +1,8 @@
 package com.example.rowingapp2;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +14,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MemberDisplay extends AppCompatActivity {
+
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager layoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +48,24 @@ public class MemberDisplay extends AppCompatActivity {
             String fullSide = currMember.getStarboardString() + "  " + currMember.getPortString();
             side.setText(fullSide);
         }
+
+        /**********************************************
+         *              RECYCLERVIEW
+         *********************************************/
+        //CURRENTLY A WORK IN PROGRESS
+        /*
+        recyclerView = (RecyclerView) findViewById(R.id.rList);
+
+        recyclerView.setHasFixedSize(true);
+
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+
+        mAdapter = new MemberScoresRecyclerAdapter(currMember,this);
+        recyclerView.setAdapter(mAdapter);
+
+         */
+
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override

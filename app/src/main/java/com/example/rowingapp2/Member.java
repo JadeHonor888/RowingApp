@@ -119,9 +119,10 @@ public class Member {
     /***********************
      *    SCORE METHODS
      **********************/
-    public void addScore()
+    public void addScore(Score score)
     {
-        memberScores.add(new Score(nextId));
+        score.setScoreId(nextId);
+        memberScores.add(score);
         nextId++;
     }
     public void removeScore(Score score) { memberScores.remove(score); }

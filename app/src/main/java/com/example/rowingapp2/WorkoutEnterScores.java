@@ -13,11 +13,14 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.lang.reflect.Array;
+import java.time.Duration;
 import java.util.ArrayList;
 
 public class WorkoutEnterScores extends AppCompatActivity {
@@ -29,8 +32,6 @@ public class WorkoutEnterScores extends AppCompatActivity {
     private Workout currWorkout;
     private Entry currEntry;
 
-    ActivityResultLauncher<Intent> editScoreIntent;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +39,9 @@ public class WorkoutEnterScores extends AppCompatActivity {
 
         GlobalVariable globalVariable = (GlobalVariable) getApplication();
         ArrayList<Member> members = globalVariable.getMembers();
+
+        Button save = (Button) findViewById(R.id.save);
+        Button cancel = (Button) findViewById(R.id.cancel);
 
         Intent i = getIntent();
         if (i != null)           //if we came from the workout page
@@ -57,20 +61,7 @@ public class WorkoutEnterScores extends AppCompatActivity {
             }
         }
 
-    }
 
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        Button save = (Button) findViewById(R.id.save);
-        Button cancel = (Button) findViewById(R.id.cancel);
-        
-        /**********************************************
-         *            RECEIVING SCORE INFO
-         *********************************************/
-        /*
         ActivityResultLauncher<Intent> editScoreIntent = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 new ActivityResultCallback<ActivityResult>() {
@@ -88,14 +79,13 @@ public class WorkoutEnterScores extends AppCompatActivity {
                                 currEntry.getScores().get(id).setDistance(i.getIntExtra("distance", 0));
                                 currEntry.getScores().get(id).setSplit(i.getDoubleExtra("split", 0.0));
                                 currEntry.getScores().get(id).setStroke(i.getIntExtra("stroke", 0));
+                                mAdapter.notifyDataSetChanged();
                             }
 
                         }
                     }
                 }
         );
-
-         */
 
         /**********************************************
          *              RECYCLERVIEW
@@ -107,7 +97,7 @@ public class WorkoutEnterScores extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        mAdapter = new EnterScoresRecyclerAdapter(currEntry,this);
+        mAdapter = new EnterScoresRecyclerAdapter(editScoreIntent,currEntry,this);
         recyclerView.setAdapter(mAdapter);
 
         /**********************************************
@@ -117,38 +107,53 @@ public class WorkoutEnterScores extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(WorkoutEnterScores.this, MainActivity.class);
-                editScoreIntent.launch(i);
+                currWorkout.getEntries().remove(currWorkout.getEntries().size() - 1);           //remove currEntry if they decide to cancel
+                startActivity(i);
             }
         });
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //HERE GOES THE CODE TO UPDATE WORKOUTS & MEMBER SCORES
+                //UPDATE WORKOUTS & MEMBER SCORES
+                for (int x = 0; x < currEntry.getScores().size(); x++)    //go through and remove all that weren't checked and add all that were checked
+                {
+                    Score currScore = currEntry.getScores().get(x);
+                    if (currScore.getIsChecked())    //if it's checked
+                    {
+                        for (int y = 0; y < members.size(); y++)    //go through the list of members till we find the one that matches
+                        {
+                            String fullName = members.get(y).getFName() + " " + members.get(y).getLName();
+                            if (currScore.getMemberName().equals(fullName))
+                            {
+                                members.get(y).addScore(currScore);             //add to member
+                                break;
+                            }
+                        }
+                    }
+                    else        //if it wasn't checked
+                    {
+                        currEntry.getScores().remove(currScore);    //remove it
+                        x--;
+                    }
+                }
+
+                currWorkout.getEntries().set(currWorkout.getEntries().size() - 1, currEntry);           //add the updated entry without the members who didn't row
+                globalVariable.saveWorkoutData();
+                globalVariable.saveMemberData();
+
+                //INTENT
+                Intent i = new Intent(WorkoutEnterScores.this, MainActivity.class);
+                startActivity(i);
             }
         });
 
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        currWorkout.getEntries().remove(currWorkout.getEntries().size() - 1);           //remove currEntry if they decide to cancel
+        Log.d("entryNum", "Num of entries: " + currWorkout.getEntries().size());
+    }
 }
-
-
-
-
-
-
-
-
-
-/*                                                              //just storing this here for now
-            if(i.getBooleanExtra("scoresEntered", false))
-            {
-                //here we update the scores
-                int id = i.getIntExtra("scoreId", -1);
-                currEntry.getScores().get(id).setDuration(i.getDoubleExtra("duration", 0.0));
-                currEntry.getScores().get(id).setDistance(i.getIntExtra("distance", 0));
-                currEntry.getScores().get(id).setSplit(i.getDoubleExtra("split", 0.0));
-                currEntry.getScores().get(id).setStroke(i.getIntExtra("stroke", 0));
-            }
-
-             */

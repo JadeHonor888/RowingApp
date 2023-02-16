@@ -40,7 +40,6 @@ public class Workout {
     public void setDesc(String d) {desc = d;}
     public void setType(String t) {type = t;}
 
-
     /***********************
      *    ENTRY METHODS
      **********************/

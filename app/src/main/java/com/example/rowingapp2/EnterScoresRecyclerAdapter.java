@@ -1,5 +1,6 @@
 package com.example.rowingapp2;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -13,6 +14,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,8 +28,10 @@ import java.util.ArrayList;
 public class EnterScoresRecyclerAdapter extends RecyclerView.Adapter<EnterScoresRecyclerAdapter.MyViewHolder>{
     Entry entry;
     Context context;
+    ActivityResultLauncher<Intent> editScoreIntent;
 
-    public EnterScoresRecyclerAdapter(Entry entry, Context context) {
+    public EnterScoresRecyclerAdapter(ActivityResultLauncher<Intent> editScoreIntent, Entry entry, Context context) {
+        this.editScoreIntent = editScoreIntent;
         this.entry = entry;
         this.context = context;
     }
@@ -66,7 +73,7 @@ public class EnterScoresRecyclerAdapter extends RecyclerView.Adapter<EnterScores
             public void onClick(View v) {
                 Intent i = new Intent(context, EnterEditScores.class);
                 i.putExtra("scoreId", entry.getScores().get(position).getScoreId());
-                context.startActivity(i);
+                editScoreIntent.launch(i);  //use this to make sure we're getting data back
             }
         });
 
@@ -125,6 +132,7 @@ public class EnterScoresRecyclerAdapter extends RecyclerView.Adapter<EnterScores
             distance = itemView.findViewById(R.id.editDistance);
             split = itemView.findViewById(R.id.editSplit);
             stroke = itemView.findViewById(R.id.editStroke);
+
         }
     }
 }

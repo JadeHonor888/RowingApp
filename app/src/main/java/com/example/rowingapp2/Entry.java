@@ -43,4 +43,18 @@ public class Entry {
         scores.set(i, score);
     }
 
+    public String entryToString()
+    {
+        String entry = "";
+        for (int i = 0; i < scores.size(); i++)
+        {
+            entry = entry + "Score " + (i + 1) + ": isChecked: " + scores.get(i).getIsChecked() +
+                    "\n Split: " + scores.get(i).getSplit() +
+                    "\n Duration: " + scores.get(i).getDuration() +
+                    "\n Distance: " + scores.get(i).getDistance() +
+                    "\n Stroke: " + scores.get(i).getStroke() + "\n";
+        }
+        return entry;
+    }
+
 }
