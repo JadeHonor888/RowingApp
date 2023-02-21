@@ -14,6 +14,8 @@ import android.widget.Toast;
 
 public class CreateNewMember extends AppCompatActivity {
 
+    int memberId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,7 +95,6 @@ public class CreateNewMember extends AppCompatActivity {
     }
 
     //member info to use on creation
-    int memberId;
     String fName;
     String lName;
     int age;

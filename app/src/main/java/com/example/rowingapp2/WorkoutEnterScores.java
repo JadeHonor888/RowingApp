@@ -130,6 +130,8 @@ public class WorkoutEnterScores extends AppCompatActivity {
                                 break;
                             }
                         }
+                        currScore.setWorkoutName(currWorkout.getName());        //add on the name and desc
+                        currScore.setWorkoutDesc(currWorkout.getDesc());
                     }
                     else        //if it wasn't checked
                     {
@@ -154,6 +156,6 @@ public class WorkoutEnterScores extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         currWorkout.getEntries().remove(currWorkout.getEntries().size() - 1);           //remove currEntry if they decide to cancel
-        Log.d("entryNum", "Num of entries: " + currWorkout.getEntries().size());
+        //Log.d("entryNum", "Num of entries: " + currWorkout.getEntries().size());
     }
 }

@@ -112,7 +112,8 @@ public class GlobalVariable extends Application {
     }
 
     public void editMember(Member member, int id) {
-        members.set(id, member);
+        int i = getMemberFromId(id).getMemberId();
+        members.set(i, member);
         saveMemberData();       //Shared pref
     }
 

@@ -19,6 +19,8 @@ public class MemberDisplay extends AppCompatActivity {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
 
+    Member currMember;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,7 +34,6 @@ public class MemberDisplay extends AppCompatActivity {
         TextView split = (TextView) findViewById(R.id.displaySplit);
 
         GlobalVariable globalVariable = (GlobalVariable) getApplication();
-        Member currMember;
 
         Intent i = this.getIntent();
         if (i != null)
@@ -53,7 +54,7 @@ public class MemberDisplay extends AppCompatActivity {
          *              RECYCLERVIEW
          *********************************************/
         //CURRENTLY A WORK IN PROGRESS
-        /*
+
         recyclerView = (RecyclerView) findViewById(R.id.rList);
 
         recyclerView.setHasFixedSize(true);
@@ -63,9 +64,6 @@ public class MemberDisplay extends AppCompatActivity {
 
         mAdapter = new MemberScoresRecyclerAdapter(currMember,this);
         recyclerView.setAdapter(mAdapter);
-
-         */
-
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override

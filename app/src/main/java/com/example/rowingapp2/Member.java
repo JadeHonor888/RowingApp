@@ -121,9 +121,9 @@ public class Member {
      **********************/
     public void addScore(Score score)
     {
-        score.setScoreId(nextId);
+        //score.setScoreId(nextId);
         memberScores.add(score);
-        nextId++;
+        //nextId++;
     }
     public void removeScore(Score score) { memberScores.remove(score); }
     public void editScore(Score score, int i) { memberScores.set(i, score); }
