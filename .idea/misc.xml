@@ -4,6 +4,12 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/5109605/AndroidStudioProjects/RowingApp2/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.5703125" />
+        <entry key="..\:/Users/5109605/AndroidStudioProjects/RowingApp2/app/src/main/res/drawable/baseline_account_circle_18.xml" value="0.5703125" />
+        <entry key="..\:/Users/5109605/AndroidStudioProjects/RowingApp2/app/src/main/res/drawable/baseline_account_circle_20.xml" value="0.5703125" />
+        <entry key="..\:/Users/5109605/AndroidStudioProjects/RowingApp2/app/src/main/res/drawable/baseline_account_circle_24.xml" value="0.5703125" />
+        <entry key="..\:/Users/5109605/AndroidStudioProjects/RowingApp2/app/src/main/res/drawable/baseline_image_20.xml" value="0.5703125" />
+        <entry key="..\:/Users/5109605/AndroidStudioProjects/RowingApp2/app/src/main/res/drawable/baseline_image_24.xml" value="0.5703125" />
+        <entry key="..\:/Users/5109605/AndroidStudioProjects/RowingApp2/app/src/main/res/drawable/baseline_photo_camera_24.xml" value="0.5703125" />
         <entry key="..\:/Users/5109605/AndroidStudioProjects/RowingApp2/app/src/main/res/layout/activity_create_new_member.xml" value="0.5" />
         <entry key="..\:/Users/5109605/AndroidStudioProjects/RowingApp2/app/src/main/res/layout/activity_enter_edit_scores.xml" value="0.5541666666666667" />
         <entry key="..\:/Users/5109605/AndroidStudioProjects/RowingApp2/app/src/main/res/layout/activity_main.xml" value="0.33" />
@@ -18,6 +24,7 @@
         <entry key="..\:/Users/5109605/AndroidStudioProjects/RowingApp2/app/src/main/res/layout/member_item.xml" value="0.33" />
         <entry key="..\:/Users/5109605/AndroidStudioProjects/RowingApp2/app/src/main/res/layout/member_scores_item.xml" value="0.5541666666666667" />
         <entry key="..\:/Users/5109605/AndroidStudioProjects/RowingApp2/app/src/main/res/layout/workout_item.xml" value="0.33" />
+        <entry key="..\:/Users/5109605/AndroidStudioProjects/RowingApp2/app/src/main/res/menu/camera_gallery_menu.xml" value="0.5541666666666667" />
         <entry key="..\:/Users/5109605/AndroidStudioProjects/RowingApp2/app/src/main/res/menu/edit_delete_menu.xml" value="0.5541666666666667" />
       </map>
     </option>

@@ -20,9 +20,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -55,7 +58,8 @@ public class EnterEditScores extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enter_edit_scores);
 
-        Button camera = (Button) findViewById(R.id.camera);
+        ImageView camera = (ImageView) findViewById(R.id.camera);
+        Button match = (Button) findViewById(R.id.match);
 
         Button save = (Button) findViewById(R.id.save);
         Button cancel = (Button) findViewById(R.id.cancel);
@@ -108,12 +112,48 @@ public class EnterEditScores extends AppCompatActivity {
         camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showInputImageDialog();
-                recognizeScoreFromImage();
-            }
+                PopupMenu popupMenu = new PopupMenu(EnterEditScores.this, camera);
+                popupMenu.inflate(R.menu.camera_gallery_menu);
+                popupMenu.show();
 
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        if (item.getItemId() == R.id.camera)
+                        {
+                            showInputImageDialog();
+                            return true;
+                        }
+                        else if (item.getItemId() == R.id.gallery)
+                        {
+                            if (checkStoragePermission())
+                            {
+                                pickImageGallery();
+                            }
+                            else
+                            {
+                                requestStoragePermission();
+                            }
+                            return true;
+                        }
+                        return false;
+                    }
+                });
+
+                //recognizeScoreFromImage();
+            }
         });
-        
+
+        match.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (imageUri != null)
+                {
+                    recognizeScoreFromImage();
+                }
+            }
+        });
+
 
     }
 
@@ -123,11 +163,34 @@ public class EnterEditScores extends AppCompatActivity {
     double split;
     int stroke;
 
+    private void matchScores(String t) {
+
+        //check for time
+        for (int i = 0; i < t.length(); i++)
+        {
+            if (t.substring(i, i++).equals(":"))    //go till you find what's hopefully time
+            {
+                duration = 60 * (Integer.parseInt(t.substring(i--,i)));
+                duration += (Integer.parseInt(t.substring(i++, i+4)));
+                t = t.substring(i+6);
+                break;
+            }
+        }
+
+        distance = Integer.parseInt(t.substring(0, 4));
+        t = t.substring(5);
+
+        split = 60 * (Integer.parseInt(t.substring(0,1)));
+        split += (Integer.parseInt(t.substring(2,6)));
+        t = t.substring(8);
+
+        stroke = Integer.parseInt(t.substring(0,3));
+    }
+
     /**********************************************
      *                CAMERA STUFF
      *********************************************/
     private void recognizeScoreFromImage(){
-
         try {
             InputImage inputImage = InputImage.fromFilePath(this, imageUri);
             Task<Text> textTaskResult = textRecognizer.process(inputImage)
@@ -136,6 +199,7 @@ public class EnterEditScores extends AppCompatActivity {
                         public void onSuccess(Text text) {
                             String recognizedText = text.getText();
                             Log.d("recognized text", "text: \n" + recognizedText);
+                            matchScores(recognizedText);
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
@@ -149,12 +213,9 @@ public class EnterEditScores extends AppCompatActivity {
         } catch (Exception e) { //if nothing is recognized
             Toast.makeText(this, "Failed preparing image due to "+e.getMessage(), Toast.LENGTH_LONG).show();
         }
-
     }
 
-
     private void showInputImageDialog() {
-        //Here we can add a popup menu to let the user decide to take a photo or pick from gallery
         //this assumes that we're using the camera
         if (checkCameraPermission())
         {
