@@ -53,6 +53,12 @@ public class EnterEditScores extends AppCompatActivity {
 
     private TextRecognizer textRecognizer;
 
+    private int scoreId;
+    private double duration;
+    private int distance;
+    private double split;
+    private int stroke;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -150,41 +156,76 @@ public class EnterEditScores extends AppCompatActivity {
                 if (imageUri != null)
                 {
                     recognizeScoreFromImage();
+                    editDuration.setText(String.valueOf(duration));
                 }
             }
         });
 
-
     }
-
-    int scoreId;
-    double duration;
-    int distance;
-    double split;
-    int stroke;
 
     private void matchScores(String t) {
 
-        //check for time
-        for (int i = 0; i < t.length(); i++)
+        while (!t.isEmpty())
         {
-            if (t.substring(i, i++).equals(":"))    //go till you find what's hopefully time
+            //DURATION
+            for (int i = 0; i < t.length(); i++)
             {
-                duration = 60 * (Integer.parseInt(t.substring(i--,i)));
-                duration += (Integer.parseInt(t.substring(i++, i+4)));
-                t = t.substring(i+6);
-                break;
+                if (t.substring(i, i+1).equals(":"))    //go till you find what's hopefully time
+                {
+                        //Log.d("duration", "duration: " + t.substring(i-1, i));
+                    duration = 60 * (Integer.parseInt(t.substring(i-1,i)));
+                        //Log.d("duration", "duration extra: " + t.substring(i+1, i+5));
+                    duration = duration + (Double.parseDouble(t.substring(i+1, i+5)));
+                        Log.d("duration", "total duration: " + duration);
+                        //Log.d("recognizedText", "updated text: " + t.substring(i+6));
+                    t = t.substring(i+6);
+                    break;
+                }
             }
+            break;
+            /*
+            //DISTANCE
+            for (int i = 0; i < t.length(); i++)
+            {
+                if(!t.substring(i, i+1).equals(" "))        //if it's not empty
+                {
+                    Log.d("distance", "distance: " + t.substring(i, i+4));
+                    distance = Integer.parseInt(t.substring(i, i+4));
+                    t = t.substring(i+5);
+                    break;
+                }
+            }
+
+            //SPLIT
+            for (int i = 0; i < t.length(); i++)
+            {
+
+            }
+
+
+            //STROKE
+            for (int i = 0; i < t.length(); i++)
+            {
+
+            }
+
+             */
         }
 
+        /*
+        Log.d("distance", "distance: " + t.substring(0, 4));
         distance = Integer.parseInt(t.substring(0, 4));
         t = t.substring(5);
 
+        Log.d("split", "split: " + t.substring(0, 1));
         split = 60 * (Integer.parseInt(t.substring(0,1)));
-        split += (Integer.parseInt(t.substring(2,6)));
-        t = t.substring(8);
+        Log.d("split", "split extra: " + t.substring(2, 6));
+        split += (Double.parseDouble(t.substring(2,6)));
+        t = t.substring(7);
 
-        stroke = Integer.parseInt(t.substring(0,3));
+        Log.d("stroke", "stroke: " + t.substring(0, 2));
+        stroke = Integer.parseInt(t.substring(0,2));
+         */
     }
 
     /**********************************************
@@ -198,7 +239,7 @@ public class EnterEditScores extends AppCompatActivity {
                         @Override
                         public void onSuccess(Text text) {
                             String recognizedText = text.getText();
-                            Log.d("recognized text", "text: \n" + recognizedText);
+                            Log.d("recognized text", "text: \n" + text.getText());
                             matchScores(recognizedText);
                         }
                     })
