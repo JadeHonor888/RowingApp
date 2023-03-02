@@ -97,7 +97,7 @@ public class WorkoutEnterScores extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        mAdapter = new EnterScoresRecyclerAdapter(editScoreIntent,currEntry,this);
+        mAdapter = new EnterScoresRecyclerAdapter(editScoreIntent,currWorkout, currEntry,this);
         recyclerView.setAdapter(mAdapter);
 
         /**********************************************

@@ -31,6 +31,17 @@ public class Workout {
     public String getDesc() {return desc;}
     public String getType() {return type;}
     public ArrayList<Entry> getEntries() {return entries;}
+    public Entry getEntryfromId(int id)
+    {
+        for (int i = 0; i < entries.size(); i++)
+        {
+            if (entries.get(i).getEntryId() == id)
+            {
+                return entries.get(i);
+            }
+        }
+        return null;
+    }
 
 
     /***********************

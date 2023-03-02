@@ -23,7 +23,7 @@
         android:id="@+id/camera"
         android:layout_width="match_parent"
         android:layout_height="260dp"
-        tools:srcCompat="@drawable/baseline_photo_camera_24" />
+        app:srcCompat="@drawable/baseline_photo_camera_24" />
 
     <Button
         android:id="@+id/match"
@@ -58,7 +58,7 @@
 
     </LinearLayout>
 
-    <LinearLayout
+        <LinearLayout
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:orientation="horizontal">

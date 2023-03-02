@@ -26,12 +26,14 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 
 public class EnterScoresRecyclerAdapter extends RecyclerView.Adapter<EnterScoresRecyclerAdapter.MyViewHolder>{
+    Workout workout;
     Entry entry;
     Context context;
     ActivityResultLauncher<Intent> editScoreIntent;
 
-    public EnterScoresRecyclerAdapter(ActivityResultLauncher<Intent> editScoreIntent, Entry entry, Context context) {
+    public EnterScoresRecyclerAdapter(ActivityResultLauncher<Intent> editScoreIntent,Workout workout, Entry entry, Context context) {
         this.editScoreIntent = editScoreIntent;
+        this.workout = workout;
         this.entry = entry;
         this.context = context;
     }
@@ -72,6 +74,8 @@ public class EnterScoresRecyclerAdapter extends RecyclerView.Adapter<EnterScores
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(context, EnterEditScores.class);
+                i.putExtra("workoutId", workout.getId());
+                i.putExtra("entryId", entry.getEntryId());
                 i.putExtra("scoreId", entry.getScores().get(position).getScoreId());
                 editScoreIntent.launch(i);  //use this to make sure we're getting data back
             }

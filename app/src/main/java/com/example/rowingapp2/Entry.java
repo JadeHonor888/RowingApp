@@ -31,6 +31,17 @@ public class Entry {
     public ArrayList<Score> getScores() {return scores;}
     public int getDate() {return date;}
     public int getEntryId() {return id;}
+    public Score getScoreFromId (int id)
+    {
+        for (int i = 0; i < scores.size(); i++)
+        {
+            if (scores.get(i).getScoreId() == id)
+            {
+                return scores.get(i);
+            }
+        }
+        return null;
+    }
 
     /***********************
      *      SETTERS

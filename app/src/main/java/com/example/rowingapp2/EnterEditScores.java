@@ -16,6 +16,7 @@ import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -37,6 +38,8 @@ import com.google.mlkit.vision.text.TextRecognition;
 import com.google.mlkit.vision.text.TextRecognizer;
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.io.IOException;
 
 public class EnterEditScores extends AppCompatActivity {
@@ -53,7 +56,10 @@ public class EnterEditScores extends AppCompatActivity {
 
     private TextRecognizer textRecognizer;
 
+    private int workoutId;
+    private int entryId;
     private int scoreId;
+
     private double duration;
     private int distance;
     private double split;
@@ -63,6 +69,8 @@ public class EnterEditScores extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enter_edit_scores);
+
+        GlobalVariable globalVariable = (GlobalVariable) getApplication();
 
         ImageView camera = (ImageView) findViewById(R.id.camera);
         Button match = (Button) findViewById(R.id.match);
@@ -78,7 +86,19 @@ public class EnterEditScores extends AppCompatActivity {
         Intent i = getIntent();
         if (i != null)
         {
+            workoutId = i.getIntExtra("workoutId", -1);
+            entryId = i.getIntExtra("entryId", -1);
             scoreId = i.getIntExtra("scoreId", -1);
+
+            Workout currWorkout = globalVariable.getWorkoutFromId(workoutId);
+            Entry currEntry = currWorkout.getEntryfromId(entryId);
+            Score currScore = currEntry.getScoreFromId(scoreId);
+
+            editDuration.setText(String.valueOf(currScore.getDuration()));
+            editDistance.setText(String.valueOf(currScore.getDistance()));
+            editSplit.setText(String.valueOf(currScore.getSplit()));
+            editStroke.setText(String.valueOf(currScore.getStroke()));
+
         }
 
         save.setOnClickListener(new View.OnClickListener() {
@@ -89,7 +109,7 @@ public class EnterEditScores extends AppCompatActivity {
                 distance = Integer.parseInt(editDistance.getText().toString());
                 split = Double.parseDouble(editSplit.getText().toString());
                 stroke = Integer.parseInt(editStroke.getText().toString());
-                //i.putExtra("scoresEntered", true);
+                i.putExtra("scoresEntered", true);
                 i.putExtra("scoreId", scoreId);
                 i.putExtra("duration", duration);
                 i.putExtra("distance", distance);
@@ -157,6 +177,9 @@ public class EnterEditScores extends AppCompatActivity {
                 {
                     recognizeScoreFromImage();
                     editDuration.setText(String.valueOf(duration));
+                    editDistance.setText(String.valueOf(distance));
+                    editSplit.setText(String.valueOf(split));
+                    editStroke.setText(String.valueOf(stroke));
                 }
             }
         });
@@ -165,68 +188,41 @@ public class EnterEditScores extends AppCompatActivity {
 
     private void matchScores(String t) {
 
-        while (!t.isEmpty())
-        {
-            //DURATION
+            //TURN TEXT INTO STRING OF NUMBERS
             for (int i = 0; i < t.length(); i++)
             {
-                if (t.substring(i, i+1).equals(":"))    //go till you find what's hopefully time
+                if (!StringUtils.isNumeric(t.substring(i, i+1)) && t.charAt(i) != ':' && t.charAt(i) != '.')     //if it's not a number, ':' or '.'
                 {
-                        //Log.d("duration", "duration: " + t.substring(i-1, i));
-                    duration = 60 * (Integer.parseInt(t.substring(i-1,i)));
-                        //Log.d("duration", "duration extra: " + t.substring(i+1, i+5));
-                    duration = duration + (Double.parseDouble(t.substring(i+1, i+5)));
-                        Log.d("duration", "total duration: " + duration);
-                        //Log.d("recognizedText", "updated text: " + t.substring(i+6));
-                    t = t.substring(i+6);
+                    t = t.substring(0, i) + '0' + t.substring(i+1);   //replace it with a zero
+                }
+            }
+            //System.out.println(t);        //for debugging purposes
+
+            //cut off the first 55 char
+            t = t.substring(55);
+
+            //PARSE DISTANCE, DURATION, SPLIT, AND STROKE
+            for (int i = 0; i < t.length() - 22; i++)
+            {
+                if (t.charAt(i + 2) == ':' && t.charAt(i + 14) == ':')           //is there's a : at the 2nd and 14th place then we're good to go
+                {
+                    duration = 60 * Integer.parseInt(t.substring(i,i+2));
+                    duration += Double.parseDouble(t.substring(i+3,i+7));
+                    Log.d("duration", "parsed: " + duration);
+
+                    distance = Integer.parseInt(t.substring(i+8,i+12));
+                    Log.d("distance", "parsed: " + distance);
+
+                    split = 60 * Integer.parseInt(t.substring(i+13, i+14));
+                    split += Double.parseDouble(t.substring(i+15, i+18));
+                    Log.d("split", "parsed: " + split);
+
+                    stroke = Integer.parseInt(t.substring(i+20, i+22));
+                    Log.d("stroke", "parsed: " + stroke);
                     break;
                 }
             }
-            break;
-            /*
-            //DISTANCE
-            for (int i = 0; i < t.length(); i++)
-            {
-                if(!t.substring(i, i+1).equals(" "))        //if it's not empty
-                {
-                    Log.d("distance", "distance: " + t.substring(i, i+4));
-                    distance = Integer.parseInt(t.substring(i, i+4));
-                    t = t.substring(i+5);
-                    break;
-                }
-            }
-
-            //SPLIT
-            for (int i = 0; i < t.length(); i++)
-            {
-
-            }
-
-
-            //STROKE
-            for (int i = 0; i < t.length(); i++)
-            {
-
-            }
-
-             */
         }
-
-        /*
-        Log.d("distance", "distance: " + t.substring(0, 4));
-        distance = Integer.parseInt(t.substring(0, 4));
-        t = t.substring(5);
-
-        Log.d("split", "split: " + t.substring(0, 1));
-        split = 60 * (Integer.parseInt(t.substring(0,1)));
-        Log.d("split", "split extra: " + t.substring(2, 6));
-        split += (Double.parseDouble(t.substring(2,6)));
-        t = t.substring(7);
-
-        Log.d("stroke", "stroke: " + t.substring(0, 2));
-        stroke = Integer.parseInt(t.substring(0,2));
-         */
-    }
 
     /**********************************************
      *                CAMERA STUFF
@@ -302,7 +298,8 @@ public class EnterEditScores extends AppCompatActivity {
                     //here we handle the image if picked from gallery
                     if (result.getResultCode() == Activity.RESULT_OK)
                     {
-
+                        ImageView camera = findViewById(R.id.camera);
+                        camera.setImageURI(imageUri);
                     }
                     else
                     {
