@@ -2,6 +2,7 @@ package com.example.rowingapp2;
 
 import android.app.Application;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -22,10 +23,12 @@ public class GlobalVariable extends Application {
     }
 
     public void createNewMember(String fn, String ln, int a, boolean f, boolean s, boolean p) {
-        Member newMember = new Member(fn, ln, a, f, s, p, memberNextId);
+        Member newMember = new Member(fn, ln, a, f, s, p, memberNextId++);
         members.add(newMember);
-        memberNextId++;
         saveMemberData();       //Shared Pref
+
+        Log.d("member", "Member Created: " + newMember.memberToString());
+        Log.d("member", "memberNextId: " + memberNextId);
     }
     public void removeMember(int id)
     {
@@ -42,17 +45,18 @@ public class GlobalVariable extends Application {
     }
 
     public void createNewWorkout(String n, String d, String t) {
-        Workout workout = new Workout(n, d, t, workoutNextId);
+        Workout workout = new Workout(n, d, t, workoutNextId++);
         workouts.add(workout);
-        workoutNextId++;
         saveWorkoutData();      //Shared pref
+
+        Log.d("workout", "Workout Created: " + workout.workoutToString());
+        Log.d("workout", "workoutNextIt: " + workoutNextId);
     }
     public void removeWorkout(int id)
     {
-
         for (int i = 0; i <= workouts.size(); i++)
         {
-            if (workouts.get(i).getId() == id)
+            if (workouts.get(i).getWorkoutId() == id)
             {
                 workouts.remove(workouts.get(i));
                 saveWorkoutData();
@@ -84,7 +88,7 @@ public class GlobalVariable extends Application {
     {
         for (int i = 0; i < workouts.size(); i++)
         {
-            if (workouts.get(i).getId() == id)
+            if (workouts.get(i).getWorkoutId() == id)
             {
                 return workouts.get(i);
             }
@@ -110,20 +114,8 @@ public class GlobalVariable extends Application {
     public void setMembers(ArrayList<Member> m) {
         members = m;
     }
-
-    public void editMember(Member member, int id) {
-        int i = getMemberFromId(id).getMemberId();
-        members.set(i, member);
-        saveMemberData();       //Shared pref
-    }
-
     public void setWorkouts(ArrayList<Workout> workout) {
         workouts = workout;
-    }
-
-    public void editWorkout(Workout workout, int id) {
-        workouts.set(id, workout);
-        saveWorkoutData();          //Shared pref
     }
 
 
@@ -139,7 +131,8 @@ public class GlobalVariable extends Application {
         //Translate arrayList into string
         Gson gson = new Gson();
         String json = gson.toJson(members);
-        myEdit.putString("memberData",json);                //TODO: Look into whether we need to save memberNextId or not, it might set it to zero each time
+        myEdit.putString("memberData",json);
+        myEdit.putInt("memberNextId", memberNextId);
         myEdit.apply();
     }
 
@@ -156,6 +149,7 @@ public class GlobalVariable extends Application {
             members = new ArrayList<Member>();
             memberNextId = 0;
         }
+        memberNextId = sharedPreferences.getInt("memberNextId", 0);
     }
 
     public void saveWorkoutData()
@@ -168,6 +162,7 @@ public class GlobalVariable extends Application {
         Gson gson = new Gson();
         String json = gson.toJson(workouts);
         myEdit.putString("workoutData",json);
+        myEdit.putInt("workoutNextId", workoutNextId);
         myEdit.apply();
     }
 
@@ -184,5 +179,6 @@ public class GlobalVariable extends Application {
             workouts = new ArrayList<Workout>();
             workoutNextId = 0;
         }
+        workoutNextId = sharedPreferences.getInt("workoutNextId", 0);
     }
 }

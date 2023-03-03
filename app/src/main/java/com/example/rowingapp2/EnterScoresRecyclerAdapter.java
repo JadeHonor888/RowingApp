@@ -70,11 +70,13 @@ public class EnterScoresRecyclerAdapter extends RecyclerView.Adapter<EnterScores
 
         }
 
+        holder.image.setImageResource(R.drawable.baseline_account_circle_24);
+
         holder.enterScores.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(context, EnterEditScores.class);
-                i.putExtra("workoutId", workout.getId());
+                i.putExtra("workoutId", workout.getWorkoutId());
                 i.putExtra("entryId", entry.getEntryId());
                 i.putExtra("scoreId", entry.getScores().get(position).getScoreId());
                 editScoreIntent.launch(i);  //use this to make sure we're getting data back

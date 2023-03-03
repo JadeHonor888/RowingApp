@@ -9,14 +9,14 @@
 
     <ImageView
         android:id="@+id/image"
-        android:layout_width="88dp"
-        android:layout_height="88dp" />
+        android:layout_width="60dp"
+        android:layout_height="60dp" />
 
     <LinearLayout
         android:id="@+id/linLayout"
         android:layout_weight="1"
         android:layout_width="wrap_content"
-        android:layout_height="88dp"
+        android:layout_height="80dp"
         android:orientation="vertical">
 
         <LinearLayout

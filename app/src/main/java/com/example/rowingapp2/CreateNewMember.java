@@ -73,10 +73,23 @@ public class CreateNewMember extends AppCompatActivity {
                 {
                     age = Integer.parseInt(editAge.getText().toString());
                 }
-
                 if (gender.getCheckedRadioButtonId() == R.id.female) { isFemale = true; }
-                if(port.isChecked()) {isPort = true;}
-                if(starboard.isChecked()) {isStarboard = true;}
+                if(port.isChecked())
+                {
+                    isPort = true;
+                }
+                else
+                {
+                    isPort = false;
+                }
+                if(starboard.isChecked())
+                {
+                    isStarboard = true;
+                }
+                else
+                {
+                    isStarboard = false;
+                }
                     //create intent
                 Intent i = new Intent(CreateNewMember.this, MainActivity.class);
                     //Pass along the information:

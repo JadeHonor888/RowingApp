@@ -46,10 +46,14 @@ public class MemberRecyclerAdapter extends RecyclerView.Adapter<MemberRecyclerAd
         holder.gender.setText(members.get(position).getGenderString());
         String side = members.get(position).getStarboardString() + "  " + members.get(position).getPortString();
         holder.side.setText(side);
+        /*
             if (members.get(position).getImageId()==-1)
                 { holder.icon.setVisibility(View.GONE); }
             else
-                { holder.icon.setImageResource(members.get(position).getImageId()); }
+                { holder.icon.setImageResource(R.drawable.baseline_account_circle_24); }
+
+         */
+        holder.icon.setImageResource(R.drawable.baseline_account_circle_24);
 
             //BUTTON
         holder.linearLayout.setOnClickListener(new View.OnClickListener() {       //WANT TO LOOK

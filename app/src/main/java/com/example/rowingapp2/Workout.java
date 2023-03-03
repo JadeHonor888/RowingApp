@@ -26,7 +26,7 @@ public class Workout {
     /***********************
      *      GETTERS
      **********************/
-    public int getId() {return id;}
+    public int getWorkoutId() {return id;}
     public String getName() {return name;}
     public String getDesc() {return desc;}
     public String getType() {return type;}
@@ -50,6 +50,17 @@ public class Workout {
     public void setName(String n) {name = n;}
     public void setDesc(String d) {desc = d;}
     public void setType(String t) {type = t;}
+    public String workoutToString()
+    {
+        String workout;
+        workout = "Name: " + name +
+                "\nDescription: " + desc +
+                "\nType: " + type +
+                "\nEntries: " + entries.size() +
+                "\nId: " + id;
+        return workout;
+    }
+
 
     /***********************
      *    ENTRY METHODS

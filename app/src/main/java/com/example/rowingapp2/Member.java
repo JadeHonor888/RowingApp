@@ -114,7 +114,16 @@ public class Member {
     public void setFemale(boolean f) {isFemale = f;}
     public void setPort(boolean p) {isPort = p;}
     public void setStarboard(boolean s) {isStarboard = s;}
-
+    public String memberToString()
+    {
+        String member;
+        member = "Name: " + fName + " " + lName +
+                "\nAge: " + age + " Age Group: " + ageGroup +
+                "\nSide: " + getStarboardString() + " " + getPortString() +
+                "\nGender: " + getGenderString() +
+                "\nId: " + id;
+        return member;
+    }
 
     /***********************
      *    SCORE METHODS

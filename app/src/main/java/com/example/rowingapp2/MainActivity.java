@@ -75,15 +75,14 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else
                 {   //EDIT MEMBER
-                    Member editMember = new Member(
-                            i.getStringExtra("fName"),
-                            i.getStringExtra("lName"),
-                            i.getIntExtra("age", -1),
-                            i.getBooleanExtra("isFemale", true),
-                            i.getBooleanExtra("isPort", false),
-                            i.getBooleanExtra("isStarboard", false),
-                            i.getIntExtra("id", -1));
-                    globalVariable.editMember(editMember, i.getIntExtra("id", -1));
+                    Member editMember = globalVariable.getMemberFromId(i.getIntExtra("id", -1));
+                    editMember.setfName(i.getStringExtra("fName"));
+                    editMember.setlName(i.getStringExtra("lName"));
+                    editMember.setAge(i.getIntExtra("age", -1));
+                    editMember.setFemale(i.getBooleanExtra("isFemale", true));
+                    editMember.setPort(i.getBooleanExtra("isPort", false));
+                    editMember.setStarboard(i.getBooleanExtra("isStarboard", false));
+                    globalVariable.saveMemberData();
                 }
             }
             else if (i.getBooleanExtra("checkWorkout", false))      //IS IT A WORKOUT?
@@ -97,12 +96,11 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else
                 {   //EDIT WORKOUT
-                    Workout editWorkout = new Workout(
-                            i.getStringExtra("name"),
-                            i.getStringExtra("desc"),
-                            i.getStringExtra("type"),
-                            i.getIntExtra("workoutId", -1));
-                    globalVariable.editWorkout(editWorkout, i.getIntExtra("id", -1));
+                    Workout editWorkout = globalVariable.getWorkoutFromId(i.getIntExtra("workoutId", -1));
+                    editWorkout.setName(i.getStringExtra("name"));
+                    editWorkout.setDesc(i.getStringExtra("desc"));
+                    editWorkout.setType(i.getStringExtra("type"));
+                    globalVariable.saveWorkoutData();
                 }
             }
             else if(i.getBooleanExtra("delMember", false))      //DELETE MEMBER

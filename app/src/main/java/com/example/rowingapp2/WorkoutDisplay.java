@@ -32,7 +32,7 @@ public class WorkoutDisplay extends AppCompatActivity {
         if (i != null)
         {
             currWorkout = globalVariable.getWorkoutFromId(i.getIntExtra("workoutId", -1));
-            id = currWorkout.getId();
+            id = currWorkout.getWorkoutId();
 
             name.setText(currWorkout.getName());
             desc.setText(currWorkout.getDesc());

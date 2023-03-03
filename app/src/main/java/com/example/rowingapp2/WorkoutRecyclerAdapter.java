@@ -45,7 +45,7 @@ public class WorkoutRecyclerAdapter extends RecyclerView.Adapter<WorkoutRecycler
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(context, WorkoutDisplay.class);
-                i.putExtra("workoutId", workouts.get(position).getId());
+                i.putExtra("workoutId", workouts.get(position).getWorkoutId());
                 context.startActivity(i);
             }
         });
@@ -62,14 +62,14 @@ public class WorkoutRecyclerAdapter extends RecyclerView.Adapter<WorkoutRecycler
                         if (menuItem.getItemId() == R.id.editItem)          //IF THEY CLICK EDIT
                         {
                             Intent i = new Intent(context, CreateNewWorkout.class);
-                            i.putExtra("workoutId", workouts.get(position).getId());
+                            i.putExtra("workoutId", workouts.get(position).getWorkoutId());
                             context.startActivity(i);
                             return true;
                         }
                         if (menuItem.getItemId() == R.id.deleteItem)        //IF THEY CLICK DELETE
                         {
                             Intent i = new Intent(context, MainActivity.class);
-                            i.putExtra("workoutId", workouts.get(position).getId());
+                            i.putExtra("workoutId", workouts.get(position).getWorkoutId());
                             i.putExtra("delWorkout", true);
                             context.startActivity(i);
                             return true;
