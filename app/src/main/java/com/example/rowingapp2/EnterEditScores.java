@@ -20,6 +20,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.InputType;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -41,10 +42,9 @@ import com.google.mlkit.vision.text.latin.TextRecognizerOptions;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 
 public class EnterEditScores extends AppCompatActivity {
-
-    private static final String TAG = "MAIN_TAG";
 
     private Uri imageUri = null;
 
@@ -65,6 +65,13 @@ public class EnterEditScores extends AppCompatActivity {
     private double split;
     private int stroke;
 
+    EditText editDuration;
+    EditText editDistance;
+    EditText editSplit;
+    EditText editStroke;
+
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("mm:ss.SS");
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,10 +85,11 @@ public class EnterEditScores extends AppCompatActivity {
         Button save = (Button) findViewById(R.id.save);
         Button cancel = (Button) findViewById(R.id.cancel);
 
-        EditText editDuration = (EditText) findViewById(R.id.editDuration);
-        EditText editDistance = (EditText) findViewById(R.id.editDistance);
-        EditText editSplit = (EditText) findViewById(R.id.editSplit);
-        EditText editStroke = (EditText) findViewById(R.id.editStroke);
+        editDuration = (EditText) findViewById(R.id.editDuration);
+            editDuration.setInputType(InputType.TYPE_DATETIME_VARIATION_TIME);
+        editDistance = (EditText) findViewById(R.id.editDistance);
+        editSplit = (EditText) findViewById(R.id.editSplit);
+        editStroke = (EditText) findViewById(R.id.editStroke);
 
         Intent i = getIntent();
         if (i != null)
@@ -176,10 +184,6 @@ public class EnterEditScores extends AppCompatActivity {
                 if (imageUri != null)
                 {
                     recognizeScoreFromImage();
-                    editDuration.setText(String.valueOf(duration));
-                    editDistance.setText(String.valueOf(distance));
-                    editSplit.setText(String.valueOf(split));
-                    editStroke.setText(String.valueOf(stroke));
                 }
             }
         });
@@ -222,6 +226,12 @@ public class EnterEditScores extends AppCompatActivity {
                     break;
                 }
             }
+
+        //editDuration.setText(String.valueOf(duration));
+        editDuration.setText(simpleDateFormat.format(duration));
+        editDistance.setText(String.valueOf(distance));
+        editSplit.setText(String.valueOf(split));
+        editStroke.setText(String.valueOf(stroke));
         }
 
     /**********************************************
