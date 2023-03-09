@@ -11,19 +11,22 @@ public class Entry {
     /***********************
      *    CONSTRUCTORS
      **********************/
-    public Entry()
+    public Entry(int id)
     {
+        this.id = id;
         scores = new ArrayList<>();
     }
 
-    public Entry(int numOfMembers)
+    public Entry(int id, int numOfMembers)
     {
+        this.id = id;
         scores = new ArrayList<>();
         for (int i = 0; i < numOfMembers; i++)
         {
             scores.add(new Score(i));
         }
     }
+
 
     /***********************
      *      GETTERS

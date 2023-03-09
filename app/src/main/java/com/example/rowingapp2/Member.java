@@ -41,6 +41,7 @@ public class Member {
         isStarboard = s;
         memberScores = new ArrayList<Score>();
         nextId = 0;
+        split = 0.0;
     }
 
     public Member(String fn, String ln, int a, boolean f, boolean s, boolean p, int im, int i)
@@ -63,6 +64,7 @@ public class Member {
         isStarboard = s;
         memberScores = new ArrayList<Score>();
         nextId = 0;
+        split = 0.0;
     }
 
     /***********************
@@ -92,6 +94,7 @@ public class Member {
         else {return "";}
     }
     public boolean getStarboard() {return isStarboard;}
+    public double getMemberSplit() {return split;}
 
     /***********************
      *      SETTERS
@@ -130,11 +133,22 @@ public class Member {
      **********************/
     public void addScore(Score score)
     {
-        //score.setScoreId(nextId);
+        score.setScoreId(nextId);
         memberScores.add(score);
-        //nextId++;
+        nextId++;
+        split = split + score.getSplit();
     }
-    public void removeScore(Score score) { memberScores.remove(score); }
+    public void removeScore(int id)
+    {
+        for (int i = 0; i < memberScores.size(); i++)
+        {
+            if (memberScores.get(i).getScoreId() == id)
+            {
+                memberScores.remove(memberScores.get(i));
+                split = split - memberScores.get(i).getSplit();     //remove the split from the average
+            }
+        }
+    }
     public void editScore(Score score, int i) { memberScores.set(i, score); }
     public ArrayList<Score> getMemberScores() { return memberScores; }
 

@@ -42,7 +42,9 @@ import com.google.mlkit.vision.text.latin.TextRecognizerOptions;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class EnterEditScores extends AppCompatActivity {
 
@@ -70,7 +72,8 @@ public class EnterEditScores extends AppCompatActivity {
     EditText editSplit;
     EditText editStroke;
 
-    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("mm:ss.SS");
+    SimpleDateFormat simpleDateFormatDistance = new SimpleDateFormat("mm:ss.S");
+    SimpleDateFormat simpleDateFormatSplit = new SimpleDateFormat("m:ss.S");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +89,6 @@ public class EnterEditScores extends AppCompatActivity {
         Button cancel = (Button) findViewById(R.id.cancel);
 
         editDuration = (EditText) findViewById(R.id.editDuration);
-            editDuration.setInputType(InputType.TYPE_DATETIME_VARIATION_TIME);
         editDistance = (EditText) findViewById(R.id.editDistance);
         editSplit = (EditText) findViewById(R.id.editSplit);
         editStroke = (EditText) findViewById(R.id.editStroke);
@@ -102,9 +104,9 @@ public class EnterEditScores extends AppCompatActivity {
             Entry currEntry = currWorkout.getEntryfromId(entryId);
             Score currScore = currEntry.getScoreFromId(scoreId);
 
-            editDuration.setText(String.valueOf(currScore.getDuration()));
+            editDuration.setText(simpleDateFormatDistance.format(currScore.getDuration() * 1000));
             editDistance.setText(String.valueOf(currScore.getDistance()));
-            editSplit.setText(String.valueOf(currScore.getSplit()));
+            editSplit.setText(simpleDateFormatSplit.format(currScore.getSplit() * 1000));
             editStroke.setText(String.valueOf(currScore.getStroke()));
 
         }
@@ -113,10 +115,31 @@ public class EnterEditScores extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(EnterEditScores.this, WorkoutEnterScores.class);
-                duration = Double.parseDouble(editDuration.getText().toString());
+
+                //DURATION (getting duration double from formatted thing)
+                try {
+                    Date d = simpleDateFormatDistance.parse(editDuration.getText().toString());
+                    String dur1 = new SimpleDateFormat("mm").format(d);     //first bit
+                    String dur2 = new SimpleDateFormat("ss.SS").format(d);   //last bit
+                    duration = Double.parseDouble(dur1) * 60;
+                    duration += Double.parseDouble(dur2);
+                    Log.d("Duration", "String(1): " + dur1 + "\nString(2): " + dur2 + "\nDuration: " + duration);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
                 distance = Integer.parseInt(editDistance.getText().toString());
-                split = Double.parseDouble(editSplit.getText().toString());
+                //SPLIT
+                try {
+                    Date s = simpleDateFormatSplit.parse(editSplit.getText().toString());
+                    String split1 = new SimpleDateFormat("m").format(s);   //first bit
+                    String split2 = new SimpleDateFormat("ss.SS").format(s);   //last bit
+                    split = Double.parseDouble(split1) * 60;
+                    split += Double.parseDouble(split2);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
                 stroke = Integer.parseInt(editStroke.getText().toString());
+
                 i.putExtra("scoresEntered", true);
                 i.putExtra("scoreId", scoreId);
                 i.putExtra("duration", duration);
@@ -218,7 +241,7 @@ public class EnterEditScores extends AppCompatActivity {
                     Log.d("distance", "parsed: " + distance);
 
                     split = 60 * Integer.parseInt(t.substring(i+13, i+14));
-                    split += Double.parseDouble(t.substring(i+15, i+18));
+                    split += Double.parseDouble(t.substring(i+15, i+19));
                     Log.d("split", "parsed: " + split);
 
                     stroke = Integer.parseInt(t.substring(i+20, i+22));
@@ -228,9 +251,9 @@ public class EnterEditScores extends AppCompatActivity {
             }
 
         //editDuration.setText(String.valueOf(duration));
-        editDuration.setText(simpleDateFormat.format(duration));
+        editDuration.setText(simpleDateFormatDistance.format(duration * 1000));
         editDistance.setText(String.valueOf(distance));
-        editSplit.setText(String.valueOf(split));
+        editSplit.setText(simpleDateFormatSplit.format(split * 1000));
         editStroke.setText(String.valueOf(stroke));
         }
 

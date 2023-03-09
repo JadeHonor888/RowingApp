@@ -49,15 +49,14 @@ public class WorkoutEnterScores extends AppCompatActivity {
             if (i.getBooleanExtra("enterScores", false))
             {
 
-                Entry entry1 = new Entry(members.size());                       //make a new entry
+                currWorkout = globalVariable.getWorkoutFromId(i.getIntExtra("workoutId", -1));
+                Entry entry1 = currWorkout.newEntry(members.size());                       //make a new entry
                 for (int x = 0; x < members.size(); x++)
                 {
                     String fullName = members.get(x).getFName() + " " + members.get(x).getLName();          //match member names
                     entry1.getScores().get(x).setMemberName(fullName);
                 }
-                currWorkout = globalVariable.getWorkoutFromId(i.getIntExtra("workoutId", -1));
-                currWorkout.getEntries().add(entry1);           //add to workouts so that it can be accessible at all times
-                currEntry = currWorkout.getEntries().get(currWorkout.getEntries().size() - 1);
+                currEntry = currWorkout.getEntries().get(currWorkout.getEntries().size() - 1);          //get most recent
             }
         }
 
@@ -81,7 +80,6 @@ public class WorkoutEnterScores extends AppCompatActivity {
                                 currEntry.getScores().get(id).setStroke(i.getIntExtra("stroke", 0));
                                 mAdapter.notifyDataSetChanged();
                             }
-
                         }
                     }
                 }

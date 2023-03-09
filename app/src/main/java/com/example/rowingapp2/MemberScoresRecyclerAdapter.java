@@ -1,15 +1,20 @@
 package com.example.rowingapp2;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.text.SimpleDateFormat;
 
 public class MemberScoresRecyclerAdapter extends RecyclerView.Adapter<MemberScoresRecyclerAdapter.MyViewHolder> {
     Context context;
@@ -31,13 +36,61 @@ public class MemberScoresRecyclerAdapter extends RecyclerView.Adapter<MemberScor
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+        SimpleDateFormat simpleDateFormatDistance = new SimpleDateFormat("mm:ss.S");
+        SimpleDateFormat simpleDateFormatSplit = new SimpleDateFormat("m:ss.S");
+
         currScore = member.getMemberScores().get(position);
         holder.name.setText(currScore.getWorkoutName());
-        holder.desc.setText(currScore.getWorkoutDesc());
-        holder.duration.setText(String.valueOf(currScore.getDuration()));
+        if (currScore.getWorkoutDesc().isEmpty())
+        {
+            holder.desc.setVisibility(View.GONE);
+        }
+        else
+        {
+            holder.desc.setText(currScore.getWorkoutDesc());
+        }
+        holder.duration.setText(simpleDateFormatDistance.format(currScore.getDuration() * 1000));
         holder.distance.setText(String.valueOf(currScore.getDistance()));
-        holder.split.setText(String.valueOf(currScore.getSplit()));
+        holder.split.setText(simpleDateFormatSplit.format(currScore.getSplit()* 1000));
         holder.stroke.setText(String.valueOf(currScore.getStroke()));
+
+        holder.edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PopupMenu popupMenu = new PopupMenu(context,view);
+                popupMenu.inflate(R.menu.edit_delete_menu);
+                popupMenu.show();
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem menuItem) {
+                        if (menuItem.getItemId() == R.id.editItem)          //IF THEY CLICK EDIT
+                        {
+                            /*
+                            Intent i = new Intent(context, CreateNewMember.class);
+                            i.putExtra("id", members.get(position).getMemberId());
+                            i.putExtra("fName", members.get(position).getFName());
+                            i.putExtra("lName", members.get(position).getLName());
+                            i.putExtra("age", String.valueOf(members.get(position).getAge()));
+                            i.putExtra("gender", members.get(position).getGender());
+                            i.putExtra("port", members.get(position).getPort());
+                            i.putExtra("starboard", members.get(position).getStarboard());
+                            context.startActivity(i);
+
+                             */
+                            return true;
+                        }
+                        if (menuItem.getItemId() == R.id.deleteItem)        //IF THEY CLICK DELETE
+                        {
+                            member.removeScore(currScore.getScoreId());
+                            return true;
+                        }
+                        return false;
+                    }
+                });
+            }
+        });
+
+
     }
 
     @Override

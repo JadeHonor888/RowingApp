@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import org.w3c.dom.Text;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class EnterScoresRecyclerAdapter extends RecyclerView.Adapter<EnterScoresRecyclerAdapter.MyViewHolder>{
@@ -48,10 +49,13 @@ public class EnterScoresRecyclerAdapter extends RecyclerView.Adapter<EnterScores
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+        SimpleDateFormat simpleDateFormatDistance = new SimpleDateFormat("mm:ss.S");
+        SimpleDateFormat simpleDateFormatSplit = new SimpleDateFormat("m:ss.S");
+
         holder.name.setText(entry.getScores().get(position).getMemberName());
-        holder.duration.setText(String.valueOf(entry.getScores().get(position).getDuration()));
+        holder.duration.setText(simpleDateFormatDistance.format(entry.getScores().get(position).getDuration() * 1000));     //turning duration into the special format
         holder.distance.setText(String.valueOf(entry.getScores().get(position).getDistance()));
-        holder.split.setText(String.valueOf(entry.getScores().get(position).getSplit()));
+        holder.split.setText(simpleDateFormatSplit.format(entry.getScores().get(position).getSplit() * 1000));       //turning split into the special format as well
         holder.stroke.setText(String.valueOf(entry.getScores().get(position).getStroke()));
 
         if (entry.getScores().get(position).getIsChecked())     //checking when going back and forth between pages
@@ -72,13 +76,15 @@ public class EnterScoresRecyclerAdapter extends RecyclerView.Adapter<EnterScores
 
         holder.image.setImageResource(R.drawable.baseline_account_circle_24);
 
+        //NOTE: the program doesn't like using position outside of onBindViewHolder (like in onClickListeners) so just replace position with holder.getAdapterPosition()
+
         holder.enterScores.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(context, EnterEditScores.class);
                 i.putExtra("workoutId", workout.getWorkoutId());
                 i.putExtra("entryId", entry.getEntryId());
-                i.putExtra("scoreId", entry.getScores().get(position).getScoreId());
+                i.putExtra("scoreId", entry.getScores().get(holder.getAdapterPosition()).getScoreId());
                 editScoreIntent.launch(i);  //use this to make sure we're getting data back
             }
         });
@@ -92,14 +98,14 @@ public class EnterScoresRecyclerAdapter extends RecyclerView.Adapter<EnterScores
                     holder.enterScores.setVisibility(View.VISIBLE);
                     holder.scoreLine1.setVisibility(View.VISIBLE);
                     holder.scoreLine2.setVisibility(View.VISIBLE);
-                    entry.getScores().get(position).setIsChecked(true);
+                    entry.getScores().get(holder.getAdapterPosition()).setIsChecked(true);
                 }
                 else
                 {
                     holder.enterScores.setVisibility(View.GONE);
                     holder.scoreLine1.setVisibility(View.GONE);
                     holder.scoreLine2.setVisibility(View.GONE);
-                    entry.getScores().get(position).setIsChecked(false);
+                    entry.getScores().get(holder.getAdapterPosition()).setIsChecked(false);
 
                 }
             }

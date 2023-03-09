@@ -13,11 +13,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
+
 public class MemberDisplay extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
+
+    SimpleDateFormat simpleDateFormatSplit = new SimpleDateFormat("m:ss.S");
 
     Member currMember;
 
@@ -48,6 +52,7 @@ public class MemberDisplay extends AppCompatActivity {
             gender.setText(currMember.getGenderString());
             String fullSide = currMember.getStarboardString() + "  " + currMember.getPortString();
             side.setText(fullSide);
+            split.setText(simpleDateFormatSplit.format((currMember.getMemberSplit()/currMember.getMemberScores().size()) * 1000));
         }
 
         /**********************************************

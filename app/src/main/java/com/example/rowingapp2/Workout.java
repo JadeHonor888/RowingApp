@@ -12,6 +12,7 @@ public class Workout {
 
     //SCORE/ENTRY ATTRIBUTES
     private ArrayList<Entry> entries;
+    private static int nextEntryId;
 
     public Workout(String n, String d, String t, int i)
     {
@@ -19,6 +20,7 @@ public class Workout {
         desc = d;
         type = t;
         id = i;
+        nextEntryId = 0;
         entries = new ArrayList<Entry>();
     }
     public Workout () {}
@@ -65,9 +67,11 @@ public class Workout {
     /***********************
      *    ENTRY METHODS
      **********************/
-    public void newEntry(int numOfMembers)
+    public Entry newEntry(int numOfMembers)
     {
-        entries.add(new Entry(numOfMembers));
+        Entry newEntry = new Entry(nextEntryId++,numOfMembers);
+        entries.add(newEntry);
+        return newEntry;
     }
 
 }
