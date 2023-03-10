@@ -23,12 +23,15 @@ public class CreateNewMember extends AppCompatActivity {
 
         Button save = (Button) findViewById(R.id.save);
         Button cancel = (Button) findViewById(R.id.cancel);
+
         RadioGroup gender = (RadioGroup) findViewById(R.id.gender);
         EditText editFName = (EditText) findViewById(R.id.editfName);
         EditText editLName = (EditText) findViewById(R.id.editlName);
         EditText editAge = (EditText) findViewById(R.id.editAge);
         CheckBox port = (CheckBox) findViewById(R.id.port);
         CheckBox starboard = (CheckBox) findViewById(R.id.starboard);
+
+        GlobalVariable globalVariable = (GlobalVariable) getApplication();
 
         Intent i = this.getIntent();
         if (i != null)
@@ -90,17 +93,32 @@ public class CreateNewMember extends AppCompatActivity {
                 {
                     isStarboard = false;
                 }
-                    //create intent
+
+                //create/edit
+                if (memberId != -1)
+                {
+                    Member currMember = globalVariable.getMemberFromId(memberId);
+                    currMember.setfName(fName);
+                    currMember.setlName(lName);
+                    currMember.setAge(age);
+                    currMember.setPort(isPort);
+                    currMember.setStarboard(isStarboard);
+                    currMember.setFemale(isFemale);
+                    globalVariable.saveMemberData();
+                }
+                else
+                {
+                    globalVariable.createNewMember(
+                            fName,
+                            lName,
+                            age,
+                            isFemale,
+                            isPort,
+                            isStarboard);
+                    globalVariable.saveMemberData();
+                }
+
                 Intent i = new Intent(CreateNewMember.this, MainActivity.class);
-                    //Pass along the information:
-                i.putExtra("fName", fName);
-                i.putExtra("lName", lName);
-                i.putExtra("age", age);
-                i.putExtra("isFemale", isFemale);
-                i.putExtra("isPort", isPort);
-                i.putExtra("isStarboard", isStarboard);
-                i.putExtra("id", memberId);
-                i.putExtra("checkMember", true);
                 startActivity(i);
 
             }

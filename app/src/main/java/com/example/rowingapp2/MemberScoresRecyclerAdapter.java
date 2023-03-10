@@ -21,9 +21,12 @@ public class MemberScoresRecyclerAdapter extends RecyclerView.Adapter<MemberScor
     Member member;
     Score currScore;
 
-    public MemberScoresRecyclerAdapter(Member member, Context context) {
+    GlobalVariable globalVariable;
+
+    public MemberScoresRecyclerAdapter(Member member, Context context, GlobalVariable globalVariable) {
         this.context = context;
         this.member = member;
+        this.globalVariable = globalVariable;
     }
 
     @NonNull
@@ -51,7 +54,7 @@ public class MemberScoresRecyclerAdapter extends RecyclerView.Adapter<MemberScor
         }
         holder.duration.setText(simpleDateFormatDistance.format(currScore.getDuration() * 1000));
         holder.distance.setText(String.valueOf(currScore.getDistance()));
-        holder.split.setText(simpleDateFormatSplit.format(currScore.getSplit()* 1000));
+        holder.split.setText(simpleDateFormatSplit.format(currScore.getSplit() * 1000));
         holder.stroke.setText(String.valueOf(currScore.getStroke()));
 
         holder.edit.setOnClickListener(new View.OnClickListener() {
@@ -65,23 +68,17 @@ public class MemberScoresRecyclerAdapter extends RecyclerView.Adapter<MemberScor
                     public boolean onMenuItemClick(MenuItem menuItem) {
                         if (menuItem.getItemId() == R.id.editItem)          //IF THEY CLICK EDIT
                         {
-                            /*
-                            Intent i = new Intent(context, CreateNewMember.class);
-                            i.putExtra("id", members.get(position).getMemberId());
-                            i.putExtra("fName", members.get(position).getFName());
-                            i.putExtra("lName", members.get(position).getLName());
-                            i.putExtra("age", String.valueOf(members.get(position).getAge()));
-                            i.putExtra("gender", members.get(position).getGender());
-                            i.putExtra("port", members.get(position).getPort());
-                            i.putExtra("starboard", members.get(position).getStarboard());
+                            Intent i = new Intent(context, EditMemberScores.class);
+                            i.putExtra("memberId",member.getMemberId());
+                            i.putExtra("scoreId", currScore.getScoreId());
                             context.startActivity(i);
-
-                             */
                             return true;
                         }
                         if (menuItem.getItemId() == R.id.deleteItem)        //IF THEY CLICK DELETE
                         {
                             member.removeScore(currScore.getScoreId());
+                            MemberScoresRecyclerAdapter.this.notifyItemRemoved(holder.getAdapterPosition());
+                            globalVariable.saveMemberData();
                             return true;
                         }
                         return false;
@@ -118,4 +115,5 @@ public class MemberScoresRecyclerAdapter extends RecyclerView.Adapter<MemberScor
         }
 
     }
+
 }

@@ -61,31 +61,7 @@ public class MainActivity extends AppCompatActivity {
         Intent i = this.getIntent();
         if (i != null)
         {
-            if(i.getBooleanExtra("checkMember", false))     //IS IT A MEMBER?
-            {
-                if (i.getIntExtra("id", -1) == -1)
-                {   //CREATE MEMBER
-                    globalVariable.createNewMember(
-                            i.getStringExtra("fName"),
-                            i.getStringExtra("lName"),
-                            i.getIntExtra("age", -1),
-                            i.getBooleanExtra("isFemale", true),
-                            i.getBooleanExtra("isPort", false),
-                            i.getBooleanExtra("isStarboard", false));
-                }
-                else
-                {   //EDIT MEMBER
-                    Member editMember = globalVariable.getMemberFromId(i.getIntExtra("id", -1));
-                    editMember.setfName(i.getStringExtra("fName"));
-                    editMember.setlName(i.getStringExtra("lName"));
-                    editMember.setAge(i.getIntExtra("age", -1));
-                    editMember.setFemale(i.getBooleanExtra("isFemale", true));
-                    editMember.setPort(i.getBooleanExtra("isPort", false));
-                    editMember.setStarboard(i.getBooleanExtra("isStarboard", false));
-                    globalVariable.saveMemberData();
-                }
-            }
-            else if (i.getBooleanExtra("checkWorkout", false))      //IS IT A WORKOUT?
+            if (i.getBooleanExtra("checkWorkout", false))      //IS IT A WORKOUT?
             {
                 if (i.getIntExtra("workoutId", -1) == -1)
                 {   //CREATE WORKOUT

@@ -62,12 +62,15 @@ public class Entry {
         String entry = "";
         for (int i = 0; i < scores.size(); i++)
         {
-            entry = entry + "Score " + (i + 1) + ": isChecked: " + scores.get(i).getIsChecked() +
+            entry = entry + "Score " + (i + 1) + ":" +
+                    "\n Member Name: " + scores.get(i).getMemberName() +
+                    "\n isChecked: " + scores.get(i).getIsChecked() +
                     "\n Split: " + scores.get(i).getSplit() +
                     "\n Duration: " + scores.get(i).getDuration() +
                     "\n Distance: " + scores.get(i).getDistance() +
                     "\n Stroke: " + scores.get(i).getStroke() + "\n";
         }
+        entry = entry + "/n Entry ID: " + id;
         return entry;
     }
 

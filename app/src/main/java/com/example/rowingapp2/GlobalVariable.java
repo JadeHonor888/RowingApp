@@ -114,6 +114,19 @@ public class GlobalVariable extends Application {
     public void setMembers(ArrayList<Member> m) {
         members = m;
     }
+    public void editMember(int id, Member member)
+    {
+        Log.d("member", "Member passed in: " + member.memberToString());
+        for (int i = 0; i < members.size(); i++)
+        {
+            if (members.get(i).getMemberId() == id)     //if the ids match, they should be the same
+            {
+                Log.d("member", "Member being replaced: " + members.get(i).memberToString());
+                members.set(i, member);
+                break;
+            }
+        }
+    }
     public void setWorkouts(ArrayList<Workout> workout) {
         workouts = workout;
     }

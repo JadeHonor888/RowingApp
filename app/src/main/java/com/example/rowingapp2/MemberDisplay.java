@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -53,6 +54,8 @@ public class MemberDisplay extends AppCompatActivity {
             String fullSide = currMember.getStarboardString() + "  " + currMember.getPortString();
             side.setText(fullSide);
             split.setText(simpleDateFormatSplit.format((currMember.getMemberSplit()/currMember.getMemberScores().size()) * 1000));
+
+            Log.d("member", "Member Displayed: " + currMember.memberToString());
         }
 
         /**********************************************
@@ -67,7 +70,7 @@ public class MemberDisplay extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        mAdapter = new MemberScoresRecyclerAdapter(currMember,this);
+        mAdapter = new MemberScoresRecyclerAdapter(currMember,this, globalVariable);
         recyclerView.setAdapter(mAdapter);
 
         back.setOnClickListener(new View.OnClickListener() {

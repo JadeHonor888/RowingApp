@@ -12,7 +12,7 @@ public class Workout {
 
     //SCORE/ENTRY ATTRIBUTES
     private ArrayList<Entry> entries;
-    private static int nextEntryId;
+    private int nextEntryId;    //don't make this static! (idk why)
 
     public Workout(String n, String d, String t, int i)
     {
@@ -23,7 +23,6 @@ public class Workout {
         nextEntryId = 0;
         entries = new ArrayList<Entry>();
     }
-    public Workout () {}
 
     /***********************
      *      GETTERS
@@ -59,7 +58,8 @@ public class Workout {
                 "\nDescription: " + desc +
                 "\nType: " + type +
                 "\nEntries: " + entries.size() +
-                "\nId: " + id;
+                "\nId: " + id +
+                "\nNextEntryId: " + nextEntryId;
         return workout;
     }
 

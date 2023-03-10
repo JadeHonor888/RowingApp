@@ -57,6 +57,7 @@ public class WorkoutEnterScores extends AppCompatActivity {
                     entry1.getScores().get(x).setMemberName(fullName);
                 }
                 currEntry = currWorkout.getEntries().get(currWorkout.getEntries().size() - 1);          //get most recent
+                Log.d("Entry", "Entry Created: " + entry1.entryToString());
             }
         }
 
@@ -114,6 +115,7 @@ public class WorkoutEnterScores extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //UPDATE WORKOUTS & MEMBER SCORES
+                Log.d("Entry", "Entry to be Updated: " + currEntry.entryToString());
                 for (int x = 0; x < currEntry.getScores().size(); x++)    //go through and remove all that weren't checked and add all that were checked
                 {
                     Score currScore = currEntry.getScores().get(x);
@@ -139,6 +141,7 @@ public class WorkoutEnterScores extends AppCompatActivity {
                 }
 
                 currWorkout.getEntries().set(currWorkout.getEntries().size() - 1, currEntry);           //add the updated entry without the members who didn't row
+                Log.d("Entry", "Entry Updated: " + currEntry.entryToString());
                 globalVariable.saveWorkoutData();
                 globalVariable.saveMemberData();
 

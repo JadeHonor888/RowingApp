@@ -226,7 +226,7 @@ public class EnterEditScores extends AppCompatActivity {
             //System.out.println(t);        //for debugging purposes
 
             //cut off the first 55 char
-            t = t.substring(55);
+            //t = t.substring(55);
 
             //PARSE DISTANCE, DURATION, SPLIT, AND STROKE
             for (int i = 0; i < t.length() - 22; i++)

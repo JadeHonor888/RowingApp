@@ -18,7 +18,7 @@ public class Member {
 
     //SCORE ATTRIBUTES
     private ArrayList<Score> memberScores;
-    private static int nextId;
+    private int nextId;
     private double split;
 
     public Member(String fn,String ln, int a, boolean f, boolean s, boolean p, int i)
@@ -124,7 +124,8 @@ public class Member {
                 "\nAge: " + age + " Age Group: " + ageGroup +
                 "\nSide: " + getStarboardString() + " " + getPortString() +
                 "\nGender: " + getGenderString() +
-                "\nId: " + id;
+                "\nId: " + id +
+                "\nScores: "  + memberScores.size();
         return member;
     }
 
@@ -133,9 +134,8 @@ public class Member {
      **********************/
     public void addScore(Score score)
     {
-        score.setScoreId(nextId);
+        score.setScoreId(nextId++);
         memberScores.add(score);
-        nextId++;
         split = split + score.getSplit();
     }
     public void removeScore(int id)
@@ -144,12 +144,24 @@ public class Member {
         {
             if (memberScores.get(i).getScoreId() == id)
             {
-                memberScores.remove(memberScores.get(i));
                 split = split - memberScores.get(i).getSplit();     //remove the split from the average
+                memberScores.remove(memberScores.get(i));
+                break;
             }
         }
     }
     public void editScore(Score score, int i) { memberScores.set(i, score); }
     public ArrayList<Score> getMemberScores() { return memberScores; }
+    public Score getScoreFromId(int id)
+    {
+        for (int i = 0; i < memberScores.size(); i++)
+        {
+            if (memberScores.get(i).getScoreId() == id)
+            {
+                return memberScores.get(i);
+            }
+        }
+        return null;
+    }
 
 }
