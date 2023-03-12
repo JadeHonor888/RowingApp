@@ -61,7 +61,9 @@ public class WorkoutEnterScores extends AppCompatActivity {
             }
         }
 
-
+        /**********************************************
+         *          ACTIVITY RESULT LAUNCHER
+         *********************************************/
         ActivityResultLauncher<Intent> editScoreIntent = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 new ActivityResultCallback<ActivityResult>() {

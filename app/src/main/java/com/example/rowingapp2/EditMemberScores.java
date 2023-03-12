@@ -2,6 +2,7 @@ package com.example.rowingapp2;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -92,8 +93,9 @@ public class EditMemberScores extends AppCompatActivity {
                 currScore.setDuration(duration);
                 currScore.setDistance(distance);
                 currScore.setSplit(split);
-                currScore.setStroke(stroke);
+                currScore.setStroke(stroke);        //TODO: remember to also update the split avg. for the member
                 globalVariable.saveMemberData();
+                setResult(Activity.RESULT_OK, i);
                 finish();
             }
         });

@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -22,11 +23,13 @@ public class MemberScoresRecyclerAdapter extends RecyclerView.Adapter<MemberScor
     Score currScore;
 
     GlobalVariable globalVariable;
+    ActivityResultLauncher<Intent> activityResultLauncher;
 
-    public MemberScoresRecyclerAdapter(Member member, Context context, GlobalVariable globalVariable) {
+    public MemberScoresRecyclerAdapter(ActivityResultLauncher<Intent> activityResultLauncher, Member member, Context context, GlobalVariable globalVariable) {
         this.context = context;
         this.member = member;
         this.globalVariable = globalVariable;
+        this.activityResultLauncher = activityResultLauncher;
     }
 
     @NonNull
@@ -71,7 +74,7 @@ public class MemberScoresRecyclerAdapter extends RecyclerView.Adapter<MemberScor
                             Intent i = new Intent(context, EditMemberScores.class);
                             i.putExtra("memberId",member.getMemberId());
                             i.putExtra("scoreId", currScore.getScoreId());
-                            context.startActivity(i);
+                            activityResultLauncher.launch(i);
                             return true;
                         }
                         if (menuItem.getItemId() == R.id.deleteItem)        //IF THEY CLICK DELETE

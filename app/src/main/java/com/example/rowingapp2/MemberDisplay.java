@@ -1,9 +1,14 @@
 package com.example.rowingapp2;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -59,6 +64,27 @@ public class MemberDisplay extends AppCompatActivity {
         }
 
         /**********************************************
+         *          ACTIVITY RESULT LAUNCHER
+         *********************************************/
+        ActivityResultLauncher<Intent> editScoreIntent = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                new ActivityResultCallback<ActivityResult>() {
+                    @Override
+                    public void onActivityResult(ActivityResult result) {
+
+                        if (result.getResultCode() == Activity.RESULT_OK)
+                        {
+                            Intent i = result.getData();
+                            if(i != null)
+                            {
+                                mAdapter.notifyDataSetChanged();
+                            }
+                        }
+                    }
+                }
+        );
+
+        /**********************************************
          *              RECYCLERVIEW
          *********************************************/
         //CURRENTLY A WORK IN PROGRESS
@@ -70,7 +96,7 @@ public class MemberDisplay extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        mAdapter = new MemberScoresRecyclerAdapter(currMember,this, globalVariable);
+        mAdapter = new MemberScoresRecyclerAdapter(editScoreIntent, currMember,this, globalVariable);
         recyclerView.setAdapter(mAdapter);
 
         back.setOnClickListener(new View.OnClickListener() {
