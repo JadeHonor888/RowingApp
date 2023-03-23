@@ -1,0 +1,487 @@
+@startuml
+
+title __ROWINGAPP2's Class Diagram__\n
+
+  namespace com.example.rowingapp2 {
+    class com.example.rowingapp2.AdjustAttendance {
+        # onCreate()
+    }
+  }
+  
+
+  namespace com.example.rowingapp2 {
+    class com.example.rowingapp2.CalendarPage {
+        {static} - ARG_PARAM1 : String
+        {static} - ARG_PARAM2 : String
+        - mParam1 : String
+        - mParam2 : String
+        + CalendarPage()
+        {static} + newInstance()
+        + onCreate()
+        + onCreateView()
+    }
+  }
+  
+
+  namespace com.example.rowingapp2 {
+    class com.example.rowingapp2.CreateNewMember {
+        ~ age : int
+        ~ fName : String
+        ~ isFemale : boolean
+        ~ isPort : boolean
+        ~ isStarboard : boolean
+        ~ lName : String
+        ~ memberId : int
+        # onCreate()
+    }
+  }
+  
+
+  namespace com.example.rowingapp2 {
+    class com.example.rowingapp2.CreateNewWorkout {
+        ~ desc : String
+        ~ name : String
+        ~ type : String
+        ~ workoutId : int
+        # onCreate()
+    }
+  }
+  
+
+  namespace com.example.rowingapp2 {
+    class com.example.rowingapp2.EditMemberScores {
+        - distance : int
+        - duration : double
+        - split : double
+        - stroke : int
+        # onCreate()
+    }
+  }
+  
+
+  namespace com.example.rowingapp2 {
+    class com.example.rowingapp2.EnterEditScores {
+        ~ editDistance : EditText
+        ~ editDuration : EditText
+        ~ editSplit : EditText
+        ~ editStroke : EditText
+        ~ simpleDateFormatDistance : SimpleDateFormat
+        ~ simpleDateFormatSplit : SimpleDateFormat
+        {static} - CAMERA_REQUEST_CODE : int
+        {static} - STORAGE_REQUEST_CODE : int
+        - cameraPermissions : String[]
+        - distance : int
+        - duration : double
+        - entryId : int
+        - gallery : ActivityResultLauncher<Intent>
+        - image : ActivityResultLauncher<Intent>
+        - imageUri : Uri
+        - scoreId : int
+        - split : double
+        - storagePermissions : String[]
+        - stroke : int
+        - textRecognizer : TextRecognizer
+        - workoutId : int
+        + onRequestPermissionsResult()
+        # onCreate()
+        - checkCameraPermission()
+        - checkStoragePermission()
+        - matchScores()
+        - pickImageCamera()
+        - pickImageGallery()
+        - recognizeScoreFromImage()
+        - requestCameraPermission()
+        - requestStoragePermission()
+        - showInputImageDialog()
+    }
+  }
+  
+
+  namespace com.example.rowingapp2 {
+    class com.example.rowingapp2.EnterScoresRecyclerAdapter {
+        ~ context : Context
+        ~ editScoreIntent : ActivityResultLauncher<Intent>
+        + EnterScoresRecyclerAdapter()
+        + getItemCount()
+        + onBindViewHolder()
+        + onCreateViewHolder()
+    }
+  }
+  
+
+  namespace com.example.rowingapp2 {
+    class com.example.rowingapp2.EnterScoresRecyclerAdapter.MyViewHolder {
+        ~ check : CheckBox
+        ~ distance : TextView
+        ~ duration : TextView
+        ~ enterScores : ImageView
+        ~ image : ImageView
+        ~ name : TextView
+        ~ scoreLine1 : LinearLayout
+        ~ scoreLine2 : LinearLayout
+        ~ split : TextView
+        ~ stroke : TextView
+        + MyViewHolder()
+    }
+  }
+  
+
+  namespace com.example.rowingapp2 {
+    class com.example.rowingapp2.Entry {
+        - date : int
+        - id : int
+        - scores : ArrayList<Score>
+        + Entry()
+        + Entry()
+        + editScore()
+        + entryToString()
+        + getDate()
+        + getEntryId()
+        + getScoreFromId()
+        + getScores()
+        + setDate()
+        + setEntryId()
+    }
+  }
+  
+
+  namespace com.example.rowingapp2 {
+    class com.example.rowingapp2.GlobalVariable {
+        {static} - memberNextId : int
+        {static} - members : ArrayList<Member>
+        {static} - workoutNextId : int
+        {static} - workouts : ArrayList<Workout>
+        + GlobalVariable()
+        + createNewMember()
+        + createNewWorkout()
+        + editMember()
+        + getMemberFromId()
+        + getMemberNextId()
+        + getMembers()
+        + getNextId()
+        + getWorkoutFromId()
+        + getWorkouts()
+        + loadMemberData()
+        + loadWorkoutData()
+        + removeMember()
+        + removeWorkout()
+        + saveMemberData()
+        + saveWorkoutData()
+        + setMembers()
+        + setWorkouts()
+    }
+  }
+  
+
+  namespace com.example.rowingapp2 {
+    class com.example.rowingapp2.MainActivity {
+        # onCreate()
+    }
+  }
+  
+
+  namespace com.example.rowingapp2 {
+    class com.example.rowingapp2.Member {
+        - age : int
+        - ageGroup : String
+        - fName : String
+        - id : int
+        - imageId : int
+        - isFemale : boolean
+        - isPort : boolean
+        - isStarboard : boolean
+        - lName : String
+        - memberScores : ArrayList<Score>
+        - nextId : int
+        - split : double
+        + Member()
+        + Member()
+        + addScore()
+        + editScore()
+        + getAge()
+        + getAgeGroup()
+        + getFName()
+        + getGender()
+        + getGenderString()
+        + getImageId()
+        + getLName()
+        + getMemberId()
+        + getMemberScores()
+        + getMemberSplit()
+        + getPort()
+        + getPortString()
+        + getScoreFromId()
+        + getStarboard()
+        + getStarboardString()
+        + memberToString()
+        + removeScore()
+        + setAge()
+        + setFemale()
+        + setImageId()
+        + setPort()
+        + setStarboard()
+        + setfName()
+        + setlName()
+    }
+  }
+  
+
+  namespace com.example.rowingapp2 {
+    class com.example.rowingapp2.MemberDisplay {
+        ~ simpleDateFormatSplit : SimpleDateFormat
+        - layoutManager : LayoutManager
+        - mAdapter : Adapter
+        - recyclerView : RecyclerView
+        # onCreate()
+    }
+  }
+  
+
+  namespace com.example.rowingapp2 {
+    class com.example.rowingapp2.MemberRecyclerAdapter {
+        ~ context : Context
+        ~ members : ArrayList<Member>
+        + MemberRecyclerAdapter()
+        + getItemCount()
+        + onBindViewHolder()
+        + onCreateViewHolder()
+    }
+  }
+  
+
+  namespace com.example.rowingapp2 {
+    class com.example.rowingapp2.MemberRecyclerAdapter.MyViewHolder {
+        ~ age : TextView
+        ~ ageGroup : TextView
+        ~ edit : ImageView
+        ~ gender : TextView
+        ~ icon : ImageView
+        ~ linearLayout : LinearLayout
+        ~ name : TextView
+        ~ side : TextView
+        + MyViewHolder()
+    }
+  }
+  
+
+  namespace com.example.rowingapp2 {
+    class com.example.rowingapp2.MemberScoresRecyclerAdapter {
+        ~ activityResultLauncher : ActivityResultLauncher<Intent>
+        ~ context : Context
+        + MemberScoresRecyclerAdapter()
+        + getItemCount()
+        + onBindViewHolder()
+        + onCreateViewHolder()
+    }
+  }
+  
+
+  namespace com.example.rowingapp2 {
+    class com.example.rowingapp2.MemberScoresRecyclerAdapter.MyViewHolder {
+        ~ desc : TextView
+        ~ distance : TextView
+        ~ duration : TextView
+        ~ edit : ImageButton
+        ~ name : TextView
+        ~ split : TextView
+        ~ stroke : TextView
+        + MyViewHolder()
+    }
+  }
+  
+
+  namespace com.example.rowingapp2 {
+    class com.example.rowingapp2.MembersPage {
+        {static} - ARG_PARAM1 : String
+        {static} - ARG_PARAM2 : String
+        - layoutManager : LayoutManager
+        - mAdapter : Adapter
+        - mParam1 : String
+        - mParam2 : String
+        - recyclerView : RecyclerView
+        + MembersPage()
+        {static} + newInstance()
+        + onCreate()
+        + onCreateView()
+        + onViewCreated()
+    }
+  }
+  
+
+  namespace com.example.rowingapp2 {
+    class com.example.rowingapp2.Score {
+        - date : int
+        - distance : int
+        - duration : double
+        - id : int
+        - isChecked : boolean
+        - memberImageId : int
+        - memberName : String
+        - split : double
+        - stroke : int
+        - workoutDesc : String
+        - workoutName : String
+        + Score()
+        + getDistance()
+        + getDuration()
+        + getIsChecked()
+        + getMemberImageId()
+        + getMemberName()
+        + getScoreId()
+        + getSplit()
+        + getStroke()
+        + getWorkoutDesc()
+        + getWorkoutName()
+        + setDistance()
+        + setDuration()
+        + setIsChecked()
+        + setMemberImageId()
+        + setMemberName()
+        + setScoreId()
+        + setSplit()
+        + setStroke()
+        + setWorkoutDesc()
+        + setWorkoutName()
+    }
+  }
+  
+
+  namespace com.example.rowingapp2 {
+    class com.example.rowingapp2.ViewPagerAdapter {
+        ~ bundle : Bundle
+        + ViewPagerAdapter()
+        + createFragment()
+        + getItemCount()
+    }
+  }
+  
+
+  namespace com.example.rowingapp2 {
+    class com.example.rowingapp2.Workout {
+        - desc : String
+        - entries : ArrayList<Entry>
+        - id : int
+        - name : String
+        - nextEntryId : int
+        - type : String
+        + Workout()
+        + getDesc()
+        + getEntries()
+        + getEntryfromId()
+        + getName()
+        + getType()
+        + getWorkoutId()
+        + newEntry()
+        + setDesc()
+        + setName()
+        + setType()
+        + workoutToString()
+    }
+  }
+  
+
+  namespace com.example.rowingapp2 {
+    class com.example.rowingapp2.WorkoutDisplay {
+        ~ id : int
+        # onCreate()
+    }
+  }
+  
+
+  namespace com.example.rowingapp2 {
+    class com.example.rowingapp2.WorkoutEnterScores {
+        - layoutManager : LayoutManager
+        - mAdapter : Adapter
+        - recyclerView : RecyclerView
+        + onBackPressed()
+        # onCreate()
+    }
+  }
+  
+
+  namespace com.example.rowingapp2 {
+    class com.example.rowingapp2.WorkoutPage {
+        {static} - ARG_PARAM1 : String
+        {static} - ARG_PARAM2 : String
+        - layoutManager : LayoutManager
+        - mAdapter : Adapter
+        - mParam1 : String
+        - mParam2 : String
+        - recyclerView : RecyclerView
+        + WorkoutPage()
+        {static} + newInstance()
+        + onCreate()
+        + onCreateView()
+        + onViewCreated()
+    }
+  }
+  
+
+  namespace com.example.rowingapp2 {
+    class com.example.rowingapp2.WorkoutRecyclerAdapter {
+        ~ context : Context
+        ~ workouts : ArrayList<Workout>
+        + WorkoutRecyclerAdapter()
+        + getItemCount()
+        + onBindViewHolder()
+        + onCreateViewHolder()
+    }
+  }
+  
+
+  namespace com.example.rowingapp2 {
+    class com.example.rowingapp2.WorkoutRecyclerAdapter.MyViewHolder {
+        ~ desc : TextView
+        ~ edit : ImageView
+        ~ linearLayout : LinearLayout
+        ~ name : TextView
+        + MyViewHolder()
+    }
+  }
+  
+
+  com.example.rowingapp2.AdjustAttendance -up-|> androidx.appcompat.app.AppCompatActivity
+  com.example.rowingapp2.CalendarPage -up-|> androidx.fragment.app.Fragment
+  com.example.rowingapp2.CreateNewMember -up-|> androidx.appcompat.app.AppCompatActivity
+  com.example.rowingapp2.CreateNewWorkout -up-|> androidx.appcompat.app.AppCompatActivity
+  com.example.rowingapp2.EditMemberScores -up-|> androidx.appcompat.app.AppCompatActivity
+  com.example.rowingapp2.EditMemberScores o-- com.example.rowingapp2.Score : currScore
+  com.example.rowingapp2.EnterEditScores -up-|> androidx.appcompat.app.AppCompatActivity
+  com.example.rowingapp2.EnterScoresRecyclerAdapter -up-|> androidx.recyclerview.widget.RecyclerView.Adapter
+  com.example.rowingapp2.EnterScoresRecyclerAdapter o-- com.example.rowingapp2.Entry : entry
+  com.example.rowingapp2.EnterScoresRecyclerAdapter o-- com.example.rowingapp2.Workout : workout
+  com.example.rowingapp2.EnterScoresRecyclerAdapter +-down- com.example.rowingapp2.EnterScoresRecyclerAdapter.MyViewHolder
+  com.example.rowingapp2.EnterScoresRecyclerAdapter.MyViewHolder -up-|> androidx.recyclerview.widget.RecyclerView.ViewHolder
+  com.example.rowingapp2.GlobalVariable -up-|> android.app.Application
+  com.example.rowingapp2.MainActivity -up-|> androidx.appcompat.app.AppCompatActivity
+  com.example.rowingapp2.MemberDisplay -up-|> androidx.appcompat.app.AppCompatActivity
+  com.example.rowingapp2.MemberDisplay o-- com.example.rowingapp2.Member : currMember
+  com.example.rowingapp2.MemberRecyclerAdapter -up-|> androidx.recyclerview.widget.RecyclerView.Adapter
+  com.example.rowingapp2.MemberRecyclerAdapter +-down- com.example.rowingapp2.MemberRecyclerAdapter.MyViewHolder
+  com.example.rowingapp2.MemberRecyclerAdapter.MyViewHolder -up-|> androidx.recyclerview.widget.RecyclerView.ViewHolder
+  com.example.rowingapp2.MemberScoresRecyclerAdapter -up-|> androidx.recyclerview.widget.RecyclerView.Adapter
+  com.example.rowingapp2.MemberScoresRecyclerAdapter o-- com.example.rowingapp2.Score : currScore
+  com.example.rowingapp2.MemberScoresRecyclerAdapter o-- com.example.rowingapp2.GlobalVariable : globalVariable
+  com.example.rowingapp2.MemberScoresRecyclerAdapter o-- com.example.rowingapp2.Member : member
+  com.example.rowingapp2.MemberScoresRecyclerAdapter +-down- com.example.rowingapp2.MemberScoresRecyclerAdapter.MyViewHolder
+  com.example.rowingapp2.MemberScoresRecyclerAdapter.MyViewHolder -up-|> androidx.recyclerview.widget.RecyclerView.ViewHolder
+  com.example.rowingapp2.MembersPage -up-|> androidx.fragment.app.Fragment
+  com.example.rowingapp2.ViewPagerAdapter -up-|> androidx.viewpager2.adapter.FragmentStateAdapter
+  com.example.rowingapp2.WorkoutDisplay -up-|> androidx.appcompat.app.AppCompatActivity
+  com.example.rowingapp2.WorkoutEnterScores -up-|> androidx.appcompat.app.AppCompatActivity
+  com.example.rowingapp2.WorkoutEnterScores o-- com.example.rowingapp2.Entry : currEntry
+  com.example.rowingapp2.WorkoutEnterScores o-- com.example.rowingapp2.Workout : currWorkout
+  com.example.rowingapp2.WorkoutPage -up-|> androidx.fragment.app.Fragment
+  com.example.rowingapp2.WorkoutRecyclerAdapter -up-|> androidx.recyclerview.widget.RecyclerView.Adapter
+  com.example.rowingapp2.WorkoutRecyclerAdapter +-down- com.example.rowingapp2.WorkoutRecyclerAdapter.MyViewHolder
+  com.example.rowingapp2.WorkoutRecyclerAdapter.MyViewHolder -up-|> androidx.recyclerview.widget.RecyclerView.ViewHolder
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml
