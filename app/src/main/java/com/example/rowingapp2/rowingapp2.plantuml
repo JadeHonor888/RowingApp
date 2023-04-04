@@ -2,6 +2,7 @@
 
 title __ROWINGAPP2's Class Diagram__\n
 
+
   namespace com.example.rowingapp2 {
     class com.example.rowingapp2.AdjustAttendance {
         # onCreate()

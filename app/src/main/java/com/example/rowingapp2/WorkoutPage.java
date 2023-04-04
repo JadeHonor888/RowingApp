@@ -10,12 +10,22 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.PopupMenu;
+import android.widget.SearchView;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Locale;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -76,6 +86,8 @@ public class WorkoutPage extends Fragment {
         private RecyclerView.Adapter mAdapter;
         private RecyclerView.LayoutManager layoutManager;
 
+        private String filter = "all";
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -110,5 +122,84 @@ public class WorkoutPage extends Fragment {
             }
         });
 
+        TextView allFilter = (TextView) view.findViewById(R.id.allFilter);
+        TextView singleDistanceFilter = (TextView) view.findViewById(R.id.singleDistanceFilter);
+        TextView singleTimeFilter = (TextView) view.findViewById(R.id.singleTimeFilter);
+        TextView intervalFilter = (TextView) view.findViewById(R.id.intervalFilter);
+
+        SearchView searchView = (SearchView) view.findViewById(R.id.search);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+
+                ArrayList<Workout> filteredWorkouts = new ArrayList<Workout>();
+                for (int i = 0; i < workouts.size(); i++)
+                {
+                    if (workouts.get(i).getName().toLowerCase().contains(newText.toLowerCase()))
+                    {
+                        filteredWorkouts.add(workouts.get(i));
+                    }
+                }
+                RecyclerView.Adapter searchAdapter = new WorkoutRecyclerAdapter(filteredWorkouts, view.getContext());
+                recyclerView.setAdapter(searchAdapter);
+
+                return false;
+            }
+        });
+
+
+        allFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAdapter = new WorkoutRecyclerAdapter(workouts, view.getContext());
+                recyclerView.setAdapter(mAdapter);
+            }
+        });
+
+        singleDistanceFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //filterList("Single Distance");
+            }
+        });
+
+        singleTimeFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //filterList("Single Time");
+            }
+        });
+
+        intervalFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //filterList("Interval");
+            }
+        });
     }
+
+    /*
+    private void filterList(String f)
+    {
+        filter = f;
+
+        ArrayList<Workout> filteredWorkouts = new ArrayList<Workout>();
+        for (int i = 0; i < workouts.size(); i++)
+        {
+            if (workouts.get(i).getType().equals(f))
+            {
+                filteredWorkouts.add(workouts.get(i));
+            }
+        }
+        RecyclerView.Adapter searchAdapter = new WorkoutRecyclerAdapter(filteredWorkouts, getContext());
+        recyclerView.setAdapter(searchAdapter);
+
+    }
+
+     */
 }

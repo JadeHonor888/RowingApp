@@ -2,6 +2,7 @@ package com.example.rowingapp2;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class Member {
 
@@ -20,6 +21,28 @@ public class Member {
     private ArrayList<Score> memberScores;
     private int nextId;
     private double split;
+
+    //SORTING
+    public static Comparator<Member> memberComparatorAtoZ = new Comparator<Member>() {
+        @Override
+        public int compare(Member m1, Member m2) {
+            return m1.getFName().compareTo(m2.getFName());
+        }
+    };
+
+    public static Comparator<Member> memberComparatorU19toU16 = new Comparator<Member>() {
+        @Override
+        public int compare(Member m1, Member m2) {
+            return m1.getAge() - m2.getAge();
+        }
+    };
+
+    public static Comparator<Member> memberComparatorU16toU19 = new Comparator<Member>() {
+        @Override
+        public int compare(Member m1, Member m2) {
+            return m2.getAge() - m1.getAge();
+        }
+    };
 
     public Member(String fn,String ln, int a, boolean f, boolean s, boolean p, int i)
     {

@@ -10,11 +10,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.PopupMenu;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class MembersPage extends Fragment {
 
@@ -98,6 +102,45 @@ public class MembersPage extends Fragment {
                 Intent i = new Intent(getContext(), CreateNewMember.class);
                 //i.putExtra("check", true);
                 startActivity(i);
+            }
+        });
+
+        ImageView sortButton = (ImageView) view.findViewById(R.id.sortButton);
+        sortButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //create popupmenu:
+                PopupMenu popupMenu = new PopupMenu(view.getContext(),v);
+                popupMenu.inflate(R.menu.members_sort_menu);
+                popupMenu.show();
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        if (item.getItemId() == R.id.aToZ)
+                        {
+                            //A->Z
+                            Collections.sort(members, Member.memberComparatorAtoZ);
+                            mAdapter.notifyDataSetChanged();
+                            return true;
+                        }
+                        else if (item.getItemId() == R.id.ageGroupDown)
+                        {
+                            //U19->U15
+                            Collections.sort(members, Member.memberComparatorU16toU19);
+                            mAdapter.notifyDataSetChanged();
+                            return true;
+                        }
+                        else if (item.getItemId() == R.id.ageGroupUp)
+                        {
+                            //U15->U19
+                            Collections.sort(members, Member.memberComparatorU19toU16);
+                            mAdapter.notifyDataSetChanged();
+                            return true;
+                        }
+                        return false;
+                    }
+                });
             }
         });
 

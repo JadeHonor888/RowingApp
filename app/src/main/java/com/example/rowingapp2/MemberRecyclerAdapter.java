@@ -46,21 +46,16 @@ public class MemberRecyclerAdapter extends RecyclerView.Adapter<MemberRecyclerAd
         holder.gender.setText(members.get(position).getGenderString());
         String side = members.get(position).getStarboardString() + "  " + members.get(position).getPortString();
         holder.side.setText(side);
-        /*
-            if (members.get(position).getImageId()==-1)
-                { holder.icon.setVisibility(View.GONE); }
-            else
-                { holder.icon.setImageResource(R.drawable.baseline_account_circle_24); }
-
-         */
         holder.icon.setImageResource(R.drawable.baseline_account_circle_24);
+
+
 
             //BUTTON
         holder.linearLayout.setOnClickListener(new View.OnClickListener() {       //WANT TO LOOK
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(context, MemberDisplay.class);
-                i.putExtra("memberId", members.get(position).getMemberId());
+                i.putExtra("memberId", members.get(holder.getAdapterPosition()).getMemberId());
                 context.startActivity(i);
             }
         });
@@ -68,6 +63,7 @@ public class MemberRecyclerAdapter extends RecyclerView.Adapter<MemberRecyclerAd
         holder.edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 PopupMenu popupMenu = new PopupMenu(context,view);
                 popupMenu.inflate(R.menu.edit_delete_menu);
                 popupMenu.show();
@@ -77,20 +73,20 @@ public class MemberRecyclerAdapter extends RecyclerView.Adapter<MemberRecyclerAd
                         if (menuItem.getItemId() == R.id.editItem)          //IF THEY CLICK EDIT
                         {
                                 Intent i = new Intent(context, CreateNewMember.class);
-                                i.putExtra("id", members.get(position).getMemberId());
-                                i.putExtra("fName", members.get(position).getFName());
-                                i.putExtra("lName", members.get(position).getLName());
-                                i.putExtra("age", String.valueOf(members.get(position).getAge()));
-                                i.putExtra("gender", members.get(position).getGender());
-                                i.putExtra("port", members.get(position).getPort());
-                                i.putExtra("starboard", members.get(position).getStarboard());
+                                i.putExtra("id", members.get(holder.getAdapterPosition()).getMemberId());
+                                i.putExtra("fName", members.get(holder.getAdapterPosition()).getFName());
+                                i.putExtra("lName", members.get(holder.getAdapterPosition()).getLName());
+                                i.putExtra("age", String.valueOf(members.get(holder.getAdapterPosition()).getAge()));
+                                i.putExtra("gender", members.get(holder.getAdapterPosition()).getGender());
+                                i.putExtra("port", members.get(holder.getAdapterPosition()).getPort());
+                                i.putExtra("starboard", members.get(holder.getAdapterPosition()).getStarboard());
                                 context.startActivity(i);
                                 return true;
                         }
                         if (menuItem.getItemId() == R.id.deleteItem)        //IF THEY CLICK DELETE
                         {
                             Intent i = new Intent(context, MainActivity.class);
-                            i.putExtra("id", members.get(position).getMemberId());
+                            i.putExtra("id", members.get(holder.getAdapterPosition()).getMemberId());
                             i.putExtra("delMember", true);
                             context.startActivity(i);
                             return true;
@@ -100,9 +96,6 @@ public class MemberRecyclerAdapter extends RecyclerView.Adapter<MemberRecyclerAd
                 });
             }
         });
-
-
-
 
     }
 

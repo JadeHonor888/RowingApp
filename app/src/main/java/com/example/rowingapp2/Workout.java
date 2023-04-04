@@ -1,6 +1,7 @@
 package com.example.rowingapp2;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class Workout {
 
@@ -13,6 +14,9 @@ public class Workout {
     //SCORE/ENTRY ATTRIBUTES
     private ArrayList<Entry> entries;
     private int nextEntryId;    //don't make this static! (idk why)
+
+    //SORTING
+
 
     public Workout(String n, String d, String t, int i)
     {
