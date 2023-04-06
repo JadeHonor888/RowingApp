@@ -88,13 +88,17 @@ public class WorkoutPage extends Fragment {
 
         private String filter = "all";
 
+        ArrayList<Workout> workouts;
+
+        private boolean filterClicked = false;
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         //CALL THIS TO GET WORKOUTS LIST
         GlobalVariable globalVariable = (GlobalVariable) getActivity().getApplication();
-        ArrayList<Workout> workouts = globalVariable.getWorkouts();
+        workouts = globalVariable.getWorkouts();
 
         /**********************************************
          *              RECYCLERVIEW
@@ -122,10 +126,20 @@ public class WorkoutPage extends Fragment {
             }
         });
 
-        TextView allFilter = (TextView) view.findViewById(R.id.allFilter);
-        TextView singleDistanceFilter = (TextView) view.findViewById(R.id.singleDistanceFilter);
-        TextView singleTimeFilter = (TextView) view.findViewById(R.id.singleTimeFilter);
-        TextView intervalFilter = (TextView) view.findViewById(R.id.intervalFilter);
+        ImageView filterRow = (ImageView) view.findViewById(R.id.filter);
+        ImageView filterArrow = (ImageView) view.findViewById(R.id.expandImage);
+
+        LinearLayout sortRow1 = (LinearLayout) view.findViewById(R.id.sortRow1);
+
+        LinearLayout allFilter = (LinearLayout) view.findViewById(R.id.allFilter);
+        LinearLayout singleDistanceFilter = (LinearLayout) view.findViewById(R.id.singleDistanceFilter);
+        LinearLayout singleTimeFilter = (LinearLayout) view.findViewById(R.id.singleTimeFilter);
+        LinearLayout intervalFilter = (LinearLayout) view.findViewById(R.id.intervalFilter);
+
+        //initially make the rows invisible
+        sortRow1.setVisibility(View.GONE);
+
+        filterArrow.setImageResource(R.drawable.expand_less_48px);
 
         SearchView searchView = (SearchView) view.findViewById(R.id.search);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -152,11 +166,30 @@ public class WorkoutPage extends Fragment {
             }
         });
 
+        //SHOW AND UNSHOW THE FILTER OPTIONS WHEN CLICKED
+        filterRow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                filterClicked = !filterClicked;
+                if (filterClicked)  //if it's been clicked to display
+                {
+                    sortRow1.setVisibility(View.VISIBLE);
+
+                    filterArrow.setImageResource(R.drawable.expand_more_48px);
+                }
+                else    //if it's been clicked again/ hasn't been clicked
+                {
+                    sortRow1.setVisibility(View.GONE);
+
+                    filterArrow.setImageResource(R.drawable.expand_less_48px);
+                }
+            }
+        });
+
 
         allFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mAdapter = new WorkoutRecyclerAdapter(workouts, view.getContext());
                 recyclerView.setAdapter(mAdapter);
             }
         });
@@ -164,26 +197,25 @@ public class WorkoutPage extends Fragment {
         singleDistanceFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //filterList("Single Distance");
+                filterList("Single Distance");
             }
         });
 
         singleTimeFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //filterList("Single Time");
+                filterList("Single Time");
             }
         });
 
         intervalFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //filterList("Interval");
+                filterList("Interval");
             }
         });
     }
 
-    /*
     private void filterList(String f)
     {
         filter = f;
@@ -201,5 +233,4 @@ public class WorkoutPage extends Fragment {
 
     }
 
-     */
 }

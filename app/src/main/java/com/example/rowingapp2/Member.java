@@ -129,8 +129,6 @@ public class Member {
         age = a;
         if (age < 15)           //Set age group when updating age
         { ageGroup = "U15"; }
-        else if (age < 16)
-        { ageGroup = "U16"; }
         else if (age < 17)
         { ageGroup = "U17"; }
         else

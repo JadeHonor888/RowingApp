@@ -15,9 +15,6 @@ public class Workout {
     private ArrayList<Entry> entries;
     private int nextEntryId;    //don't make this static! (idk why)
 
-    //SORTING
-
-
     public Workout(String n, String d, String t, int i)
     {
         name = n;

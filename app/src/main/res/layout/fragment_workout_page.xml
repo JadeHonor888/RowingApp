@@ -1,58 +1,136 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".WorkoutPage">
 
-    <SearchView
-        android:id="@+id/search"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Search"/>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <TextView
+        <SearchView
+            android:id="@+id/search"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="Search"/>
+
+        <ImageView
+            android:id="@+id/filter"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:src="@drawable/baseline_sort_black_24dp"/>
+
+        <ImageView
+            android:id="@+id/expandImage"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/sortRow1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
             android:id="@+id/allFilter"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.7"
+            android:orientation="horizontal"
             android:gravity="center"
-            android:padding="10dp"
-            android:text="All"/>
+            android:layout_weight="1"
+            android:padding="10dp">
 
-        <TextView
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:text="All"/>
+
+            <ImageView
+                android:id="@+id/allArrowDown"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:scaleType="center"
+                android:src="@drawable/arrow_drop_down_48px" />
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/singleDistanceFilter"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1.2"
+            android:orientation="horizontal"
             android:gravity="center"
-            android:padding="10dp"
-            android:text="Single Distance"/>
+            android:layout_weight="1"
+            android:padding="10dp">
 
-        <TextView
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:text="Single Distance"/>
+
+            <ImageView
+                android:id="@+id/singleDistanceArrowDown"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:scaleType="center"
+                android:src="@drawable/arrow_drop_down_48px" />
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/singleTimeFilter"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:orientation="horizontal"
             android:gravity="center"
-            android:padding="10dp"
-            android:text="Single Time"/>
+            android:layout_weight="1"
+            android:padding="10dp">
 
-        <TextView
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:text="Single Time"/>
+
+            <ImageView
+                android:id="@+id/singleTimeArrowDown"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:scaleType="center"
+                android:src="@drawable/arrow_drop_down_48px" />
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/intervalFilter"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:orientation="horizontal"
             android:gravity="center"
-            android:padding="10dp"
-            android:text="Interval"/>
+            android:layout_weight="1"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:text="Interval"/>
+
+            <ImageView
+                android:id="@+id/intervalArrowDown"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:scaleType="center"
+                android:src="@drawable/arrow_drop_down_48px" />
+        </LinearLayout>
 
     </LinearLayout>
 
