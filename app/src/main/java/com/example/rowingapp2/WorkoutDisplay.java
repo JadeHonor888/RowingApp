@@ -59,6 +59,15 @@ public class WorkoutDisplay extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
+        pastEntries.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(WorkoutDisplay.this, WorkoutSeePastEntries.class);
+                i.putExtra("workoutId", id);
+                startActivity(i);
+            }
+        });
     }
     int id;
 }

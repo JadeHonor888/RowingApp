@@ -50,7 +50,7 @@ public class WorkoutEnterScores extends AppCompatActivity {
             {
 
                 currWorkout = globalVariable.getWorkoutFromId(i.getIntExtra("workoutId", -1));
-                Entry entry1 = currWorkout.newEntry(members.size());                       //make a new entry
+                Entry entry1 = currWorkout.newEntry(members.size());                   //make a new entry
                 for (int x = 0; x < members.size(); x++)
                 {
                     String fullName = members.get(x).getFName() + " " + members.get(x).getLName();          //match member names

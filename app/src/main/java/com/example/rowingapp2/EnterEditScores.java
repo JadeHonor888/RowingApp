@@ -336,7 +336,7 @@ public class EnterEditScores extends AppCompatActivity {
                     }
                     else
                     {
-
+                        //can put a toast here
                     }
                 }
             }
@@ -374,10 +374,12 @@ public class EnterEditScores extends AppCompatActivity {
                         Intent data = result.getData();
                         imageUri = data.getData();
                         //image,setImageURI(imageUri);   <-- we can use this in other things
+                        ImageView camera = findViewById(R.id.camera);
+                        camera.setImageURI(imageUri);
                     }
                     else
                     {
-
+                        //can put a toast here
                     }
                 }
             }

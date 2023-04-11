@@ -29,7 +29,7 @@ public class MemberDisplay extends AppCompatActivity {
 
     SimpleDateFormat simpleDateFormatSplit = new SimpleDateFormat("m:ss.S");
 
-    Member currMember;
+    private Member currMember;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +87,6 @@ public class MemberDisplay extends AppCompatActivity {
         /**********************************************
          *              RECYCLERVIEW
          *********************************************/
-        //CURRENTLY A WORK IN PROGRESS
 
         recyclerView = (RecyclerView) findViewById(R.id.rList);
 
