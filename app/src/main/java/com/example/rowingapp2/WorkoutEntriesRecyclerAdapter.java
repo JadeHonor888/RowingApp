@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,14 +23,15 @@ public class WorkoutEntriesRecyclerAdapter extends RecyclerView.Adapter<WorkoutE
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.workout_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.entry_item, parent, false);
         WorkoutEntriesRecyclerAdapter.MyViewHolder holder = new WorkoutEntriesRecyclerAdapter.MyViewHolder(view);
-        return null;
+        return holder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-
+        String s = "Entry: " +entries.get(position).getDate();
+        holder.date.setText(s);
     }
 
     @Override
@@ -38,10 +40,11 @@ public class WorkoutEntriesRecyclerAdapter extends RecyclerView.Adapter<WorkoutE
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-
+        TextView date;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
+            date = (TextView) itemView.findViewById(R.id.entryDate);
         }
     }
 }

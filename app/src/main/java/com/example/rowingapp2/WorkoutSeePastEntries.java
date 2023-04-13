@@ -20,6 +20,8 @@ public class WorkoutSeePastEntries extends AppCompatActivity {
     private Workout currWorkout;
     private ArrayList<Entry> entries;
 
+    private int currEntryId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,11 +52,15 @@ public class WorkoutSeePastEntries extends AppCompatActivity {
         mAdapter = new WorkoutEntriesRecyclerAdapter(entries, this);
         recyclerView.setAdapter(mAdapter);
 
+        /**********************************************
+         *                 LISTVIEW
+         *********************************************/
+
+
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(WorkoutSeePastEntries.this, WorkoutDisplay.class);
-                startActivity(i);
+                finish();
             }
         });
 

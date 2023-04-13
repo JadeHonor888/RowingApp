@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,6 +24,15 @@ public class CustomScoreAdapter extends ArrayAdapter<Score> {
         {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.entry_score_item, parent, false);
         }
+
+        Score currScore = getItem(position);
+
+        TextView memberName = (TextView) convertView.findViewById(R.id.memberName);
+        memberName.setText(currScore.getMemberName());
+
+        TextView score = (TextView) convertView.findViewById(R.id.score);
+        String s = "Duration: " + currScore.getDuration();
+        score.setText(s);
 
         return super.getView(position, convertView, parent);
     }
