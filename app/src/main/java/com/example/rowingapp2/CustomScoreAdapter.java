@@ -10,10 +10,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import java.util.ArrayList;
+
 public class CustomScoreAdapter extends ArrayAdapter<Score> {
 
-    public CustomScoreAdapter(@NonNull Context context, int resource) {
-        super(context, resource);
+    public CustomScoreAdapter(@NonNull Context context, int resource, ArrayList<Score> scores) {
+        super(context, resource, scores);
     }
 
     @NonNull
@@ -34,6 +36,11 @@ public class CustomScoreAdapter extends ArrayAdapter<Score> {
         String s = "Duration: " + currScore.getDuration();
         score.setText(s);
 
-        return super.getView(position, convertView, parent);
+        return convertView;
+    }
+
+    public void updateAdapter()
+    {
+
     }
 }

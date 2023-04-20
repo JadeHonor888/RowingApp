@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 
 import java.util.ArrayList;
 
@@ -19,6 +21,8 @@ public class WorkoutSeePastEntries extends AppCompatActivity {
 
     private Workout currWorkout;
     private ArrayList<Entry> entries;
+    private Entry currEntry;
+    private ArrayList<Score> scores;
 
     private int currEntryId;
 
@@ -36,6 +40,13 @@ public class WorkoutSeePastEntries extends AppCompatActivity {
         {
             currWorkout = globalVariable.getWorkoutFromId(i.getIntExtra("workoutId", -1));
             entries = currWorkout.getEntries();
+
+            if (entries.size() > 0)
+            {
+                currEntry = entries.get(0); //get the first entry
+                currEntryId = currEntry.getEntryId();   //get the first entry id
+                scores = currEntry.getScores();
+            }
         }
 
         /**********************************************
@@ -49,12 +60,21 @@ public class WorkoutSeePastEntries extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        mAdapter = new WorkoutEntriesRecyclerAdapter(entries, this);
+        mAdapter = new WorkoutEntriesRecyclerAdapter(entries,currEntryId, this);
         recyclerView.setAdapter(mAdapter);
 
         /**********************************************
          *                 LISTVIEW
          *********************************************/
+
+
+        ListView listView = (ListView) findViewById(R.id.aList);
+
+        CustomScoreAdapter listAdapter = new CustomScoreAdapter(this, R.id.aList, scores);
+
+        listView.setAdapter(listAdapter);
+
+
 
 
         back.setOnClickListener(new View.OnClickListener() {

@@ -10,6 +10,9 @@
         android:id="@+id/memberName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:textStyle="bold"
         android:layout_weight="1"
         android:text="TextView" />
 
@@ -17,6 +20,8 @@
         android:id="@+id/score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:textStyle="bold"
         android:text="TextView" />
 
 </LinearLayout>
