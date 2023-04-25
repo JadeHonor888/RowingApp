@@ -39,8 +39,4 @@ public class CustomScoreAdapter extends ArrayAdapter<Score> {
         return convertView;
     }
 
-    public void updateAdapter()
-    {
-
-    }
 }

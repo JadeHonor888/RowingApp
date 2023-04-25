@@ -49,9 +49,7 @@ public class WorkoutEntriesRecyclerAdapter extends RecyclerView.Adapter<WorkoutE
             @Override
             public void onClick(View v) {
                 entryId = entries.get(holder.getAdapterPosition()).getEntryId();   //highlight the clicked entry and change the currEntryId
-
-
-
+                WorkoutSeePastEntries.updateScores(entryId);
                 notifyDataSetChanged();
             }
         });

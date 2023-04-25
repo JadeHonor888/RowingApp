@@ -19,12 +19,14 @@ public class WorkoutSeePastEntries extends AppCompatActivity {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
 
-    private Workout currWorkout;
+    private static Workout currWorkout;
     private ArrayList<Entry> entries;
-    private Entry currEntry;
+    private static Entry currEntry;
     private ArrayList<Score> scores;
 
     private int currEntryId;
+
+    static ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,14 +69,13 @@ public class WorkoutSeePastEntries extends AppCompatActivity {
          *                 LISTVIEW
          *********************************************/
 
+        listView = (ListView) findViewById(R.id.aList);
 
-        ListView listView = (ListView) findViewById(R.id.aList);
-
-        CustomScoreAdapter listAdapter = new CustomScoreAdapter(this, R.id.aList, scores);
-
-        listView.setAdapter(listAdapter);
-
-
+        if (!entries.isEmpty())  //only set it if it's not empty
+        {
+            CustomScoreAdapter listAdapter = new CustomScoreAdapter(this, R.id.aList, scores);
+            listView.setAdapter(listAdapter);
+        }
 
 
         back.setOnClickListener(new View.OnClickListener() {
@@ -84,5 +85,13 @@ public class WorkoutSeePastEntries extends AppCompatActivity {
             }
         });
 
+    }
+
+    public static void updateScores(int i)      //updates the customScoreAdapter to a correct scores
+    {
+        currEntry = currWorkout.getEntryfromId(i);
+        ArrayList<Score> scores = currEntry.getScores();
+        CustomScoreAdapter listAdapter = new CustomScoreAdapter(WorkoutSeePastEntries.listView.getContext(), R.id.aList, scores);       //this resets the customScoreAdapter with a new list of scores
+        listView.setAdapter(listAdapter);
     }
 }

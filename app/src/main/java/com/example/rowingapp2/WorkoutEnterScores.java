@@ -10,18 +10,24 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.lang.reflect.Array;
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class WorkoutEnterScores extends AppCompatActivity {
 
@@ -42,6 +48,7 @@ public class WorkoutEnterScores extends AppCompatActivity {
 
         Button save = (Button) findViewById(R.id.save);
         Button cancel = (Button) findViewById(R.id.cancel);
+        CheckBox csvCheck = (CheckBox) findViewById(R.id.CSVCheck);
 
         Intent i = getIntent();
         if (i != null)           //if we came from the workout page
@@ -116,7 +123,10 @@ public class WorkoutEnterScores extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //UPDATE WORKOUTS & MEMBER SCORES
+                /******************************
+                 *       FILTER SCORES
+                 *****************************/
+
                 Log.d("Entry", "Entry to be Updated: " + currEntry.entryToString());
                 for (int x = 0; x < currEntry.getScores().size(); x++)    //go through and remove all that weren't checked and add all that were checked
                 {
@@ -147,6 +157,14 @@ public class WorkoutEnterScores extends AppCompatActivity {
                 globalVariable.saveWorkoutData();
                 globalVariable.saveMemberData();
 
+
+                /******************************
+                 *          CSV FILE
+                 *****************************/
+                if (csvCheck.isChecked())
+                {
+                    saveDataOnClick();
+                }
                 //INTENT
                 Intent i = new Intent(WorkoutEnterScores.this, MainActivity.class);
                 startActivity(i);
@@ -160,5 +178,52 @@ public class WorkoutEnterScores extends AppCompatActivity {
         super.onBackPressed();
         currWorkout.getEntries().remove(currWorkout.getEntries().size() - 1);           //remove currEntry if they decide to cancel
         //Log.d("entryNum", "Num of entries: " + currWorkout.getEntries().size());
+    }
+
+    public void saveDataOnClick()
+    {
+        String fileName = currWorkout.getName().toLowerCase() + "_scores.csv";
+        ArrayList<Score> scores = currEntry.getScores();
+        Score currScore;
+        String csvString = "";
+        for (int i = 0; i < scores.size(); i++)  //loop through the entry that was just created
+        {
+            currScore = scores.get(i);  //
+            csvString = csvString + currScore.getMemberName() + "," +
+                    currScore.getDuration() + "," +
+                    currScore.getDistance() + "," +
+                    currScore.getSplit() + "," +
+                    currScore.getStroke() + "\n";
+        }
+        try {
+            FileOutputStream outputStream = openFileOutput(fileName, Context.MODE_APPEND);  //TODO: might want to change this context to a different mode later
+            outputStream.write(csvString.getBytes());
+            outputStream.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        sendEmail(fileName);
+    }
+
+    public void sendEmail(String f)
+    {
+        String fileName = f;
+        File fileLocation = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), fileName);
+        Uri uri = Uri.fromFile(fileLocation);
+        try {
+            Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
+            emailIntent.setType("plain/text");
+            String[] email = {"jade.libson@gmail.com"};
+            emailIntent.putExtra(Intent.EXTRA_EMAIL, email);
+            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "RowingApp2 workout scores");
+            if (uri != null)
+            {
+                emailIntent.putExtra(Intent.EXTRA_STREAM, uri);
+            }
+            startActivity(emailIntent);
+        } catch(Throwable t) {
+            Toast.makeText(this, "Request failed try again: " + t.toString(), Toast.LENGTH_LONG).show();
+        }
     }
 }
