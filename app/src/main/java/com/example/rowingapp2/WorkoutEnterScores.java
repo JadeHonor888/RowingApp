@@ -6,12 +6,14 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContract;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.AssetManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -23,8 +25,13 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Array;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Locale;
@@ -165,9 +172,13 @@ public class WorkoutEnterScores extends AppCompatActivity {
                 {
                     saveDataOnClick();
                 }
-                //INTENT
-                Intent i = new Intent(WorkoutEnterScores.this, MainActivity.class);
-                startActivity(i);
+                else        //need to have this else otherwise this intent overrides the email intent
+                {
+                    //INTENT
+                    Intent i = new Intent(WorkoutEnterScores.this, MainActivity.class);
+                    startActivity(i);
+                }
+
             }
         });
 
@@ -180,9 +191,11 @@ public class WorkoutEnterScores extends AppCompatActivity {
         //Log.d("entryNum", "Num of entries: " + currWorkout.getEntries().size());
     }
 
-    public void saveDataOnClick()
-    {
-        String fileName = currWorkout.getName().toLowerCase() + "_scores.csv";
+    public void saveDataOnClick() {
+        /******************************
+         *       WRITE CSV FILE
+         *****************************/
+        String fileName = "scores.csv";
         ArrayList<Score> scores = currEntry.getScores();
         Score currScore;
         String csvString = "";
@@ -195,24 +208,58 @@ public class WorkoutEnterScores extends AppCompatActivity {
                     currScore.getSplit() + "," +
                     currScore.getStroke() + "\n";
         }
+
         try {
-            FileOutputStream outputStream = openFileOutput(fileName, Context.MODE_APPEND);  //TODO: might want to change this context to a different mode later
+            FileOutputStream outputStream = openFileOutput(fileName, Context.MODE_APPEND);
             outputStream.write(csvString.getBytes());
             outputStream.close();
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        sendEmail(fileName);
+
+
+//        File csvFile = new File(Environment.getExternalStorageDirectory() + fileName);
+//        Uri uri = FileProvider.getUriForFile(WorkoutEnterScores.this, "com.example.homefolder.example.provider", csvFile);
+
+        /******************************
+         *         EMAIL FILE
+         *****************************/
+        /*
+        FileInputStream inputStream = null;
+        try {
+            inputStream = openFileInput(fileName);
+        } catch (Exception e) {
+            Log.e("score", e.getMessage());
+        }
+        //Uri uri = ;
+
+         */
+
+        Intent emailIntent = new Intent(Intent.ACTION_SEND);
+        emailIntent.setType("application/csv");
+        String[] email = {"jade.libson@gmail.com"};
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, email);
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "RowingApp2 workout scores");
+
+
+        try {
+            startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+            finish();
+            Log.i("email", "Finished sending email...");
+        } catch (android.content.ActivityNotFoundException ex) {
+            Toast.makeText(WorkoutEnterScores.this, "There is no email client installed.", Toast.LENGTH_SHORT).show();
+        }
     }
 
+    /*
     public void sendEmail(String f)
     {
         String fileName = f;
         File fileLocation = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), fileName);
         Uri uri = Uri.fromFile(fileLocation);
         try {
-            Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
+            Intent emailIntent = new Intent(Intent.ACTION_SEND);
             emailIntent.setType("plain/text");
             String[] email = {"jade.libson@gmail.com"};
             emailIntent.putExtra(Intent.EXTRA_EMAIL, email);
@@ -221,9 +268,12 @@ public class WorkoutEnterScores extends AppCompatActivity {
             {
                 emailIntent.putExtra(Intent.EXTRA_STREAM, uri);
             }
-            startActivity(emailIntent);
+
+            startActivity(Intent.createChooser(emailIntent, "Choose an Email client :"));
         } catch(Throwable t) {
             Toast.makeText(this, "Request failed try again: " + t.toString(), Toast.LENGTH_LONG).show();
         }
     }
+
+     */
 }

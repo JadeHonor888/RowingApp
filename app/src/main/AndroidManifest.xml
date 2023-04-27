@@ -3,7 +3,7 @@
     package="com.example.rowingapp2">
     <!-- camera and storage permission here -->
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"  />
 
     <application
         android:name=".GlobalVariable"
