@@ -6,13 +6,17 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContract;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -34,6 +38,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Locale;
 
 public class WorkoutEnterScores extends AppCompatActivity {
@@ -44,6 +49,10 @@ public class WorkoutEnterScores extends AppCompatActivity {
 
     private Workout currWorkout;
     private Entry currEntry;
+
+    //CSV
+    private static final int PERMISSION_REQUEST_CODE = 100;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -170,14 +179,22 @@ public class WorkoutEnterScores extends AppCompatActivity {
                  *****************************/
                 if (csvCheck.isChecked())
                 {
-                    saveDataOnClick();
+                    if (checkPermission())
+                    {
+                        saveDataOnClick();
+                    } else
+                    {
+                        requestPermission();
+                    }
                 }
-                else        //need to have this else otherwise this intent overrides the email intent
+
+                if (!csvCheck.isChecked())        //need to have this else otherwise this intent overrides the email intent
                 {
                     //INTENT
                     Intent i = new Intent(WorkoutEnterScores.this, MainActivity.class);
                     startActivity(i);
                 }
+
 
             }
         });
@@ -192,10 +209,13 @@ public class WorkoutEnterScores extends AppCompatActivity {
     }
 
     public void saveDataOnClick() {
+
         /******************************
          *       WRITE CSV FILE
          *****************************/
-        String fileName = "scores.csv";
+        Calendar calendar = Calendar.getInstance();
+        long time = calendar.getTimeInMillis();
+
         ArrayList<Score> scores = currEntry.getScores();
         Score currScore;
         String csvString = "";
@@ -210,70 +230,77 @@ public class WorkoutEnterScores extends AppCompatActivity {
         }
 
         try {
-            FileOutputStream outputStream = openFileOutput(fileName, Context.MODE_APPEND);
-            outputStream.write(csvString.getBytes());
-            outputStream.close();
+            FileOutputStream out = openFileOutput("CSV_Score_Data_"+time+".csv", Context.MODE_PRIVATE);
 
-        } catch (Exception e) {
+            out.write(csvString.getBytes());
+            out.close();
+
+            Context context = getApplicationContext();
+            final File newFile = new File(Environment.getExternalStorageDirectory(), "SimpleCVS");
+            if (!newFile.exists())
+            {
+                newFile.mkdir();
+            }
+
+            File file = new File(context.getFilesDir(), "CSV_Score_Data_"+time+".csv");
+
+            Uri path = FileProvider.getUriForFile(context, "com.example.rowingapp2", file);
+
+            /******************************
+             *         EMAIL FILE
+             *****************************/
+
+            Intent emailIntent = new Intent(Intent.ACTION_SEND);
+            emailIntent.setType("text/csv");
+            emailIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "RowingApp2 workout scores");
+            emailIntent.putExtra(Intent.EXTRA_STREAM, path);
+
+            startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+
+        } catch (Exception e)
+        {
             e.printStackTrace();
         }
 
 
-//        File csvFile = new File(Environment.getExternalStorageDirectory() + fileName);
-//        Uri uri = FileProvider.getUriForFile(WorkoutEnterScores.this, "com.example.homefolder.example.provider", csvFile);
+    }
 
-        /******************************
-         *         EMAIL FILE
-         *****************************/
-        /*
-        FileInputStream inputStream = null;
-        try {
-            inputStream = openFileInput(fileName);
-        } catch (Exception e) {
-            Log.e("score", e.getMessage());
+    private boolean checkPermission() {
+        int result = ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        if (result == PackageManager.PERMISSION_GRANTED)
+        {
+            return true;
         }
-        //Uri uri = ;
-
-         */
-
-        Intent emailIntent = new Intent(Intent.ACTION_SEND);
-        emailIntent.setType("application/csv");
-        String[] email = {"jade.libson@gmail.com"};
-        emailIntent.putExtra(Intent.EXTRA_EMAIL, email);
-        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "RowingApp2 workout scores");
-
-
-        try {
-            startActivity(Intent.createChooser(emailIntent, "Send mail..."));
-            finish();
-            Log.i("email", "Finished sending email...");
-        } catch (android.content.ActivityNotFoundException ex) {
-            Toast.makeText(WorkoutEnterScores.this, "There is no email client installed.", Toast.LENGTH_SHORT).show();
+        else
+        {
+            return false;
         }
     }
 
-    /*
-    public void sendEmail(String f)
-    {
-        String fileName = f;
-        File fileLocation = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), fileName);
-        Uri uri = Uri.fromFile(fileLocation);
-        try {
-            Intent emailIntent = new Intent(Intent.ACTION_SEND);
-            emailIntent.setType("plain/text");
-            String[] email = {"jade.libson@gmail.com"};
-            emailIntent.putExtra(Intent.EXTRA_EMAIL, email);
-            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "RowingApp2 workout scores");
-            if (uri != null)
-            {
-                emailIntent.putExtra(Intent.EXTRA_STREAM, uri);
-            }
-
-            startActivity(Intent.createChooser(emailIntent, "Choose an Email client :"));
-        } catch(Throwable t) {
-            Toast.makeText(this, "Request failed try again: " + t.toString(), Toast.LENGTH_LONG).show();
+    private void requestPermission() {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(WorkoutEnterScores.this, Manifest.permission.WRITE_EXTERNAL_STORAGE))
+        {
+            Toast.makeText(WorkoutEnterScores.this, "Please allow permission...",Toast.LENGTH_LONG).show();
+        }
+        else
+        {
+            ActivityCompat.requestPermissions(WorkoutEnterScores.this, new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
         }
     }
 
-     */
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case PERMISSION_REQUEST_CODE:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Log.e("value", "Permission Granted, Now you can use local drive .");
+                } else {
+                    Log.e("value", "Permission Denied, You cannot use local drive .");
+                }
+                break;
+        }
+    }
+
 }
